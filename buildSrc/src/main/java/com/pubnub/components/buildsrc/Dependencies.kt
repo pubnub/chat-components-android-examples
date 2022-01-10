@@ -31,7 +31,7 @@ object Libs {
     }
 
     object Kotlin {
-        private const val version = "1.6.0"
+        private const val version = "1.6.10"
 
         const val stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$version"
         const val reflect = "org.jetbrains.kotlin:kotlin-reflect:$version"
@@ -68,7 +68,7 @@ object Libs {
 
         object Compose {
             const val snapshot = ""
-            const val version = "1.1.0-beta04"
+            const val version = "1.1.0-rc02"
 
             const val runtime = "androidx.compose.runtime:runtime:$version"
             const val runtimeLivedata = "androidx.compose.runtime:runtime-livedata:$version"
@@ -145,7 +145,7 @@ object Libs {
         const val pubnub = "com.pubnub:pubnub-kotlin:$version"
 
         object Components {
-            const val chat = "com.pubnub.components:chat-android:0.1.2"
+            const val chat = "com.pubnub.components:chat-android:0.1.2-rc02"
         }
     }
 
