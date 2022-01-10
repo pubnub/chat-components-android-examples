@@ -6,7 +6,7 @@ plugins {
 }
 
 tasks.register("wrapper", Wrapper::class){
-    gradleVersion = "7.2"
+    gradleVersion = "7.3"
 }
 
 android {

@@ -7,14 +7,14 @@ object Versions {
 }
 
 object Libs {
-    const val androidGradlePlugin = "com.android.tools.build:gradle:7.1.0-beta04"
+    const val androidGradlePlugin = "com.android.tools.build:gradle:7.2.0-alpha06"
     const val ktLint = "com.pinterest:ktlint:${Versions.ktLint}"
     const val jdkDesugar = "com.android.tools:desugar_jdk_libs:1.0.9"
     const val gradleMavenPublishPlugin = "com.vanniktech:gradle-maven-publish-plugin:0.18.0"
-    const val gradleVersionsPlugin = "com.github.ben-manes:gradle-versions-plugin:0.39.0"
+    const val gradleVersionsPlugin = "com.github.ben-manes:gradle-versions-plugin:0.41.0"
 
     object Accompanist {
-        private const val version = "0.21.4-beta"
+        private const val version = "0.22.0-rc"
 
         const val swipeRefresh = "com.google.accompanist:accompanist-swiperefresh:$version"
         const val placeholder = "com.google.accompanist:accompanist-placeholder:$version"
@@ -22,7 +22,7 @@ object Libs {
     }
 
     object Coil {
-        private const val version = "2.0.0-alpha05"
+        private const val version = "2.0.0-alpha06"
 
         const val coil = "io.coil-kt:coil-compose:$version"
         const val coilGif = "io.coil-kt:coil-gif:$version"
@@ -69,24 +69,25 @@ object Libs {
         object Compose {
             const val snapshot = ""
             const val version = "1.1.0-rc02"
+            const val prev = "1.1.0-rc01"
 
             const val runtime = "androidx.compose.runtime:runtime:$version"
             const val runtimeLivedata = "androidx.compose.runtime:runtime-livedata:$version"
-            const val ui = "androidx.compose.ui:ui:$version"
-            const val material = "androidx.compose.material:material:$version"
-            const val iconsCore = "androidx.compose.material:material-icons-core:$version"
-            const val iconsExtended = "androidx.compose.material:material-icons-extended:$version"
+            const val ui = "androidx.compose.ui:ui:$prev"
+            const val material = "androidx.compose.material:material:$prev"
+            const val iconsCore = "androidx.compose.material:material-icons-core:$prev"
+            const val iconsExtended = "androidx.compose.material:material-icons-extended:$prev"
             const val foundation = "androidx.compose.foundation:foundation:$version"
             const val layout = "androidx.compose.foundation:foundation-layout:$version"
-            const val tooling = "androidx.compose.ui:ui-tooling:$version"
-            const val toolingPreview = "androidx.compose.ui:ui-tooling-preview:$version"
+            const val tooling = "androidx.compose.ui:ui-tooling:$prev"
+            const val toolingPreview = "androidx.compose.ui:ui-tooling-preview:$prev"
             const val animation = "androidx.compose.animation:animation:$version"
-            const val uiTest = "androidx.compose.ui:ui-test-junit4:$version"
+            const val uiTest = "androidx.compose.ui:ui-test-junit4:$prev"
 
         }
 
         object Lifecycle {
-            private const val version = "2.4.0-alpha03"
+            private const val version = "2.4.0"
             const val viewModelCompose =
                 "androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07"
             const val viewModelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:$version"
@@ -127,7 +128,7 @@ object Libs {
     }
 
     object Hilt {
-        private const val version = "2.31.2-alpha"
+        private const val version = "2.40.5"
 
         const val gradlePlugin = "com.google.dagger:hilt-android-gradle-plugin:$version"
         const val android = "com.google.dagger:hilt-android:$version"
@@ -141,11 +142,11 @@ object Libs {
     }
 
     object PubNub {
-        private const val version = "6.2.0"
+        private const val version = "6.3.0"
         const val pubnub = "com.pubnub:pubnub-kotlin:$version"
 
         object Components {
-            const val chat = "com.pubnub.components:chat-android:0.1.2-rc02"
+            const val chat = "com.pubnub.components:chat-android:0.1.2-rc03"
         }
     }
 
