@@ -7,9 +7,10 @@ For more information, refer to [Chat Components documentation](https://www.pubnu
 ## Prerequisites
 
 [Android Studio](https://developer.android.com/studio/preview) (>= Bumblebee 2021.1.1)
+
 [PubNub Keyset](https://dashboard.pubnub.com/)
 
-Clone this repository or import the project from Android Studio following [the steps](https://developer.android.com/jetpack/compose/setup#sample).
+Clone this repository or import the project from Android Studio following [the official guide](https://developer.android.com/jetpack/compose/setup#sample).
 
 ## Samples
 
