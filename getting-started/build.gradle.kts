@@ -48,7 +48,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = rootProject.extra["compose_version"] as String
+        kotlinCompilerExtensionVersion = Libs.AndroidX.Compose.version
     }
     packagingOptions {
         resources {
@@ -58,20 +58,19 @@ android {
 }
 
 dependencies {
-    implementation("com.pubnub.components:chat-android:0.1.2")
-
+    implementation(Libs.PubNub.Components.chat)
     implementation(Libs.PubNub.pubnub)
-
-    implementation("androidx.core:core-ktx:1.8.0-alpha01")
-    implementation("androidx.compose.ui:ui:${rootProject.extra["compose_version"]}")
-    implementation("androidx.compose.material:material:${rootProject.extra["compose_version"]}")
-    implementation("androidx.compose.ui:ui-tooling-preview:${rootProject.extra["compose_version"]}")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0")
-    implementation("androidx.activity:activity-compose:1.4.0")
+    implementation(Libs.AndroidX.core)
+    implementation(Libs.AndroidX.Compose.ui)
+    implementation(Libs.AndroidX.Compose.material)
+    implementation(Libs.AndroidX.Compose.toolingPreview)
+    implementation(Libs.AndroidX.Lifecycle.runtime)
+    implementation(Libs.AndroidX.Activity.activityCompose)
     implementation(Libs.Coil.coil)
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.3")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:${rootProject.extra["compose_version"]}")
-    debugImplementation("androidx.compose.ui:ui-tooling:${rootProject.extra["compose_version"]}")
+
+    testImplementation(Libs.JUnit.junit)
+    androidTestImplementation(Libs.AndroidX.Test.Ext.junit)
+    androidTestImplementation(Libs.AndroidX.Test.espressoCore)
+    androidTestImplementation(Libs.AndroidX.Compose.uiTest)
+    debugImplementation(Libs.AndroidX.Compose.tooling)
 }
