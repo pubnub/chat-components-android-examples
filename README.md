@@ -21,4 +21,4 @@ Choose a sample application that demonstrates the use of chat components.
 
 | Example | Features | Chat type | Use case |
 |-----|---------|---------|---------|
-| [Getting started]((getting-started/)) | <br><ul>• Message list and message input integration</ul><ul>• Light & dark themes</ul><ul>• Resource loading</ul></br> | 1:1 | |
+| [Getting started]((getting-started/)) | <br><ul>• Message list and message input integration</ul><ul>• Light & dark themes</ul></br> | 1:1 | |
