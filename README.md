@@ -8,7 +8,7 @@ For more information about PubNub Chat Components for Android, refer to:
 
 ## Prerequisites
 
-You will need:
+You need these to get started:
 
 * [Android Studio](https://developer.android.com/studio/preview) (>= Bumblebee 2021.1.1)
 * [PubNub Keyset](https://dashboard.pubnub.com/)
