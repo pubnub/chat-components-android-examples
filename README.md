@@ -17,7 +17,7 @@ Clone this repository or import the project from Android Studio following the st
 
 Choose a sample application that demonstrates the use of chat components.
 
-| Example | Features | Chat type | Use case |
+| Name | Features | Chat type | Use case |
 |-----|---------|---------|---------|
 | [Getting started](getting-started/) | <br><ul><li>Message list and message input integration</li><li>Light & dark themes</li></ul></br> | 1:1 | |
 
