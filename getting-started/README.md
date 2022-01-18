@@ -9,7 +9,7 @@ This application uses [PubNub Kotlin SDK](https://github.com/pubnub/kotlin) (>= 
 To use the app, you need:
 
 * [Android Studio](https://developer.android.com/studio/preview) (>= Bumblebee 2021.1.1)
-* PubNub account on [Admin Portal](https://dashboard.pubnub.com/).
+* PubNub account on [Admin Portal](https://dashboard.pubnub.com/)
 
 ## Usage
 
