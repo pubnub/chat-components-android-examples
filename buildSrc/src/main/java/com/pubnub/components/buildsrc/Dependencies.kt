@@ -146,7 +146,7 @@ object Libs {
         const val pubnub = "com.pubnub:pubnub-kotlin:$version"
 
         object Components {
-            const val chat = "com.pubnub.components:chat-android:0.1.2-rc03"
+            const val chat = "com.pubnub.components:chat-android:0.1.2"
         }
     }
 
