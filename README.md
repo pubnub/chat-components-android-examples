@@ -1,20 +1,28 @@
-# PubNub Chat Components Examples for Android
+# Samples for PubNub Chat Components for Android
 
-This repository contains a set of individual Android Studio projects to help you learn about Chat Components. Each sample demonstrates a different use case.
+This repository contains a set of Android projects that will help you learn about PubNub Chat Components for Android. 
 
-For more information, refer to [Chat Components documentation](https://www.pubnub.com/docs/chat/components/android/overview-android).
+Each sample application demonstrates a different type of chat, set of features, and use case.
 
 ## Prerequisites
 
-[Android Studio](https://developer.android.com/studio/preview) (>= Bumblebee 2021.1.1)
+You need these to get started:
 
-[PubNub Keyset](https://dashboard.pubnub.com/)
+* [Android Studio](https://developer.android.com/studio/preview) (>= Bumblebee 2021.1.1)
+* [PubNub Keyset](https://dashboard.pubnub.com/)
 
-Clone this repository or import the project from Android Studio following [the official guide](https://developer.android.com/jetpack/compose/setup#sample).
+Clone this repository or import the project from Android Studio following the steps in the [Jetpack Compose guide](https://developer.android.com/jetpack/compose/setup#sample).
 
-## Samples
+## Sample apps
 
-| Project | |
-|:-----|---------|
-|  <br> Getting started <br><br> A sample application that demonstrates the use of chat components. <br><br> • Low complexity<br>• Light & dark themes<br>• Resource loading<br>• Message list and message input integration <br><br> **[> Browse](getting-started/)**<br><br> | <img src="" width="320" alt="Getting started sample demo"> |
-|  |  |
+Choose a sample application that demonstrates the use of chat components.
+
+| Example | Features | Chat type | Use case |
+|-----|---------|---------|---------|
+| [Getting started](getting-started/) | <br><ul><li>Message list and message input integration</li><li>Light & dark themes</li></ul></br> | 1:1 | |
+
+## Useful links
+
+For more information about PubNub Chat Components for Android, refer to:
+* [GitHub repository](https://github.com/pubnub/chat-components-android/blob/master/README.md)
+* [Documentation](https://www.pubnub.com/docs/chat/components/android/get-started-android)
