@@ -34,7 +34,7 @@ class ChatActivity : ComponentActivity() {
             AppTheme(pubNub = pubNub) {
                 AddDummyData()
                 Box(modifier = Modifier.fillMaxSize()) {
-                    ChannelView(id = "myCurrentChannel")
+                    ChannelView(id = "Default")
                 }
             }
         }
@@ -50,7 +50,7 @@ class ChatActivity : ComponentActivity() {
             PNConfiguration().apply {
                 publishKey = BuildConfig.PUBLISH_KEY
                 subscribeKey = BuildConfig.SUBSCRIBE_KEY
-                uuid = "uuid-of-current-user"
+                uuid = "myFirstUser"
                 logVerbosity = PNLogVerbosity.NONE
             }
         )
@@ -78,15 +78,15 @@ class ChatActivity : ComponentActivity() {
     @Composable
     fun AddDummyData(vararg channelId: ChannelId) {
 
-        // Create a user object with UUID
+        // Creates a user object with uuid
         val memberRepository: DefaultMemberRepository = LocalMemberRepository.current
-        val member: DBMember = DBMember(id = pubNub.configuration.uuid, name = "You", profileUrl = "https://picsum.photos/seed/${pubNub.configuration.uuid}/200")
+        val member: DBMember = DBMember(id = pubNub.configuration.uuid, name = "myFirstUser", profileUrl = "https://picsum.photos/seed/${pubNub.configuration.uuid}/200")
 
-        // Create a membership for subscribe purpose
+        // Creates membership so that the user could subscribe to channels
         val membershipRepository: DefaultMembershipRepository = LocalMembershipRepository.current
         val memberships: Array<DBMembership> = channelId.map { id -> DBMembership(channelId = id, memberId = member.id) }.toTypedArray()
 
-        // Fill database with member and memberships data
+        // Fills the database with member and memberships data
         val scope = rememberCoroutineScope()
         LaunchedEffect(null) {
             scope.launch {
