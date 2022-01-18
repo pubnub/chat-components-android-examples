@@ -82,7 +82,7 @@ class ChatActivity : ComponentActivity() {
         val memberRepository: DefaultMemberRepository = LocalMemberRepository.current
         val member: DBMember = DBMember(id = pubNub.configuration.uuid, name = "myFirstUser", profileUrl = "https://picsum.photos/seed/${pubNub.configuration.uuid}/200")
 
-        // Creates membership so that the user could subscribe to channels
+        // Creates a membership so that the user could subscribe to channels
         val membershipRepository: DefaultMembershipRepository = LocalMembershipRepository.current
         val memberships: Array<DBMembership> = channelId.map { id -> DBMembership(channelId = id, memberId = member.id) }.toTypedArray()
 
