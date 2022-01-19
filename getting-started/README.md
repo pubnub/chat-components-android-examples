@@ -2,6 +2,8 @@
 
 `getting-started` is a basic 1:1 chat application that features a message input field and a message list that pile up on the screen as you send messages.
 
+<img src="../assets/getting-started-android-app.png" alt="Getting Started app for iOS" style="width:300px"/> 
+
 ## Prerequisites
 
 This application uses [PubNub Kotlin SDK](https://github.com/pubnub/kotlin) (>= 7.0.0) for chat components and [Jetpack Compose](https://developer.android.com/jetpack/compose) as the UI Toolkit.

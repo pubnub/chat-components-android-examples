@@ -19,7 +19,7 @@ Choose a sample application that demonstrates the use of chat components.
 
 | Name | Features | Chat type | Use case |
 |-----|---------|---------|---------|
-| [`getting-started`](getting-started/) | <br><ul><li>Message list and message input integration</li><li>Light & dark themes</li></ul></br> | 1:1 | |
+| [`getting-started`](getting-started/) | <br><ul><li>Message list and message input integration</li><li>Light & dark themes</li></ul></br> | 1:1 | <img src="/assets/getting-started-android-app.png" alt="Getting Started app for iOS" style="width:300px"/> |
 
 ## Useful links
 
