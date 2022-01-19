@@ -4,7 +4,7 @@
 
 ## Prerequisites
 
-This application uses [PubNub Kotlin SDK](https://github.com/pubnub/kotlin) (>= 6.0.2) for chat components and [Jetpack Compose](https://developer.android.com/jetpack/compose) as the UI Toolkit.
+This application uses [PubNub Kotlin SDK](https://github.com/pubnub/kotlin) (>= 7.0.0) for chat components and [Jetpack Compose](https://developer.android.com/jetpack/compose) as the UI Toolkit.
 
 To use the app, you need:
 
