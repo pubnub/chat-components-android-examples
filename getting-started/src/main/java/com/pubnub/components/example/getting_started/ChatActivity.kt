@@ -47,10 +47,9 @@ class ChatActivity : ComponentActivity() {
 
     private fun initializePubNub(){
       pubNub  = PubNub(
-            PNConfiguration().apply {
+            PNConfiguration(uuid = "myFirstUser").apply {
                 publishKey = BuildConfig.PUBLISH_KEY
                 subscribeKey = BuildConfig.SUBSCRIBE_KEY
-                uuid = "myFirstUser"
                 logVerbosity = PNLogVerbosity.NONE
             }
         )
