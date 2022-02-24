@@ -23,7 +23,7 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-
+        mavenLocal()
         if (!Libs.AndroidX.Compose.snapshot.isEmpty()) {
             maven { url Urls.composeSnapshotRepo }
             maven { url Urls.mavenCentralSnapshotRepo }
