@@ -9,15 +9,20 @@ import com.pubnub.api.PubNub
 import com.pubnub.components.chat.provider.ChatProvider
 
 private val DarkColorPalette = darkColors(
-    primary = Purple200,
-    primaryVariant = Purple700,
-    secondary = Teal200
+    primary = Light4,
+    primaryVariant = Amaranth,
+    secondary = Light4,
+    onPrimary = Amaranth,
 )
 
 private val LightColorPalette = lightColors(
-    primary = Purple500,
-    primaryVariant = Purple700,
-    secondary = Teal200
+    primary = Light4,
+    primaryVariant = Amaranth,
+    onPrimary = Amaranth,
+    secondary = Light4,
+    onSecondary = Amaranth,
+    onSurface = DustyGray,
+    onBackground = MineShaft,
 
     /* Other default colors to override
     background = Color.White,
@@ -29,11 +34,32 @@ private val LightColorPalette = lightColors(
     */
 )
 
+//private val DarkColorPalette = darkColors(
+//    primary = Purple200,
+//    primaryVariant = Purple700,
+//    secondary = Teal200
+//)
+//
+//private val LightColorPalette = lightColors(
+//    primary = Purple500,
+//    primaryVariant = Purple700,
+//    secondary = Teal200
+//
+//    /* Other default colors to override
+//    background = Color.White,
+//    surface = Color.White,
+//    onPrimary = Color.White,
+//    onSecondary = Color.Black,
+//    onBackground = Color.Black,
+//    onSurface = Color.Black,
+//    */
+//)
+
 @Composable
 fun AppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     pubNub: PubNub,
-    content: @Composable() () -> Unit
+    content: @Composable() () -> Unit,
 ) {
     val colors = if (darkTheme) DarkColorPalette
     else LightColorPalette

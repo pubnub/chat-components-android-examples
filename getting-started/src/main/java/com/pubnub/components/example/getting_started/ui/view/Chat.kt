@@ -1,6 +1,8 @@
 package com.pubnub.components.example.getting_started.ui.view
 
 
+import android.icu.lang.UCharacter
+import android.os.Message
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,10 +19,12 @@ import com.pubnub.components.chat.ui.component.input.MessageInput
 import com.pubnub.components.chat.ui.component.input.renderer.AnimatedTypingIndicatorRenderer
 import com.pubnub.components.chat.ui.component.message.MessageList
 import com.pubnub.components.chat.ui.component.message.MessageUi
+import com.pubnub.components.chat.ui.component.message.reaction.PickedReaction
 import com.pubnub.components.chat.ui.component.presence.Presence
 import com.pubnub.components.chat.ui.component.provider.LocalChannel
 import com.pubnub.components.chat.viewmodel.message.MessageViewModel
 import com.pubnub.framework.data.ChannelId
+import com.pubnub.framework.data.MessageId
 import com.pubnub.framework.data.UserId
 import kotlinx.coroutines.flow.Flow
 
@@ -31,11 +35,13 @@ object Chat {
         messages: Flow<PagingData<MessageUi>>,
         presence: Presence? = null,
         onMemberSelected: (UserId) -> Unit = {},
+        onShowMenu: ((MessageId) -> Unit)? = null,
+        onReactionSelected: ((PickedReaction) -> Unit)? = null,
     ) {
         val localFocusManager = LocalFocusManager.current
-
         Column(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxSize()
                 .pointerInput(Unit) {
                     detectTapGestures(onTap = {
                         localFocusManager.clearFocus()
@@ -46,9 +52,9 @@ object Chat {
                 messages = messages,
                 presence = presence,
                 onMemberSelected = onMemberSelected,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .weight(1f, true),
+                onShowMenu = onShowMenu,
+                onReactionSelected = onReactionSelected,
+                modifier = Modifier.weight(weight = 1f, fill = true),
             )
 
             MessageInput(

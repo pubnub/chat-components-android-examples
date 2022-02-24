@@ -63,6 +63,7 @@ dependencies {
     implementation(Libs.AndroidX.Lifecycle.runtime)
     implementation(Libs.AndroidX.Activity.activityCompose)
     implementation(Libs.Coil.coil)
+    implementation(Libs.JakeWharton.timber)
 
     testImplementation(Libs.JUnit.junit)
     androidTestImplementation(Libs.AndroidX.Test.Ext.junit)

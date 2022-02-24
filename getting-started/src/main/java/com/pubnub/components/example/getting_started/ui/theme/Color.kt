@@ -2,7 +2,13 @@ package com.pubnub.components.example.getting_started.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple200 = Color(0xFFBB86FC)
-val Purple500 = Color(0xFF6200EE)
-val Purple700 = Color(0xFF3700B3)
-val Teal200 = Color(0xFF03DAC5)
+val Light4 = Color(0xFFFFFFFF)
+val Amaranth = Color(0xFFEF3A43)
+
+val MineShaft = Color(0xDE3F3F3F)
+val DustyGray = Color(0xFF999999)
+val DoveGray = Color(0xFF686868)
+val CatskillWhite = Color(0xFFf0f3f7)
+
+
+val YellowGreen = Color(0xFFb8e986)

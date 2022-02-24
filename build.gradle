@@ -9,6 +9,7 @@ buildscript {
         google()
         mavenCentral()
         gradlePluginPortal()
+        mavenLocal()
     }
     dependencies {
         classpath(Libs.androidGradlePlugin)
@@ -23,6 +24,7 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+        mavenLocal()
 
         if (!Libs.AndroidX.Compose.snapshot.isEmpty()) {
             maven { url Urls.composeSnapshotRepo }
