@@ -1,6 +1,6 @@
 # Getting Started Application
 
-`getting-started` is a basic 1:1 chat application that features a message input field and a list of messages that pile up on the screen as you send them.
+`getting-started-with-reactions` is a basic 1:1 chat application that features a message input field and a list of messages that pile up on the screen as you send them with enabled message reactions.
 
 <img src="../assets/getting-started-android-app.png" alt="Getting Started app for Android" style="width:300px"/> 
 
@@ -23,3 +23,4 @@ The `getting-started` app showcases these PubNub Chat Components for Android:
 
 * [MessageInput](https://www.pubnub.com/docs/chat/components/android/ui-components-android#messageinput)
 * [MessageList](https://www.pubnub.com/docs/chat/components/android/ui-components-android#messagelist)
+* [MessageReactions](https://www.pubnub.com/docs/chat/components/android/message-reactions-android)
