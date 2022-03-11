@@ -1,6 +1,6 @@
 # Getting Started with Message Reactions
 
-`getting-started-with-reactions` is a basic 1:1 chat application that features a message input field and a list of messages that pile up on the screen as you send them. In addition to this basic functionality, the app contains 6 built-in message reactions that you can add to the messages by long-tapping on them and selecting emojis from the bottom drawer that slides up from the bottom edge of the screen when triggered.
+`getting-started-with-reactions` is a basic 1:1 chat application that features a message input field and a list of messages that pile up on the screen as you send them. In addition to this basic functionality, the app contains 6 built-in message reactions that you can add to the messages by long-tapping on a message and selecting emojis from the bottom drawer that slides up from the bottom edge of the screen when triggered.
 
 <img src="../assets/getting-started-with-reactions.png" alt="Getting Started app for Android" style="width:300px"/> 
 
