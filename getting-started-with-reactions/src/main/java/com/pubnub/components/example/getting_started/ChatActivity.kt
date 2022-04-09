@@ -40,25 +40,25 @@ class ChatActivity : ComponentActivity() {
                 AddDummyData()
 
                 val channel: ChannelId = "Default"
-
-                val menuState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
                 val reactionViewModel: ReactionViewModel = ReactionViewModel.default(channel)
                 val coroutineScope = rememberCoroutineScope()
 
-                var selectedMessage by remember { mutableStateOf<MessageUi.Data?>(null) }
-
-                BottomSheetLayout(
-                    selectedMessage = selectedMessage,
-                    reactionViewModel = reactionViewModel,
-                    menuState = menuState,
+                DefaultReactionsPickerRenderer.ReactionsBottomSheetLayout(
+                    sheetState = reactionViewModel.menuState,
+                    onSelected = {
+                        reactionViewModel.reactionSelected(
+                            type = it.type,
+                            value = it.value,
+                        )
+                        coroutineScope.launch { reactionViewModel.hideMenu() }
+                    },
                 ) {
                     Scaffold {
                         ChannelView(
                             id = channel,
                             showMenu = {
-                                selectedMessage = it
-                                coroutineScope.launch { menuState.show() }
-                            },
+                                coroutineScope.launch { reactionViewModel.showMenu(it) }
+                                       },
                             reactionSelected = reactionViewModel::reactionSelected,
                         )
                     }
@@ -84,33 +84,6 @@ class ChatActivity : ComponentActivity() {
 
     private fun destroyPubNub() {
         pubNub.destroy()
-    }
-
-    @OptIn(ExperimentalMaterialApi::class)
-    @Composable
-    fun BottomSheetLayout(
-        selectedMessage: MessageUi.Data?,
-        reactionViewModel: ReactionViewModel,
-        menuState: ModalBottomSheetState,
-        content: @Composable () -> Unit,
-    ) {
-        val currentUserId = LocalPubNub.current.configuration.uuid
-
-        DefaultReactionsPickerRenderer.ReactionsBottomSheetLayout(
-            sheetState = menuState,
-            onSelected = {
-                reactionViewModel.reactionSelected(
-                    PickedReaction(
-                        userId = currentUserId,
-                        messageTimetoken = selectedMessage!!.timetoken,
-                        type = it.type,
-                        value = it.value,
-                    )
-                )
-            },
-        ) {
-            content()
-        }
     }
 
     @Composable
