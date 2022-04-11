@@ -28,7 +28,7 @@ class ChatActivity : ComponentActivity() {
     private lateinit var pubNub: PubNub
 
     private val channel: ChannelId = "Default"
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initializePubNub()
@@ -80,19 +80,19 @@ class ChatActivity : ComponentActivity() {
     fun AddDummyData(vararg channelId: ChannelId) {
 
         // Creates a user object with uuid
-        val memberRepository: DefaultMemberRepository = LocalMemberRepository.current
+        val memberRepository = LocalMemberRepository.current
         val member: DBMember = DBMember(id = pubNub.configuration.uuid, name = "myFirstUser", profileUrl = "https://picsum.photos/seed/${pubNub.configuration.uuid}/200")
 
         // Creates a membership so that the user could subscribe to channels
-        val membershipRepository: DefaultMembershipRepository = LocalMembershipRepository.current
+        val membershipRepository = LocalMembershipRepository.current
         val memberships: Array<DBMembership> = channelId.map { id -> DBMembership(channelId = id, memberId = member.id) }.toTypedArray()
 
         // Fills the database with member and memberships data
         val scope = rememberCoroutineScope()
         LaunchedEffect(null) {
             scope.launch {
-                memberRepository.add(member)
-                membershipRepository.add(*memberships)
+                memberRepository.insertOrUpdate(member)
+                membershipRepository.insertOrUpdate(*memberships)
             }
         }
     }
