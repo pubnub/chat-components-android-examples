@@ -27,14 +27,16 @@ class ChatActivity : ComponentActivity() {
 
     private lateinit var pubNub: PubNub
 
+    private val channel: ChannelId = "Default"
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initializePubNub()
         setContent {
             AppTheme(pubNub = pubNub) {
-                AddDummyData()
+                AddDummyData(channel)
                 Box(modifier = Modifier.fillMaxSize()) {
-                    ChannelView(id = "Default")
+                    ChannelView(id = channel)
                 }
             }
         }
