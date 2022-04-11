@@ -1,9 +1,11 @@
 package com.pubnub.components.example.getting_started.ui.view
 
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -35,7 +37,9 @@ object Chat {
         val localFocusManager = LocalFocusManager.current
 
         Column(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colors.background)
                 .pointerInput(Unit) {
                     detectTapGestures(onTap = {
                         localFocusManager.clearFocus()
