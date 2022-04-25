@@ -9,20 +9,15 @@ import com.pubnub.api.PubNub
 import com.pubnub.components.chat.provider.ChatProvider
 
 private val DarkColorPalette = darkColors(
-//    primary = Light4,
-//    primaryVariant = Amaranth,
-//    secondary = Light4,
-//    onPrimary = Amaranth,
+    primary = Purple200,
+    primaryVariant = Purple700,
+    secondary = Teal200
 )
 
 private val LightColorPalette = lightColors(
-//    primary = Light4,
-//    primaryVariant = Amaranth,
-//    onPrimary = Amaranth,
-//    secondary = Light4,
-//    onSecondary = Amaranth,
-//    onSurface = DustyGray,
-//    onBackground = MineShaft,
+    primary = Purple500,
+    primaryVariant = Purple700,
+    secondary = Teal200
 
     /* Other default colors to override
     background = Color.White,
