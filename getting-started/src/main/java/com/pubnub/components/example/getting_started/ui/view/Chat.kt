@@ -1,9 +1,11 @@
 package com.pubnub.components.example.getting_started.ui.view
 
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -15,13 +17,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.paging.PagingData
 import com.pubnub.components.chat.ui.component.input.MessageInput
 import com.pubnub.components.chat.ui.component.input.renderer.AnimatedTypingIndicatorRenderer
-import com.pubnub.components.chat.ui.component.menu.React
 import com.pubnub.components.chat.ui.component.message.MessageList
 import com.pubnub.components.chat.ui.component.message.MessageUi
 import com.pubnub.components.chat.ui.component.presence.Presence
 import com.pubnub.components.chat.ui.component.provider.LocalChannel
 import com.pubnub.components.chat.viewmodel.message.MessageViewModel
 import com.pubnub.framework.data.ChannelId
+import com.pubnub.framework.data.UserId
 import kotlinx.coroutines.flow.Flow
 
 object Chat {
@@ -30,13 +32,13 @@ object Chat {
     internal fun Content(
         messages: Flow<PagingData<MessageUi>>,
         presence: Presence? = null,
-        onMessageSelected: (MessageUi.Data) -> Unit,
-        onReactionSelected: ((React) -> Unit)? = null,
+        onMessageSelected: (MessageUi.Data) -> Unit = {},
     ) {
         val localFocusManager = LocalFocusManager.current
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .background(MaterialTheme.colors.background)
                 .pointerInput(Unit) {
                     detectTapGestures(onTap = {
                         localFocusManager.clearFocus()
@@ -47,7 +49,6 @@ object Chat {
                 messages = messages,
                 presence = presence,
                 onMessageSelected = onMessageSelected,
-                onReactionSelected = onReactionSelected,
                 modifier = Modifier
                     .fillMaxSize()
                     .weight(1f, true),
@@ -63,7 +64,7 @@ object Chat {
     @Composable
     fun View(
         channelId: ChannelId,
-        onMessageSelected: (MessageUi.Data) -> Unit,
+        onMessageSelected: (MessageUi.Data) -> Unit = {},
     ) {
         // region Content data
         val messageViewModel: MessageViewModel = MessageViewModel.defaultWithMediator(channelId)
@@ -89,5 +90,5 @@ object Chat {
 @Composable
 @Preview
 private fun ChatPreview() {
-    Chat.View("channel.lobby", {})
+    Chat.View("channel.lobby")
 }

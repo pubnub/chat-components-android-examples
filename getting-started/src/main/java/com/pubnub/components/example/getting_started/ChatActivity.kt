@@ -3,29 +3,23 @@ package com.pubnub.components.example.getting_started
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.AnnotatedString
 import com.pubnub.api.PNConfiguration
 import com.pubnub.api.PubNub
 import com.pubnub.api.enums.PNLogVerbosity
 import com.pubnub.components.chat.provider.LocalMemberRepository
 import com.pubnub.components.chat.provider.LocalMembershipRepository
-import com.pubnub.components.chat.ui.component.menu.Copy
-import com.pubnub.components.chat.ui.component.menu.React
-import com.pubnub.components.chat.ui.component.message.MessageUi
 import com.pubnub.components.chat.ui.component.provider.LocalChannel
-import com.pubnub.components.chat.ui.component.provider.LocalPubNub
 import com.pubnub.components.chat.viewmodel.message.MessageViewModel
-import com.pubnub.components.chat.viewmodel.message.ReactionViewModel
 import com.pubnub.components.data.member.DBMember
 import com.pubnub.components.data.membership.DBMembership
+import com.pubnub.components.repository.member.DefaultMemberRepository
+import com.pubnub.components.repository.membership.DefaultMembershipRepository
 import com.pubnub.components.example.getting_started.ui.theme.AppTheme
 import com.pubnub.components.example.getting_started.ui.view.Chat
-import com.pubnub.components.example.getting_started.ui.view.Menu
 import com.pubnub.framework.data.ChannelId
 import kotlinx.coroutines.launch
 
@@ -68,47 +62,17 @@ class ChatActivity : ComponentActivity() {
     }
 
     // Channel view
-    @OptIn(ExperimentalAnimationApi::class)
     @Composable
     fun ChannelView(id: ChannelId) {
         // region Content data
         val messageViewModel: MessageViewModel = MessageViewModel.defaultWithMediator(id)
         val messages = remember { messageViewModel.getAll() }
-
-        val reactionViewModel: ReactionViewModel = ReactionViewModel.default()
         // endregion
 
-        var menuVisible by remember { mutableStateOf(false) }
-        var selectedMessage by remember { mutableStateOf<MessageUi.Data?>(null) }
-
         CompositionLocalProvider(LocalChannel provides id) {
-            Box {
-                Menu(
-                    visible = menuVisible,
-                    message = selectedMessage,
-                    onDismiss = { menuVisible = false },
-                    onAction = { action ->
-                        when (action) {
-                            is Copy -> {
-                                action.message.text?.let { content ->
-                                    messageViewModel.copy(AnnotatedString(content))
-                                }
-                            }
-                            is React -> reactionViewModel.reactionSelected(action)
-                            else -> {}
-                        }
-                    }
-                )
-
-                Chat.Content(
-                    messages = messages,
-                    onMessageSelected = {
-                        selectedMessage = it
-                        menuVisible = true
-                    },
-                    onReactionSelected = reactionViewModel::reactionSelected,
-                )
-            }
+            Chat.Content(
+                messages = messages,
+            )
         }
     }
 
