@@ -1,7 +1,5 @@
 package com.pubnub.components.buildsrc
 
-import org.gradle.kotlin.dsl.extra
-
 object Versions {
     const val ktLint = "0.40.0"
 }

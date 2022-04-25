@@ -23,7 +23,6 @@ import com.pubnub.components.chat.ui.component.presence.Presence
 import com.pubnub.components.chat.ui.component.provider.LocalChannel
 import com.pubnub.components.chat.viewmodel.message.MessageViewModel
 import com.pubnub.framework.data.ChannelId
-import com.pubnub.framework.data.UserId
 import kotlinx.coroutines.flow.Flow
 
 object Chat {

@@ -18,7 +18,6 @@ import com.pubnub.components.chat.ui.component.menu.Copy
 import com.pubnub.components.chat.ui.component.menu.React
 import com.pubnub.components.chat.ui.component.message.MessageUi
 import com.pubnub.components.chat.ui.component.provider.LocalChannel
-import com.pubnub.components.chat.ui.component.provider.LocalPubNub
 import com.pubnub.components.chat.viewmodel.message.MessageViewModel
 import com.pubnub.components.chat.viewmodel.message.ReactionViewModel
 import com.pubnub.components.data.member.DBMember
@@ -83,33 +82,33 @@ class ChatActivity : ComponentActivity() {
 
         CompositionLocalProvider(LocalChannel provides id) {
 
-                Menu(
-                    visible = menuVisible,
-                    message = selectedMessage,
-                    onDismiss = { menuVisible = false },
-                    onAction = { action ->
-                        when (action) {
-                            is Copy -> {
-                                action.message.text?.let { content ->
-                                    messageViewModel.copy(AnnotatedString(content))
-                                }
+            Menu(
+                visible = menuVisible,
+                message = selectedMessage,
+                onDismiss = { menuVisible = false },
+                onAction = { action ->
+                    when (action) {
+                        is Copy -> {
+                            action.message.text?.let { content ->
+                                messageViewModel.copy(AnnotatedString(content))
                             }
-                            is React -> reactionViewModel.reactionSelected(action)
-                            else -> {}
                         }
+                        is React -> reactionViewModel.reactionSelected(action)
+                        else -> {}
                     }
-                )
+                }
+            )
 
 
-                Chat.Content(
-                    messages = messages,
-                    onMessageSelected = {
-                        selectedMessage = it
-                        menuVisible = true
-                    },
-                    onReactionSelected = reactionViewModel::reactionSelected,
-                )
-            }
+            Chat.Content(
+                messages = messages,
+                onMessageSelected = {
+                    selectedMessage = it
+                    menuVisible = true
+                },
+                onReactionSelected = reactionViewModel::reactionSelected,
+            )
+        }
     }
 
     @Composable

@@ -16,8 +16,6 @@ import com.pubnub.components.chat.ui.component.provider.LocalChannel
 import com.pubnub.components.chat.viewmodel.message.MessageViewModel
 import com.pubnub.components.data.member.DBMember
 import com.pubnub.components.data.membership.DBMembership
-import com.pubnub.components.repository.member.DefaultMemberRepository
-import com.pubnub.components.repository.membership.DefaultMembershipRepository
 import com.pubnub.components.example.getting_started.ui.theme.AppTheme
 import com.pubnub.components.example.getting_started.ui.view.Chat
 import com.pubnub.framework.data.ChannelId
