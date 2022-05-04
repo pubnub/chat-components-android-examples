@@ -7,6 +7,7 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.AnnotatedString
 import com.pubnub.api.PNConfiguration
@@ -27,6 +28,7 @@ import com.pubnub.components.example.getting_started.ui.view.Chat
 import com.pubnub.components.example.getting_started.ui.view.Menu
 import com.pubnub.framework.data.ChannelId
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class ChatActivity : ComponentActivity() {
 
