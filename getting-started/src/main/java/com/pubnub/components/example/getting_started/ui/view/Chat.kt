@@ -63,7 +63,6 @@ object Chat {
     @Composable
     fun View(
         channelId: ChannelId,
-        onMessageSelected: (MessageUi.Data) -> Unit = {},
     ) {
         // region Content data
         val messageViewModel: MessageViewModel = MessageViewModel.defaultWithMediator(channelId)
@@ -73,14 +72,8 @@ object Chat {
         CompositionLocalProvider(
             LocalChannel provides channelId
         ) {
-
-            Scaffold(
-                content = {
-                    Content(
-                        messages = messages,
-                        onMessageSelected = onMessageSelected,
-                    )
-                }
+            Content(
+                messages = messages,
             )
         }
     }

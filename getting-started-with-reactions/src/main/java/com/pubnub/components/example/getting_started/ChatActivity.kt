@@ -43,7 +43,7 @@ class ChatActivity : ComponentActivity() {
             AppTheme(pubNub = pubNub) {
                 AddDummyData(channel)
                 Box(modifier = Modifier.fillMaxSize()) {
-                    ChannelView(id = channel)
+                    Chat.View(channel)
                 }
             }
         }
@@ -66,51 +66,6 @@ class ChatActivity : ComponentActivity() {
 
     private fun destroyPubNub() {
         pubNub.destroy()
-    }
-
-    // Channel view
-    @OptIn(ExperimentalAnimationApi::class)
-    @Composable
-    fun ChannelView(id: ChannelId) {
-        // region Content data
-        val messageViewModel: MessageViewModel = MessageViewModel.defaultWithMediator(id)
-        val messages = remember { messageViewModel.getAll() }
-
-        val reactionViewModel: ReactionViewModel = ReactionViewModel.default()
-        // endregion
-
-        var menuVisible by remember { mutableStateOf(false) }
-        var selectedMessage by remember { mutableStateOf<MessageUi.Data?>(null) }
-
-        CompositionLocalProvider(LocalChannel provides id) {
-
-            Menu(
-                visible = menuVisible,
-                message = selectedMessage,
-                onDismiss = { menuVisible = false },
-                onAction = { action ->
-                    when (action) {
-                        is Copy -> {
-                            action.message.text?.let { content ->
-                                messageViewModel.copy(AnnotatedString(content))
-                            }
-                        }
-                        is React -> reactionViewModel.reactionSelected(action)
-                        else -> {}
-                    }
-                }
-            )
-
-
-            Chat.Content(
-                messages = messages,
-                onMessageSelected = {
-                    selectedMessage = it
-                    menuVisible = true
-                },
-                onReactionSelected = reactionViewModel::reactionSelected,
-            )
-        }
     }
 
     @Composable

@@ -34,7 +34,7 @@ class ChatActivity : ComponentActivity() {
             AppTheme(pubNub = pubNub) {
                 AddDummyData(channel)
                 Box(modifier = Modifier.fillMaxSize()) {
-                    ChannelView(id = channel)
+                    Chat.View(channel)
                 }
             }
         }
@@ -57,21 +57,6 @@ class ChatActivity : ComponentActivity() {
 
     private fun destroyPubNub() {
         pubNub.destroy()
-    }
-
-    // Channel view
-    @Composable
-    fun ChannelView(id: ChannelId) {
-        // region Content data
-        val messageViewModel: MessageViewModel = MessageViewModel.defaultWithMediator(id)
-        val messages = remember { messageViewModel.getAll() }
-        // endregion
-
-        CompositionLocalProvider(LocalChannel provides id) {
-            Chat.Content(
-                messages = messages,
-            )
-        }
     }
 
     @Composable
