@@ -1,6 +1,5 @@
 package com.pubnub.components.example.getting_started.ui.view
 
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import com.pubnub.components.chat.ui.component.menu.BottomMenu
 import com.pubnub.components.chat.ui.component.menu.MenuAction
@@ -8,7 +7,6 @@ import com.pubnub.components.chat.ui.component.menu.React
 import com.pubnub.components.chat.ui.component.message.MessageUi
 import com.pubnub.components.chat.ui.component.message.reaction.renderer.DefaultReactionsPickerRenderer
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun Menu(
     visible: Boolean,

@@ -3,47 +3,38 @@ package com.pubnub.components.example.getting_started
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.AnnotatedString
 import com.pubnub.api.PNConfiguration
 import com.pubnub.api.PubNub
 import com.pubnub.api.enums.PNLogVerbosity
 import com.pubnub.components.chat.provider.LocalMemberRepository
 import com.pubnub.components.chat.provider.LocalMembershipRepository
-import com.pubnub.components.chat.ui.component.menu.Copy
-import com.pubnub.components.chat.ui.component.menu.React
-import com.pubnub.components.chat.ui.component.message.MessageUi
-import com.pubnub.components.chat.ui.component.provider.LocalChannel
-import com.pubnub.components.chat.viewmodel.message.MessageViewModel
-import com.pubnub.components.chat.viewmodel.message.ReactionViewModel
 import com.pubnub.components.data.member.DBMember
 import com.pubnub.components.data.membership.DBMembership
 import com.pubnub.components.example.getting_started.ui.theme.AppTheme
 import com.pubnub.components.example.getting_started.ui.view.Chat
-import com.pubnub.components.example.getting_started.ui.view.Menu
 import com.pubnub.framework.data.ChannelId
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class ChatActivity : ComponentActivity() {
 
     private lateinit var pubNub: PubNub
 
-    private val channel: ChannelId = "Default"
+    private val channelId: ChannelId = "Default"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initializePubNub()
         setContent {
             AppTheme(pubNub = pubNub) {
-                AddDummyData(channel)
+                AddDummyData(channelId)
                 Box(modifier = Modifier.fillMaxSize()) {
-                    Chat.View(channel)
+                    Chat.View(channelId)
                 }
             }
         }
