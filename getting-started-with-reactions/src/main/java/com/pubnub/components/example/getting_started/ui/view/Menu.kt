@@ -16,12 +16,6 @@ fun Menu(
 ) {
     BottomMenu(
         visible = visible && message != null,
-        headerContent = {
-            DefaultReactionsPickerRenderer.ReactionsPicker { reaction ->
-                onAction(React(reaction, message!!))
-                onDismiss()
-            }
-        },
         onAction = { action ->
             onAction(action)
             onDismiss()

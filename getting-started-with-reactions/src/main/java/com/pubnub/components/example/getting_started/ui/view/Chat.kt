@@ -75,7 +75,6 @@ object Chat {
         var selectedMessage by remember { mutableStateOf<MessageUi.Data?>(null) }
 
         CompositionLocalProvider(LocalChannel provides channelId) {
-
             Menu(
                 visible = menuVisible,
                 message = selectedMessage,
