@@ -25,8 +25,9 @@ document to learn how to use the app and better understand the logic behind it.
 
 ## Features
 
-The `getting-started-with-reactions` app showcases these PubNub Chat Components for Android:
+The `getting-started-with-reactions` app showcases these components and features:
 
 * [MessageInput](https://www.pubnub.com/docs/chat/components/android/ui-components-android#messageinput)
 * [MessageList](https://www.pubnub.com/docs/chat/components/android/ui-components-android#messagelist)
 * [MessageReactions](https://www.pubnub.com/docs/chat/components/android/message-reactions-android)
+* Message Menu (with the copying option)
