@@ -64,7 +64,6 @@ dependencies {
     implementation(Libs.AndroidX.Activity.activityCompose)
     implementation(Libs.Coil.coil)
     implementation(Libs.JakeWharton.timber)
-    implementation("io.getstream:stream-chat-android-compose:4.30.0-beta")
 
     testImplementation(Libs.JUnit.junit)
     androidTestImplementation(Libs.AndroidX.Test.Ext.junit)

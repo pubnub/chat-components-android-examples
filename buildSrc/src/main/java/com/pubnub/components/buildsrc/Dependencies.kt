@@ -1,7 +1,5 @@
 package com.pubnub.components.buildsrc
 
-import org.gradle.kotlin.dsl.extra
-
 object Versions {
     const val ktLint = "0.40.0"
 }
@@ -145,7 +143,7 @@ object Libs {
         const val pubnub = "com.pubnub:pubnub-kotlin:$version"
 
         object Components {
-            const val chat = "com.pubnub.components:chat-android:0.3.1"
+            const val chat = "com.pubnub.components:chat-android:0.4.0"
         }
     }
 
@@ -181,7 +179,7 @@ object Libs {
     }
 
     object Jsoup {
-        private const val version = "1.10.3"
+        private const val version = "1.14.3"
         const val jsoup = "org.jsoup:jsoup:$version"
     }
 }
