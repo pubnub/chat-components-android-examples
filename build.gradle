@@ -17,6 +17,7 @@ buildscript {
         classpath(Libs.Hilt.gradlePlugin)
         classpath(Libs.gradleMavenPublishPlugin)
         classpath(Libs.gradleVersionsPlugin)
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.30'
     }
 }
 
