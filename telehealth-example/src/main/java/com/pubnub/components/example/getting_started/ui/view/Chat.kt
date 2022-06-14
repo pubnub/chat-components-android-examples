@@ -1,17 +1,22 @@
 package com.pubnub.components.example.getting_started.ui.view
 
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ExperimentalGraphicsApi
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.paging.PagingData
 import com.pubnub.components.chat.ui.component.common.ThemeDefaults
 import com.pubnub.components.chat.ui.component.input.MessageInput
@@ -26,11 +31,13 @@ import com.pubnub.components.chat.ui.component.presence.Presence
 import com.pubnub.components.chat.ui.component.provider.LocalChannel
 import com.pubnub.components.chat.viewmodel.message.MessageViewModel
 import com.pubnub.components.chat.viewmodel.message.ReactionViewModel
+import com.pubnub.components.example.getting_started.R
 import com.pubnub.framework.data.ChannelId
 import kotlinx.coroutines.flow.Flow
 
 object Chat {
 
+    @OptIn(ExperimentalGraphicsApi::class)
     @Composable
     internal fun Content(
         messages: Flow<PagingData<MessageUi>>,
@@ -51,6 +58,18 @@ object Chat {
                 }
         ) {
         MessageListTheme(customTheme) {
+            Row(modifier = Modifier
+                .fillMaxWidth()
+                .background(color = Color.hsl(196F, 0.65F, 0.57F))){
+                Image(modifier = Modifier
+                    .size(46.dp)
+                    .padding(top = 16.dp), painter = painterResource(id = R.drawable.chevron), contentDescription = "logo")
+                Spacer(modifier = Modifier.width(80.dp))
+                Column() {
+                    Text(text = "Anna Gordon", modifier = Modifier.padding(top = 8.dp, start = 32.dp), color = Color.White, fontSize = 16.sp)
+                    Text(text = "Patient ID: 98766", modifier = Modifier.padding(start = 20.dp, bottom = 10.dp), color = Color.White, fontSize = 16.sp)
+                }
+            }
             MessageList(
                 messages = messages,
                 presence = presence,

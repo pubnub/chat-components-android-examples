@@ -2,11 +2,12 @@
   {
     "name": "Mark Kelley",
     "custom": {
-      "thumb": "https://randomuser.me/api/portraits/men/1.jpg"
+      "avatarURL": "https://randomuser.me/api/portraits/men/1.jpg"
     },
     "description": "Patient ID: 5931d854",
     "eTag": "AbOx6N+6vu3zoAE",
     "id": "telehealth-27b34954-5931d854",
+    "avatarURL": "https://randomuser.me/api/portraits/men/1.jpg",
     "updated": "2020-09-23T09:23:34.598494Z",
     "type": "default",
     "status": "default"
@@ -14,10 +15,11 @@
   {
     "name": "Mark Kelley",
     "custom": {
-      "thumb": "https://randomuser.me/api/portraits/men/1.jpg"
+      "avatarURL": "https://randomuser.me/api/portraits/men/1.jpg"
     },
     "description": "Patient ID: 5931d854",
     "eTag": "AbOx6N+6vu3zoAE",
+    "avatarURL": "https://randomuser.me/api/portraits/men/1.jpg",
     "id": "telehealth-bcc16844-5931d854",
     "updated": "2020-09-23T09:23:34.598494Z",
     "type": "default",
@@ -26,10 +28,11 @@
   {
     "name": "Mark Kelley",
     "custom": {
-      "thumb": "https://randomuser.me/api/portraits/men/1.jpg"
+      "avatarURL": "https://randomuser.me/api/portraits/men/1.jpg"
     },
     "description": "Patient ID: 5931d854",
     "eTag": "AbOx6N+6vu3zoAE",
+    "avatarURL": "https://randomuser.me/api/portraits/men/1.jpg",
     "id": "telehealth-0948aa84-5931d854",
     "updated": "2020-09-23T09:23:34.598494Z",
     "type": "default",
@@ -38,11 +41,12 @@
   {
     "name": "Anna Gordon",
     "custom": {
-      "thumb": "https://randomuser.me/api/portraits/women/1.jpg"
+      "avatarURL": "https://randomuser.me/api/portraits/women/1.jpg"
     },
     "description": "Patient ID: 0761cba4",
     "eTag": "AZDyqJ7andTHlAE",
     "id": "telehealth-27b34954-0761cba4",
+    "avatarURL": "https://randomuser.me/api/portraits/women/1.jpg",
     "updated": "2020-09-23T09:23:33.598365Z",
     "type": "default",
     "status": "default"
@@ -50,11 +54,12 @@
   {
     "name": "Anna Gordon",
     "custom": {
-      "thumb": "https://randomuser.me/api/portraits/women/1.jpg"
+      "avatarURL": "https://randomuser.me/api/portraits/women/1.jpg"
     },
     "description": "Patient ID: 0761cba4",
     "eTag": "AZDyqJ7andTHlAE",
     "id": "telehealth-47880824-0761cba4",
+    "avatarURL": "https://randomuser.me/api/portraits/women/1.jpg",
     "updated": "2020-09-23T09:23:33.598365Z",
     "type": "default",
     "status": "default"
@@ -62,10 +67,11 @@
   {
     "name": "Anna Gordon",
     "custom": {
-      "thumb": "https://randomuser.me/api/portraits/women/1.jpg"
+      "avatarURL": "https://randomuser.me/api/portraits/women/1.jpg"
     },
     "description": "Patient ID: 0761cba4",
     "eTag": "AZDyqJ7andTHlAE",
+    "avatarURL": "https://randomuser.me/api/portraits/women/1.jpg",
     "id": "telehealth-0948aa84-0761cba4",
     "updated": "2020-09-23T09:23:33.598365Z",
     "type": "default",
@@ -74,10 +80,11 @@
   {
     "name": "Luis Griffin",
     "custom": {
-      "thumb": "https://randomuser.me/api/portraits/men/2.jpg"
+      "avatarURL": "https://randomuser.me/api/portraits/men/2.jpg"
     },
     "description": "Patient ID: 9b1adfc4",
     "eTag": "AeTqgs2X16ql2wE",
+    "avatarURL": "https://randomuser.me/api/portraits/men/2.jpg",
     "id": "telehealth-27b34954-9b1adfc4",
     "updated": "2020-09-23T09:23:37.175764Z",
     "type": "default",
@@ -86,10 +93,11 @@
   {
     "name": "Luis Griffin",
     "custom": {
-      "thumb": "https://randomuser.me/api/portraits/men/2.jpg"
+      "avatarURL": "https://randomuser.me/api/portraits/men/2.jpg"
     },
     "description": "Patient ID: 9b1adfc4",
     "eTag": "AeTqgs2X16ql2wE",
+    "avatarURL": "https://randomuser.me/api/portraits/men/2.jpg",
     "id": "telehealth-47880824-9b1adfc4",
     "updated": "2020-09-23T09:23:37.175764Z",
     "type": "default",
@@ -98,9 +106,10 @@
   {
     "name": "Luis Griffin",
     "custom": {
-      "thumb": "https://randomuser.me/api/portraits/men/2.jpg"
+      "avatarURL": "https://randomuser.me/api/portraits/men/2.jpg"
     },
     "description": "Patient ID: 9b1adfc4",
+    "avatarURL": "https://randomuser.me/api/portraits/men/2.jpg",
     "eTag": "AeTqgs2X16ql2wE",
     "id": "telehealth-8aba2064-9b1adfc4",
     "updated": "2020-09-23T09:23:37.175764Z",
@@ -110,9 +119,10 @@
   {
     "name": "Sue Flores",
     "custom": {
-      "thumb": "https://randomuser.me/api/portraits/women/2.jpg"
+      "avatarURL": "https://randomuser.me/api/portraits/women/2.jpg"
     },
     "description": "Patient ID: 0222c484",
+    "avatarURL": "https://randomuser.me/api/portraits/women/2.jpg",
     "eTag": "AbOx6N+6vu3zoAE",
     "id": "telehealth-47880824-0222c484",
     "updated": "2020-09-23T09:23:37.175764Z",
@@ -122,11 +132,12 @@
   {
     "name": "Sue Flores",
     "custom": {
-      "thumb": "https://randomuser.me/api/portraits/women/2.jpg"
+      "avatarURL": "https://randomuser.me/api/portraits/women/2.jpg"
     },
     "description": "Patient ID: 0222c484",
     "eTag": "AbOx6N+6vu3zoAE",
     "id": "telehealth-8aba2064-0222c484",
+    "avatarURL": "https://randomuser.me/api/portraits/women/2.jpg",
     "updated": "2020-09-23T09:23:37.175764Z",
     "type": "default",
     "status": "default"
@@ -134,11 +145,12 @@
   {
     "name": "Sue Flores",
     "custom": {
-      "thumb": "https://randomuser.me/api/portraits/women/2.jpg"
+      "avatarURL": "https://randomuser.me/api/portraits/women/2.jpg"
     },
     "description": "Patient ID: 0222c484",
     "eTag": "AbOx6N+6vu3zoAE",
     "id": "telehealth-4a710104-0222c484",
+    "avatarURL": "https://randomuser.me/api/portraits/women/2.jpg",
     "updated": "2020-09-23T09:23:37.175764Z",
     "type": "default",
     "status": "default"
@@ -146,10 +158,11 @@
   {
     "name": "Luke Young",
     "custom": {
-      "thumb": "https://randomuser.me/api/portraits/men/3.jpg"
+      "avatarURL": "https://randomuser.me/api/portraits/men/3.jpg"
     },
     "description": "Patient ID: 601f9324",
     "eTag": "AczQlJSt5Zn9jAE",
+    "avatarURL": "https://randomuser.me/api/portraits/men/3.jpg",
     "id": "telehealth-8aba2064-601f9324",
     "updated": "2020-09-23T09:23:37.175764Z",
     "type": "default",
@@ -158,10 +171,11 @@
   {
     "name": "Luke Young",
     "custom": {
-      "thumb": "https://randomuser.me/api/portraits/men/3.jpg"
+      "avatarURL": "https://randomuser.me/api/portraits/men/3.jpg"
     },
     "description": "Patient ID: 601f9324",
     "eTag": "AczQlJSt5Zn9jAE",
+    "avatarURL": "https://randomuser.me/api/portraits/men/3.jpg",
     "id": "telehealth-4a710104-601f9324",
     "updated": "2020-09-23T09:23:37.175764Z",
     "type": "default",
@@ -170,10 +184,11 @@
   {
     "name": "Luke Young",
     "custom": {
-      "thumb": "https://randomuser.me/api/portraits/men/3.jpg"
+      "avatarURL": "https://randomuser.me/api/portraits/men/3.jpg"
     },
     "description": "Patient ID: 601f9324",
     "eTag": "AczQlJSt5Zn9jAE",
+    "avatarURL": "https://randomuser.me/api/portraits/men/3.jpg",
     "id": "telehealth-37f342b4-601f9324",
     "updated": "2020-09-23T09:23:37.175764Z",
     "type": "default",
@@ -182,10 +197,11 @@
   {
     "name": "Jenny Porter",
     "custom": {
-      "thumb": "https://randomuser.me/api/portraits/women/3.jpg"
+      "avatarURL": "https://randomuser.me/api/portraits/women/3.jpg"
     },
     "description": "Patient ID: d8b0f094",
     "eTag": "AZSThaqOxP67Rg",
+    "avatarURL": "https://randomuser.me/api/portraits/women/3.jpg",
     "id": "telehealth-4a710104-d8b0f094",
     "updated": "2020-09-23T09:23:37.175764Z",
     "type": "default",
@@ -194,9 +210,10 @@
   {
     "name": "Jenny Porter",
     "custom": {
-      "thumb": "https://randomuser.me/api/portraits/women/3.jpg"
+      "avatarURL": "https://randomuser.me/api/portraits/women/3.jpg"
     },
     "description": "Patient ID: d8b0f094",
+    "avatarURL": "https://randomuser.me/api/portraits/women/3.jpg",
     "eTag": "AZSThaqOxP67Rg",
     "id": "telehealth-37f342b4-d8b0f094",
     "updated": "2020-09-23T09:23:37.175764Z",
@@ -206,11 +223,12 @@
   {
     "name": "Jenny Porter",
     "custom": {
-      "thumb": "https://randomuser.me/api/portraits/women/3.jpg"
+      "avatarURL": "https://randomuser.me/api/portraits/women/3.jpg"
     },
     "description": "Patient ID: d8b0f094",
     "eTag": "AZSThaqOxP67Rg",
     "id": "telehealth-3ef96ea4-d8b0f094",
+    "avatarURL": "https://randomuser.me/api/portraits/women/3.jpg",
     "updated": "2020-09-23T09:23:37.175764Z",
     "type": "default",
     "status": "default"
@@ -218,9 +236,10 @@
   {
     "name": "Ethan Murray",
     "custom": {
-      "thumb": "https://randomuser.me/api/portraits/men/4.jpg"
+      "avatarURL": "https://randomuser.me/api/portraits/men/4.jpg"
     },
     "description": "Patient ID: 7cad5264",
+    "avatarURL": "https://randomuser.me/api/portraits/men/4.jpg",
     "eTag": "AeGljfOQhoCH9AE",
     "id": "telehealth-37f342b4-7cad5264",
     "updated": "2020-09-23T09:23:37.175764Z",
@@ -230,10 +249,11 @@
   {
     "name": "Ethan Murray",
     "custom": {
-      "thumb": "https://randomuser.me/api/portraits/men/4.jpg"
+      "avatarURL": "https://randomuser.me/api/portraits/men/4.jpg"
     },
     "description": "Patient ID: 7cad5264",
     "eTag": "AeGljfOQhoCH9AE",
+    "avatarURL": "https://randomuser.me/api/portraits/men/4.jpg",
     "id": "telehealth-3ef96ea4-7cad5264",
     "updated": "2020-09-23T09:23:37.175764Z",
     "type": "default",
@@ -242,9 +262,10 @@
   {
     "name": "Ethan Murray",
     "custom": {
-      "thumb": "https://randomuser.me/api/portraits/men/4.jpg"
+      "avatarURL": "https://randomuser.me/api/portraits/men/4.jpg"
     },
     "description": "Patient ID: 7cad5264",
+    "avatarURL": "https://randomuser.me/api/portraits/men/4.jpg",
     "eTag": "AeGljfOQhoCH9AE",
     "id": "telehealth-1d287aa4-7cad5264",
     "updated": "2020-09-23T09:23:37.175764Z",
@@ -254,10 +275,11 @@
   {
     "name": "Victoria Torres",
     "custom": {
-      "thumb": "https://randomuser.me/api/portraits/women/4.jpg"
+      "avatarURL": "https://randomuser.me/api/portraits/women/4.jpg"
     },
     "description": "Patient ID: 3c419804",
     "eTag": "AYi09PWh7/eyowE",
+    "avatarURL": "https://randomuser.me/api/portraits/women/4.jpg",
     "id": "telehealth-3ef96ea4-3c419804",
     "updated": "2020-09-23T09:23:37.175764Z",
     "type": "default",
@@ -266,11 +288,12 @@
   {
     "name": "Victoria Torres",
     "custom": {
-      "thumb": "https://randomuser.me/api/portraits/women/4.jpg"
+      "avatarURL": "https://randomuser.me/api/portraits/women/4.jpg"
     },
     "description": "Patient ID: 3c419804",
     "eTag": "AYi09PWh7/eyowE",
     "id": "telehealth-1d287aa4-3c419804",
+    "avatarURL": "https://randomuser.me/api/portraits/women/4.jpg",
     "updated": "2020-09-23T09:23:37.175764Z",
     "type": "default",
     "status": "default"
@@ -278,10 +301,11 @@
   {
     "name": "Victoria Torres",
     "custom": {
-      "thumb": "https://randomuser.me/api/portraits/women/4.jpg"
+      "avatarURL": "https://randomuser.me/api/portraits/women/4.jpg"
     },
     "description": "Patient ID: 3c419804",
     "eTag": "AYi09PWh7/eyowE",
+    "avatarURL": "https://randomuser.me/api/portraits/women/4.jpg",
     "id": "telehealth-9891c714-3c419804",
     "updated": "2020-09-23T09:23:37.175764Z",
     "type": "default",
@@ -290,10 +314,11 @@
   {
     "name": "Caleb Nichols",
     "custom": {
-      "thumb": "https://randomuser.me/api/portraits/men/5.jpg"
+      "avatarURL": "https://randomuser.me/api/portraits/men/5.jpg"
     },
     "description": "Patient ID: 72b16054",
     "eTag": "AcXb44a+3tLrTg",
+    "avatarURL": "https://randomuser.me/api/portraits/men/5.jpg",
     "id": "telehealth-1d287aa4-72b16054",
     "updated": "2020-09-23T09:23:37.175764Z",
     "type": "default",
@@ -302,23 +327,25 @@
   {
     "name": "Caleb Nichols",
     "custom": {
-      "thumb": "https://randomuser.me/api/portraits/men/5.jpg"
+      "avatarURL": "https://randomuser.me/api/portraits/men/5.jpg"
     },
     "description": "Patient ID: 72b16054",
     "eTag": "AcXb44a+3tLrTg",
     "id": "telehealth-9891c714-72b16054",
     "updated": "2020-09-23T09:23:37.175764Z",
+    "avatarURL": "https://randomuser.me/api/portraits/men/5.jpg",
     "type": "default",
     "status": "default"
   },
   {
     "name": "Caleb Nichols",
     "custom": {
-      "thumb": "https://randomuser.me/api/portraits/men/5.jpg"
+      "avatarURL": "https://randomuser.me/api/portraits/men/5.jpg"
     },
     "description": "Patient ID: 72b16054",
     "eTag": "AcXb44a+3tLrTg",
     "id": "telehealth-bcc16844-72b16054",
+    "avatarURL": "https://randomuser.me/api/portraits/men/5.jpg",
     "updated": "2020-09-23T09:23:37.175764Z",
     "type": "default",
     "status": "default"
@@ -326,10 +353,11 @@
   {
     "name": "Cathy Grant",
     "custom": {
-      "thumb": "https://randomuser.me/api/portraits/women/5.jpg"
+      "avatarURL": "https://randomuser.me/api/portraits/women/5.jpg"
     },
     "description": "Patient ID: ad75d404",
     "eTag": "AZTSoo3LkIPGCA",
+    "avatarURL": "https://randomuser.me/api/portraits/women/5.jpg",
     "id": "telehealth-9891c714-ad75d404",
     "updated": "2020-09-23T09:23:37.175764Z",
     "type": "default",
@@ -338,10 +366,11 @@
   {
     "name": "Cathy Grant",
     "custom": {
-      "thumb": "https://randomuser.me/api/portraits/women/5.jpg"
+      "avatarURL": "https://randomuser.me/api/portraits/women/5.jpg"
     },
     "description": "Patient ID: ad75d404",
     "eTag": "AZTSoo3LkIPGCA",
+    "avatarURL": "https://randomuser.me/api/portraits/women/5.jpg",
     "id": "telehealth-bcc16844-ad75d404",
     "updated": "2020-09-23T09:23:37.175764Z",
     "type": "default",
@@ -350,10 +379,11 @@
   {
     "name": "Cathy Grant",
     "custom": {
-      "thumb": "https://randomuser.me/api/portraits/women/5.jpg"
+      "avatarURL": "https://randomuser.me/api/portraits/women/5.jpg"
     },
     "description": "Patient ID: ad75d404",
     "eTag": "AZTSoo3LkIPGCA",
+    "avatarURL": "https://randomuser.me/api/portraits/women/5.jpg",
     "id": "telehealth-0948aa84-ad75d404",
     "updated": "2020-09-23T09:23:37.175764Z",
     "type": "default",
