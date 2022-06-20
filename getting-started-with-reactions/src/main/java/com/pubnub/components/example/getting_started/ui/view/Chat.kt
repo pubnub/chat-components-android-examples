@@ -68,7 +68,7 @@ object Chat {
         val messageViewModel: MessageViewModel = MessageViewModel.defaultWithMediator(channelId)
         val messages = remember { messageViewModel.getAll() }
 
-        val reactionViewModel: ReactionViewModel = ReactionViewModel.default()
+        val reactionViewModel: ReactionViewModel = ReactionViewModel.default(channelId)
         // endregion
 
         var menuVisible by remember { mutableStateOf(false) }
