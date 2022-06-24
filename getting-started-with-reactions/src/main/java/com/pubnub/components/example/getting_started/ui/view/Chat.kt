@@ -68,7 +68,7 @@ object Chat {
         val messageViewModel: MessageViewModel = MessageViewModel.defaultWithMediator(channelId)
         val messages = remember { messageViewModel.getAll() }
 
-        val reactionViewModel: ReactionViewModel = ReactionViewModel.default()
+        val reactionViewModel: ReactionViewModel = ReactionViewModel.default(channelId)
         // endregion
 
         var menuVisible by remember { mutableStateOf(false) }
@@ -82,9 +82,7 @@ object Chat {
                 onAction = { action ->
                     when (action) {
                         is Copy -> {
-                            action.message.text?.let { content ->
-                                messageViewModel.copy(AnnotatedString(content))
-                            }
+                            messageViewModel.copy(AnnotatedString(action.message.text))
                         }
                         is React -> reactionViewModel.reactionSelected(action)
                         else -> {}
