@@ -16,7 +16,9 @@ import kotlinx.coroutines.launch
 
 class ChatApplication : Application() {
 
-    lateinit var database: DefaultDatabase
+    companion object {
+        lateinit var database: DefaultDatabase
+    }
 
     override fun onCreate() {
         super.onCreate()

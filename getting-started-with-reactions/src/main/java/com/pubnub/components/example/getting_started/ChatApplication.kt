@@ -16,7 +16,9 @@ import kotlinx.coroutines.launch
 
 class ChatApplication : Application() {
 
-    lateinit var database: DefaultDatabase
+    companion object {
+        lateinit var database: DefaultDatabase
+    }
 
     override fun onCreate() {
         super.onCreate()
@@ -61,7 +63,6 @@ class ChatApplication : Application() {
                             memberDao().insertOrUpdate(member)
                             membershipDao().insertOrUpdate(*memberships)
                             channelDao().insertOrUpdate(*channels)
-
                         }
                     }
                 }
