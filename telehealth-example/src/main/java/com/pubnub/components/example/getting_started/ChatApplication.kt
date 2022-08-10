@@ -9,8 +9,6 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.pubnub.components.DefaultDatabase
 import com.pubnub.components.data.Database
-import com.pubnub.components.data.channel.DBChannel
-import com.pubnub.components.data.member.DBMember
 import com.pubnub.components.data.membership.DBMembership
 import com.pubnub.components.example.getting_started.dto.MembershipsItem
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -20,10 +18,12 @@ import kotlinx.coroutines.launch
 import java.io.IOException
 
 class ChatApplication : Application() {
+    lateinit var database: DefaultDatabase
+
     override fun onCreate() {
         super.onCreate()
 
-        Database.initialize(applicationContext){ it.prepopulate(applicationContext)}
+        database = Database.initialize(applicationContext) { it.prepopulate(applicationContext) }
     }
 
     @OptIn(DelicateCoroutinesApi::class)
@@ -38,7 +38,7 @@ class ChatApplication : Application() {
 
                     // insert the data on the IO Thread
                     GlobalScope.launch(Dispatchers.IO) {
-                        with(Database.INSTANCE) {
+                        with(database) {
 
                             // add members
                             val members = defaultDataRepository.members
@@ -49,18 +49,25 @@ class ChatApplication : Application() {
                             println("Add members $members")
                             println("Add Channels $channels")
                             channelDao().insertOrUpdate(*channels)
-                            val jsonFileString = getJsonDataFromAsset(applicationContext, "membership.json")
+                            val jsonFileString =
+                                getJsonDataFromAsset(applicationContext, "memberships.json")
                             val gson = Gson()
                             var dbMembership = mutableListOf<DBMembership>()
                             val listPersonType = object : TypeToken<List<MembershipsItem>>() {}.type
-                            var memberships: List<MembershipsItem> = gson.fromJson(jsonFileString, listPersonType)
+                            var memberships: List<MembershipsItem> =
+                                gson.fromJson(jsonFileString, listPersonType)
                             memberships.forEach { membership ->
                                 membership.members?.forEach {
-                                    dbMembership.add(DBMembership(channelId = membership.channel!!,memberId = it!!))
+                                    dbMembership.add(
+                                        DBMembership(
+                                            channelId = membership.channel!!,
+                                            memberId = it!!
+                                        )
+                                    )
                                 }
                             }
+                            println("Add memberships $dbMembership")
                             membershipDao().insertOrUpdate(*dbMembership.toTypedArray())
-
                         }
                     }
                 }

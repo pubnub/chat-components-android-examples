@@ -12,7 +12,7 @@ object Libs {
     const val gradleVersionsPlugin = "com.github.ben-manes:gradle-versions-plugin:0.42.0"
 
     object Accompanist {
-        private const val version = "0.23.0"
+        private const val version = "0.23.1"
 
         const val swipeRefresh = "com.google.accompanist:accompanist-swiperefresh:$version"
         const val placeholder = "com.google.accompanist:accompanist-placeholder:$version"
@@ -143,7 +143,8 @@ object Libs {
         const val pubnub = "com.pubnub:pubnub-kotlin:$version"
 
         object Components {
-            const val chat = "com.pubnub.components:chat-android:0.4.0"
+            const val chat = "com.pubnub.components:chat-android:0.4.1-rc1"
+            const val chatBase = "com.pubnub.components:chat-android:0.4.0"
         }
     }
 

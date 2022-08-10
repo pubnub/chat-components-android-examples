@@ -1,0 +1,47 @@
+[
+  {
+    "name": "Luke Young",
+    "custom": {
+      "title": "Product Engineer",
+      "username":"lukeyoung",
+      "painLevel":"3/10",
+      "queuePosition":"1"
+    },
+    "email": null,
+    "eTag": "AYGyoY3gre71eA",
+    "externalId": null,
+    "id": "601f9324",
+    "profileUrl": "https://randomuser.me/api/portraits/men/3.jpg",
+    "updated": "2020-09-23T09:23:34.598494Z"
+  },
+  {
+    "name": "Dr Sue Jones",
+    "custom": {
+      "title": "General Practitioner",
+      "username": "suejones",
+      "painLevel":null,
+      "queuePosition":null
+    },
+    "email": null,
+    "eTag": "AZDyqJ7andTHlAE",
+    "externalId": null,
+    "id": "0948aa84",
+    "profileUrl": "https://github.com/pubnub/react-chat-components/blob/master/samples/telehealth/public/doctor-16.png",
+    "updated": "2020-09-23T09:23:33.598365Z"
+  },
+  {
+    "name": "Sara Flores",
+    "custom": {
+      "title": "VP, Sales",
+      "username":"saraflores",
+      "painLevel":"9/10",
+      "queuePosition":"2"
+    },
+    "email": null,
+    "eTag": "AeTqgs2X16ql2wE",
+    "externalId": null,
+    "id": "0222c484",
+    "profileUrl": "https://randomuser.me/api/portraits/men/2.jpg",
+    "updated": "2020-09-23T09:23:31.809198Z"
+  }
+]

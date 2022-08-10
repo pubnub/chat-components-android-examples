@@ -5,22 +5,25 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ExperimentalGraphicsApi
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.paging.PagingData
+import com.pubnub.components.chat.ui.component.common.TextThemeDefaults.text
 import com.pubnub.components.chat.ui.component.common.ThemeDefaults
 import com.pubnub.components.chat.ui.component.input.MessageInput
-import com.pubnub.components.chat.ui.component.input.renderer.AnimatedTypingIndicatorRenderer
 import com.pubnub.components.chat.ui.component.menu.Copy
 import com.pubnub.components.chat.ui.component.menu.React
 import com.pubnub.components.chat.ui.component.message.LocalMessageListTheme
@@ -44,9 +47,31 @@ object Chat {
         presence: Presence? = null,
         onMessageSelected: (MessageUi.Data) -> Unit,
         onReactionSelected: ((React) -> Unit)? = null,
+        patientUUID: String,
+        patientName: String
     ) {
 
-        val customTheme = ThemeDefaults.messageList(modifier = Modifier.width(200.dp))
+        val customTheme = ThemeDefaults.messageList(
+            messageOwn = ThemeDefaults.message(
+                text = text(
+                    Modifier
+                        .background(color = Color.hsl(197F, 0.85F, 0.92F))
+                        .clip(
+                            RoundedCornerShape(10.dp)
+                        )
+                )
+            ),
+            message = ThemeDefaults.message(
+                text = text(
+                    modifier = Modifier
+                        .background(color = Color.hsl(210F, 0.4F, 0.94F))
+                        .padding(2.dp, 2.dp, 2.dp, 2.dp)
+                        .clip(
+                            RoundedCornerShape(0.dp, 0.dp, 10.dp, 10.dp)
+                        )
+                )
+            )
+        )
         val localFocusManager = LocalFocusManager.current
         Column(
             modifier = Modifier
@@ -57,32 +82,48 @@ object Chat {
                     })
                 }
         ) {
-        MessageListTheme(customTheme) {
-            Row(modifier = Modifier
-                .fillMaxWidth()
-                .background(color = Color.hsl(196F, 0.65F, 0.57F))){
-                Image(modifier = Modifier
-                    .size(46.dp)
-                    .padding(top = 16.dp), painter = painterResource(id = R.drawable.chevron), contentDescription = "logo")
-                Spacer(modifier = Modifier.width(80.dp))
-                Column() {
-                    Text(text = "Anna Gordon", modifier = Modifier.padding(top = 8.dp, start = 32.dp), color = Color.White, fontSize = 16.sp)
-                    Text(text = "Patient ID: 98766", modifier = Modifier.padding(start = 20.dp, bottom = 10.dp), color = Color.White, fontSize = 16.sp)
+            MessageListTheme(customTheme) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(color = Color.hsl(196F, 0.65F, 0.57F))
+                ) {
+                    Image(
+                        modifier = Modifier
+                            .size(46.dp)
+                            .padding(top = 16.dp),
+                        painter = painterResource(id = R.drawable.chevron),
+                        contentDescription = "logo"
+                    )
+                    Spacer(modifier = Modifier.width(80.dp))
+                    Column {
+                        Text(
+                            text = patientName,
+                            modifier = Modifier.padding(top = 8.dp, start = 32.dp),
+                            color = Color.White,
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Text(
+                            text = patientUUID,
+                            modifier = Modifier.padding(start = 20.dp, bottom = 10.dp),
+                            color = Color.White,
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
                 }
+                MessageList(
+                    messages = messages,
+                    presence = presence,
+                    onMessageSelected = onMessageSelected,
+                    onReactionSelected = onReactionSelected,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .weight(1f, true),
+                )
             }
-            MessageList(
-                messages = messages,
-                presence = presence,
-                onMessageSelected = onMessageSelected,
-                onReactionSelected = onReactionSelected,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .weight(1f, true),
-            )
-        }
             MessageInput(
-                typingIndicator = true,
-                typingIndicatorRenderer = AnimatedTypingIndicatorRenderer,
             )
         }
     }
@@ -100,6 +141,8 @@ object Chat {
     @Composable
     fun View(
         channelId: ChannelId,
+        patientUUID: String,
+        patientName: String
     ) {
         // region Content data
         val messageViewModel: MessageViewModel = MessageViewModel.defaultWithMediator(channelId)
@@ -119,7 +162,7 @@ object Chat {
                 onAction = { action ->
                     when (action) {
                         is Copy -> {
-                            action.message.text?.let { content ->
+                            action.message.text.let { content ->
                                 messageViewModel.copy(AnnotatedString(content))
                             }
                         }
@@ -137,6 +180,8 @@ object Chat {
                     menuVisible = true
                 },
                 onReactionSelected = reactionViewModel::reactionSelected,
+                patientUUID = patientUUID,
+                patientName = patientName
             )
         }
     }
@@ -145,5 +190,5 @@ object Chat {
 @Composable
 @Preview
 private fun ChatPreview() {
-    Chat.View("channel.lobby")
+    Chat.View("channel.lobby", "", "")
 }

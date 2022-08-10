@@ -2,12 +2,12 @@ package com.pubnub.components.example.getting_started.ui.view
 
 
 import android.content.Context
+import android.content.Intent
 import android.os.Build
-import android.util.Log
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
@@ -18,38 +18,19 @@ import androidx.compose.ui.graphics.ExperimentalGraphicsApi
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.paging.PagingData
-import androidx.room.RoomDatabase
-import androidx.sqlite.db.SupportSQLiteDatabase
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import com.pubnub.components.DefaultDatabase
 import com.pubnub.components.chat.ui.component.channel.ChannelList
 import com.pubnub.components.chat.ui.component.channel.ChannelListTheme
 import com.pubnub.components.chat.ui.component.channel.ChannelUi
 import com.pubnub.components.chat.ui.component.channel.LocalChannelListTheme
-import com.pubnub.components.chat.ui.component.common.TextTheme
 import com.pubnub.components.chat.ui.component.common.ThemeDefaults
-import com.pubnub.components.chat.ui.component.message.LocalMessageListTheme
-import com.pubnub.components.chat.ui.component.message.MessageListTheme
-import com.pubnub.components.chat.ui.component.provider.LocalChannel
 import com.pubnub.components.chat.viewmodel.channel.ChannelViewModel
-import com.pubnub.components.data.Database
-import com.pubnub.components.data.channel.DBChannel
-import com.pubnub.components.data.membership.DBMembership
-import com.pubnub.components.example.getting_started.DefaultDataRepository
+import com.pubnub.components.example.getting_started.ChatActivity
 import com.pubnub.components.example.getting_started.R
-import com.pubnub.components.example.getting_started.dto.ChannelsItem
-import com.pubnub.components.example.getting_started.dto.MembershipsItem
-import com.pubnub.framework.data.ChannelId
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
-import java.io.IOException
 
 object Channel {
 
@@ -59,6 +40,9 @@ object Channel {
     internal fun Content(
         channels: Flow<PagingData<ChannelUi>>,
         onSelected: (ChannelUi.Data) -> Unit = {},
+        context: Context,
+        type: String?,
+        uuid: String?
     ) {
         val customTheme = ThemeDefaults.channelList()
         val localFocusManager = LocalFocusManager.current
@@ -72,35 +56,46 @@ object Channel {
                 }
         ) {
             ChannelListTheme(customTheme) {
+                var menuVisible by remember { mutableStateOf(false) }
                 ChannelList(
                     channels = channels,
                     onSelected = onSelected,
-                    header = {
+                    headerContent = {
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .background(color = Color.hsl(196F, 0.65F, 0.57F))
                         ) {
                             Text(
-                                text = "Select Patient to talk with",
+                                text = type ?: "",
                                 modifier = Modifier.padding(
                                     top = 16.dp,
                                     start = 20.dp,
                                     bottom = 16.dp
                                 ),
                                 color = Color.White,
-                                fontSize = 16.sp
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.Bold
                             )
                             Spacer(modifier = Modifier.width(160.dp))
                             Image(
                                 modifier = Modifier
                                     .size(36.dp)
-                                    .padding(top = 16.dp),
+                                    .padding(top = 16.dp)
+                                    .clickable {
+                                        menuVisible = !menuVisible
+                                    },
                                 painter = painterResource(id = R.drawable.dots),
                                 contentDescription = "logo"
                             )
+                            DropdownOptionsMenu(
+                                visible = menuVisible,
+                                onDismiss = { menuVisible = false },
+                                context = context,
+                                uuid = uuid
+                            )
                         }
-                    }
+                    },
                 )
             }
         }
@@ -119,19 +114,29 @@ object Channel {
     @RequiresApi(Build.VERSION_CODES.O)
     @Composable
     fun View(
-        context: Context
+        context: Context,
+        uuid: String?,
+        type: String?,
     ) {
         // region Content data
         val channelViewModel: ChannelViewModel = ChannelViewModel.default(context.resources)
         val channels = remember { channelViewModel.getAll() }
 
-        CompositionLocalProvider() {
+        CompositionLocalProvider {
             Content(
                 channels = channels,
                 onSelected = {
-                    println("test, doesn't work")
-                    Toast.makeText(context, "this is toast message", Toast.LENGTH_SHORT).show()
-                }
+                    val intent = Intent(context, ChatActivity::class.java).apply {
+                        putExtra("channelId", it.id)
+                        putExtra("patientUuid", it.description)
+                        putExtra("patientName", it.name)
+                        putExtra("uuid", uuid)
+                    }
+                    context.startActivity(intent)
+                },
+                context = context,
+                type = type,
+                uuid = uuid
             )
         }
     }

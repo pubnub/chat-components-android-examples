@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Getting started</string>
+    <string name="password_info">This is a sample app that doesn’t require a password. A list of valid usernames can be found at Demo page</string>
+
 </resources>
