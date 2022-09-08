@@ -54,8 +54,7 @@ object Chat {
             )
 
             MessageInput(
-                typingIndicator = true,
-                typingIndicatorRenderer = AnimatedTypingIndicatorRenderer,
+                typingIndicatorEnabled = true,
             )
         }
     }
@@ -82,9 +81,7 @@ object Chat {
                 onAction = { action ->
                     when (action) {
                         is Copy -> {
-                            action.message.text?.let { content ->
-                                messageViewModel.copy(AnnotatedString(content))
-                            }
+                            messageViewModel.copy(AnnotatedString(action.message.text))
                         }
                         is React -> reactionViewModel.reactionSelected(action)
                         else -> {}

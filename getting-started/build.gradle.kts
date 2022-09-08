@@ -6,12 +6,12 @@ plugins {
 }
 
 android {
-    compileSdk = 31
+    compileSdk = 32
 
     defaultConfig {
         applicationId = "com.pubnub.components.example.getting_started"
         minSdk = 21
-        targetSdk = 31
+        targetSdk = 32
         versionCode = 1
         versionName = "1.0"
 
@@ -21,7 +21,11 @@ android {
         }
 
         buildConfigField("String", "PUBLISH_KEY", project.property("PUBNUB_PUBLISH_KEY") as String)
-        buildConfigField("String", "SUBSCRIBE_KEY", project.property("PUBNUB_SUBSCRIBE_KEY") as String)
+        buildConfigField(
+            "String",
+            "SUBSCRIBE_KEY",
+            project.property("PUBNUB_SUBSCRIBE_KEY") as String
+        )
     }
 
     buildTypes {
@@ -55,7 +59,9 @@ android {
 
 dependencies {
     implementation(Libs.PubNub.Components.chat)
-    implementation(Libs.PubNub.pubnub)
+    api(platform(Libs.PubNub.bom))
+    implementation(Libs.PubNub.kotlin)
+    implementation(Libs.PubNub.memberships)
     implementation(Libs.AndroidX.core)
     implementation(Libs.AndroidX.Compose.ui)
     implementation(Libs.AndroidX.Compose.material)
@@ -64,6 +70,7 @@ dependencies {
     implementation(Libs.AndroidX.Activity.activityCompose)
     implementation(Libs.Coil.coil)
     implementation(Libs.JakeWharton.timber)
+    implementation(Libs.AndroidX.datetime)
 
     testImplementation(Libs.JUnit.junit)
     androidTestImplementation(Libs.AndroidX.Test.Ext.junit)
@@ -71,3 +78,4 @@ dependencies {
     androidTestImplementation(Libs.AndroidX.Compose.uiTest)
     debugImplementation(Libs.AndroidX.Compose.tooling)
 }
+tasks.register("prepareKotlinBuildScriptModel"){}

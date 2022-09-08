@@ -1,6 +1,7 @@
 package com.pubnub.components.example.getting_started.ui.view
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import com.pubnub.components.chat.ui.component.menu.BottomMenu
 import com.pubnub.components.chat.ui.component.menu.MenuAction
 import com.pubnub.components.chat.ui.component.menu.React
@@ -13,14 +14,21 @@ fun Menu(
     message: MessageUi.Data?,
     onAction: (MenuAction) -> Unit,
     onDismiss: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     BottomMenu(
-        visible = visible && message != null,
+        message = message,
+        headerContent = {
+            DefaultReactionsPickerRenderer.ReactionsPicker { reaction ->
+                message?.let { onAction(React(reaction, message)) }
+            }
+        },
         onAction = { action ->
             onAction(action)
             onDismiss()
         },
-        message = message,
         onDismiss = onDismiss,
+        visible = visible && message != null,
+        modifier = modifier,
     )
 }

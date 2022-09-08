@@ -22,9 +22,9 @@ buildscript {
 
 allprojects {
     repositories {
+        mavenLocal()
         google()
         mavenCentral()
-        mavenLocal()
         maven { url "https://jitpack.io" }
 
         if (!Libs.AndroidX.Compose.snapshot.isEmpty()) {
