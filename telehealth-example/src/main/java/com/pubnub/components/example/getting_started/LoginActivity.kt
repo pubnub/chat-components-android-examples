@@ -2,6 +2,7 @@ package com.pubnub.components.example.getting_started
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.StringRes
@@ -32,6 +33,8 @@ import com.pubnub.api.PubNub
 import com.pubnub.api.UserId
 import com.pubnub.api.enums.PNLogVerbosity
 import com.pubnub.components.example.getting_started.ui.theme.AppTheme
+import com.pubnub.components.example.getting_started.ui.view.HyperlinkText
+import timber.log.Timber
 
 class LoginActivity : ComponentActivity() {
 
@@ -42,7 +45,10 @@ class LoginActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initializePubNub()
+        val defaultDataRepository = DefaultDataRepository(resources)
         setContent {
+            val members = defaultDataRepository.members
+            Timber.tag("").d(members.joinToString())
             var login by rememberSaveable { mutableStateOf("") }
             val pass by rememberSaveable { mutableStateOf("") }
             AppTheme(pubNub = pubNub) {
@@ -209,13 +215,13 @@ class LoginActivity : ComponentActivity() {
                                 Alignment.BottomCenter
                             )
                     ) {
-
-                        Text(
+                        HyperlinkText(
                             modifier = Modifier
                                 .padding(top = 50.dp, start = 72.dp, end = 72.dp),
-                            textAlign = TextAlign.Center, text = textResource(
+                            fullText = textResource(
                                 R.string.password_info
-                            )
+                            ),
+                            linkText = listOf("Demo page")
                         )
                     }
                 }
@@ -242,7 +248,7 @@ class LoginActivity : ComponentActivity() {
             PNConfiguration(userId = UserId("1")).apply {
                 publishKey = BuildConfig.PUBLISH_KEY
                 subscribeKey = BuildConfig.SUBSCRIBE_KEY
-                logVerbosity = PNLogVerbosity.NONE
+                logVerbosity = PNLogVerbosity.BODY
             }
         )
     }

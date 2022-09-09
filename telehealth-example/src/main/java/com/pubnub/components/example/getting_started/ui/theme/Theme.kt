@@ -7,7 +7,9 @@ import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import com.pubnub.api.PubNub
+import com.pubnub.components.asPubNub
 import com.pubnub.components.chat.provider.ChatProvider
+import com.pubnub.components.example.getting_started.ChatApplication
 
 private val DarkColorPalette = darkColors(
     primary = Purple200,
@@ -35,7 +37,7 @@ fun AppTheme(
         typography = Typography,
         shapes = Shapes,
     ) {
-        ChatProvider(pubNub = pubNub) {
+        ChatProvider(pubNub = pubNub, database = ChatApplication.database.asPubNub()) {
             content()
         }
     }

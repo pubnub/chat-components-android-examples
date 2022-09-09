@@ -42,7 +42,7 @@ class ChannelActivity : ComponentActivity() {
             PNConfiguration(userId = UserId(uuid)).apply {
                 publishKey = BuildConfig.PUBLISH_KEY
                 subscribeKey = BuildConfig.SUBSCRIBE_KEY
-                logVerbosity = PNLogVerbosity.NONE
+                logVerbosity = PNLogVerbosity.BODY
             }
         )
     }

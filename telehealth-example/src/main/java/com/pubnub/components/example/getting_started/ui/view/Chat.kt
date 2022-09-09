@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -24,6 +25,8 @@ import androidx.paging.PagingData
 import com.pubnub.components.chat.ui.component.common.TextThemeDefaults.text
 import com.pubnub.components.chat.ui.component.common.ThemeDefaults
 import com.pubnub.components.chat.ui.component.input.MessageInput
+import com.pubnub.components.chat.ui.component.input.TypingIndicatorContent
+import com.pubnub.components.chat.ui.component.input.renderer.AnimatedTypingIndicatorRenderer
 import com.pubnub.components.chat.ui.component.menu.Copy
 import com.pubnub.components.chat.ui.component.menu.React
 import com.pubnub.components.chat.ui.component.message.LocalMessageListTheme
@@ -56,20 +59,18 @@ object Chat {
                 text = text(
                     Modifier
                         .background(color = Color.hsl(197F, 0.85F, 0.92F))
-                        .clip(
-                            RoundedCornerShape(10.dp)
-                        )
-                )
+                        .padding(2.dp)
+
+                ),
+                modifier = Modifier
             ),
             message = ThemeDefaults.message(
                 text = text(
                     modifier = Modifier
                         .background(color = Color.hsl(210F, 0.4F, 0.94F))
-                        .padding(2.dp, 2.dp, 2.dp, 2.dp)
-                        .clip(
-                            RoundedCornerShape(0.dp, 0.dp, 10.dp, 10.dp)
-                        )
-                )
+                        .padding(2.dp)
+                ),
+                modifier = Modifier.clip(RoundedCornerShape(10.dp))
             )
         )
         val localFocusManager = LocalFocusManager.current
@@ -124,6 +125,10 @@ object Chat {
                 )
             }
             MessageInput(
+                typingIndicatorEnabled = true,
+                typingIndicatorContent = {
+                    AnimatedTypingIndicatorRenderer.TypingIndicator(it)
+                }
             )
         }
     }
