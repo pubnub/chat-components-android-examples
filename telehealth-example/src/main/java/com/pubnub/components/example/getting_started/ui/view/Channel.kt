@@ -22,11 +22,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.paging.PagingData
+import androidx.paging.map
 import com.pubnub.components.chat.ui.component.channel.ChannelList
 import com.pubnub.components.chat.ui.component.channel.ChannelListTheme
 import com.pubnub.components.chat.ui.component.channel.ChannelUi
 import com.pubnub.components.chat.ui.component.channel.LocalChannelListTheme
 import com.pubnub.components.chat.ui.component.common.ThemeDefaults
+import com.pubnub.components.chat.ui.component.message.MessageUi
 import com.pubnub.components.chat.viewmodel.channel.ChannelViewModel
 import com.pubnub.components.example.getting_started.ChatActivity
 import com.pubnub.components.example.getting_started.R

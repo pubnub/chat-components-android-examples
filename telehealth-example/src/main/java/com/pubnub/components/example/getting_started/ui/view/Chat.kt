@@ -35,6 +35,8 @@ import com.pubnub.components.chat.ui.component.provider.LocalChannel
 import com.pubnub.components.chat.viewmodel.message.MessageViewModel
 import com.pubnub.components.chat.viewmodel.message.ReactionViewModel
 import com.pubnub.components.example.getting_started.R
+import com.pubnub.components.example.getting_started.ui.theme.MessageBackgroundColor
+import com.pubnub.components.example.getting_started.ui.theme.MessageOwnBackgroundColor
 import com.pubnub.framework.data.ChannelId
 import kotlinx.coroutines.flow.Flow
 
@@ -54,7 +56,7 @@ object Chat {
             messageOwn = ThemeDefaults.message(
                 text = text(
                     Modifier
-                        .background(color = Color.hsl(197F, 0.85F, 0.92F))
+                        .background(color = MessageOwnBackgroundColor)
                         .padding(2.dp)
 
                 ),
@@ -63,7 +65,7 @@ object Chat {
             message = ThemeDefaults.message(
                 text = text(
                     modifier = Modifier
-                        .background(color = Color.hsl(210F, 0.4F, 0.94F))
+                        .background(color = MessageBackgroundColor)
                         .padding(2.dp)
                 ),
                 modifier = Modifier.clip(RoundedCornerShape(10.dp))
