@@ -1,6 +1,5 @@
 package com.pubnub.components.example.getting_started
 
-//import com.pubnub.api.UserId
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -49,7 +48,7 @@ class ChatActivity : ComponentActivity() {
             PNConfiguration(userId = UserId(uuid)).apply {
                 publishKey = BuildConfig.PUBLISH_KEY
                 subscribeKey = BuildConfig.SUBSCRIBE_KEY
-                logVerbosity = PNLogVerbosity.BODY
+                logVerbosity = PNLogVerbosity.NONE
             }
         )
     }

@@ -1,24 +1,210 @@
 package com.pubnub.components.example.getting_started.ui.view
 
-import androidx.compose.runtime.Composable
-import com.pubnub.components.chat.ui.component.menu.BottomMenu
-import com.pubnub.components.chat.ui.component.menu.MenuAction
-import com.pubnub.components.chat.ui.component.message.MessageUi
+import android.content.Context
+import android.content.Intent
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.*
+import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat.startActivity
+import androidx.core.os.bundleOf
+import com.pubnub.components.data.message.asMap
+import com.pubnub.components.example.getting_started.ChannelActivity
+import com.pubnub.components.example.getting_started.DefaultDataRepository
+import com.pubnub.components.example.getting_started.R
 
-@Composable
-fun Login(
-    visible: Boolean,
-    message: MessageUi.Data?,
-    onAction: (MenuAction) -> Unit,
-    onDismiss: () -> Unit,
-) {
-    BottomMenu(
-        visible = visible && message != null,
-        onAction = { action ->
-            onAction(action)
-            onDismiss()
-        },
-        message = message,
-        onDismiss = onDismiss,
-    )
+object Login {
+    @Composable
+    fun View(
+        context: Context,
+        defaultDataRepository: DefaultDataRepository
+    ) {
+        var login by rememberSaveable { mutableStateOf("") }
+        val pass by rememberSaveable { mutableStateOf("") }
+        Box {
+            var visible by remember { mutableStateOf(false) }
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Top
+            ) {
+                Image(
+                    modifier = Modifier
+                        .padding(top = 50.dp)
+                        .size(140.dp)
+                        .align(Alignment.CenterHorizontally),
+                    painter = painterResource(id = R.drawable.logo),
+                    contentDescription = "logo"
+                )
+                Text(
+                    text = stringResource(R.string.login),
+                    style = TextStyle(fontSize = 24.sp, fontWeight = FontWeight.Bold),
+                    modifier = Modifier.padding(start = 24.dp, bottom = 24.dp)
+                )
+                Text(
+                    text = stringResource(R.string.username),
+                    style = TextStyle(fontSize = 16.sp),
+                    modifier = Modifier.padding(start = 24.dp)
+                )
+                OutlinedTextField(
+                    modifier = Modifier
+                        .padding(start = 24.dp, bottom = 24.dp, end = 24.dp)
+                        .fillMaxWidth(),
+                    value = login,
+                    onValueChange = {
+                        login = it
+                    },
+                    leadingIcon = {
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_login),
+                            contentDescription = "logo"
+                        )
+                    },
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        focusedBorderColor = Color.hsl(2F, 0.72F, 0.53F, 1F),
+                        unfocusedBorderColor = Color.hsl(0F, 0F, 0.80F, 1F),
+                        backgroundColor = Color.White
+                    ),
+                    maxLines = 1
+                )
+                Text(
+                    text = stringResource(R.string.password),
+                    style = TextStyle(fontSize = 16.sp),
+                    modifier = Modifier.padding(start = 24.dp)
+                )
+                OutlinedTextField(
+                    modifier = Modifier
+                        .padding(start = 24.dp, bottom = 18.dp, end = 24.dp)
+                        .fillMaxWidth(),
+                    value = pass,
+                    onValueChange = {
+                    },
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        focusedBorderColor = Color.hsl(2F, 0.72F, 0.53F, 1F),
+                        unfocusedBorderColor = Color.hsl(0F, 0F, 0.80F, 1F),
+                        backgroundColor = Color.White
+                    ),
+                    leadingIcon = {
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_password),
+                            contentDescription = "logo"
+                        )
+                    },
+                    maxLines = 1
+                )
+
+                Column(
+                    modifier = Modifier
+                        .size(width = 420.dp, height = 48.dp)
+                        .padding(start = 24.dp, end = 24.dp),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Button(
+                        modifier = Modifier.fillMaxSize(),
+                        onClick = {
+                            val members = defaultDataRepository.members
+                            val member = members.firstOrNull {
+                                var userNameValue = ""
+                                it.custom.asMap()?.forEach { (key, value) ->
+                                    if (key == "username") {
+                                        userNameValue = value as String
+                                    }
+                                }
+                                userNameValue == login
+                            }
+                            if (member != null) {
+                                visible = false
+                                openChannelActivity(context, member.id, member.type)
+                            } else {
+                                visible = true
+                            }
+                        },
+                        shape = RoundedCornerShape(20),
+                        colors = ButtonDefaults.buttonColors(
+                            backgroundColor = Color.hsl(
+                                196F,
+                                0.65F,
+                                0.57F,
+                                1F
+                            )
+                        )
+                    ) {
+                        Text(
+                            text = stringResource(R.string.login),
+                            style = TextStyle(
+                                fontSize = 16.sp,
+                                color = Color.White,
+                                fontWeight = FontWeight.Bold
+                            )
+                        )
+                    }
+                }
+                AnimatedVisibility(
+                    visible = visible,
+                    enter = fadeIn(
+                        initialAlpha = 0.4f
+                    ),
+                    exit = fadeOut(
+                        animationSpec = tween(durationMillis = 250)
+                    )
+                ) {
+                    Row(modifier = Modifier.padding(top = 12.dp, start = 24.dp)) {
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_icon),
+                            contentDescription = "error icon",
+                            modifier = Modifier.padding(top = 4.dp)
+                        )
+                        Text(
+                            text = stringResource(R.string.password_error),
+                            style = TextStyle(
+                                fontSize = 16.sp,
+                                color = Color.hsl(2F, 0.72F, 0.53F, 1F)
+                            ),
+                            modifier = Modifier.padding(start = 8.dp)
+                        )
+                    }
+                }
+
+            }
+            Box(
+                modifier = Modifier
+                    .background(Color.hsl(0F, 0F, 0.96F, 1F))
+                    .align(
+                        Alignment.BottomCenter
+                    )
+            ) {
+                HyperlinkText(
+                    modifier = Modifier
+                        .padding(top = 40.dp, start = 72.dp, end = 72.dp, bottom = 30.dp),
+                    fullText = stringResource(R.string.password_info),
+                    linkText = listOf("Demo page")
+                )
+            }
+        }
+    }
+
+    private fun openChannelActivity(packageContext: Context, uuid: String, type: String) {
+        val intent =
+            Intent(packageContext, ChannelActivity::class.java).apply {
+                putExtra("uuid", uuid)
+                putExtra("type", type)
+            }
+        startActivity(packageContext, intent, null)
+    }
 }

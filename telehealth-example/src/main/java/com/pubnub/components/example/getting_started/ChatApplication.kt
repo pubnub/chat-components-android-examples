@@ -10,7 +10,7 @@ import com.google.gson.reflect.TypeToken
 import com.pubnub.components.DefaultDatabase
 import com.pubnub.components.data.Database
 import com.pubnub.components.data.membership.DBMembership
-import com.pubnub.components.example.getting_started.dto.MembershipsItem
+import com.pubnub.components.example.getting_started.dto.Membership
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -56,14 +56,14 @@ class ChatApplication : Application() {
                                 getJsonDataFromAsset(applicationContext, "memberships.json")
                             val gson = Gson()
                             var dbMembership = mutableListOf<DBMembership>()
-                            val listPersonType = object : TypeToken<List<MembershipsItem>>() {}.type
-                            var memberships: List<MembershipsItem> =
+                            val listPersonType = object : TypeToken<List<Membership>>() {}.type
+                            var memberships: List<Membership> =
                                 gson.fromJson(jsonFileString, listPersonType)
                             memberships.forEach { membership ->
                                 membership.members?.forEach {
                                     dbMembership.add(
                                         DBMembership(
-                                            channelId = membership.channel!!,
+                                            channelId = membership.channelId!!,
                                             memberId = it!!
                                         )
                                     )

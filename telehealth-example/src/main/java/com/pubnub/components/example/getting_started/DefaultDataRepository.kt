@@ -2,13 +2,14 @@ package com.pubnub.components.example.getting_started
 
 import android.content.res.Resources
 import androidx.annotation.RawRes
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.pubnub.components.data.channel.DBChannel
 import com.pubnub.components.data.member.DBMember
 
-internal class DefaultDataRepository(private val resources: Resources) {
+class DefaultDataRepository(private val resources: Resources) {
 
-    private val gson = GsonBuilder().create()
+    val gson: Gson = GsonBuilder().create()
 
     // region Default Data
     val members: Array<DBMember> = arrayOf(

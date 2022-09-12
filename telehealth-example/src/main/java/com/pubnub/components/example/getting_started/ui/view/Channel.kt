@@ -14,39 +14,32 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ExperimentalGraphicsApi
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.paging.PagingData
-import androidx.paging.insertSeparators
-import androidx.paging.map
 import com.pubnub.components.chat.ui.component.channel.ChannelList
 import com.pubnub.components.chat.ui.component.channel.ChannelListTheme
 import com.pubnub.components.chat.ui.component.channel.ChannelUi
 import com.pubnub.components.chat.ui.component.channel.LocalChannelListTheme
 import com.pubnub.components.chat.ui.component.common.ThemeDefaults
-import com.pubnub.components.chat.ui.component.message.MessageUi
 import com.pubnub.components.chat.viewmodel.channel.ChannelViewModel
 import com.pubnub.components.example.getting_started.ChatActivity
 import com.pubnub.components.example.getting_started.R
-import com.pubnub.framework.util.isSameDate
 import kotlinx.coroutines.flow.Flow
 
 object Channel {
 
-    @OptIn(ExperimentalGraphicsApi::class)
     @RequiresApi(Build.VERSION_CODES.O)
     @Composable
     internal fun Content(
         channels: Flow<PagingData<ChannelUi>>,
         onSelected: (ChannelUi.Data) -> Unit = {},
-        context: Context,
         type: String?,
-        uuid: String?
     ) {
         val customTheme = ThemeDefaults.channelList()
         val localFocusManager = LocalFocusManager.current
@@ -60,7 +53,6 @@ object Channel {
                 }
         ) {
             ChannelListTheme(customTheme) {
-                var menuVisible by remember { mutableStateOf(false) }
                 ChannelList(
                     channels = channels,
                     onSelected = onSelected,
@@ -70,8 +62,13 @@ object Channel {
                                 .fillMaxWidth()
                                 .background(color = Color.hsl(196F, 0.65F, 0.57F))
                         ) {
+                            val title = if (type == "patient"){
+                                stringResource(R.string.doctor_top_bar)
+                            } else {
+                                stringResource(R.string.patient_top_bar)
+                            }
                             Text(
-                                text = type ?: "",
+                                text = title,
                                 modifier = Modifier.padding(
                                     top = 16.dp,
                                     start = 20.dp,
@@ -82,22 +79,6 @@ object Channel {
                                 fontWeight = FontWeight.Bold
                             )
                             Spacer(modifier = Modifier.width(160.dp))
-                            Image(
-                                modifier = Modifier
-                                    .size(36.dp)
-                                    .padding(top = 16.dp)
-                                    .clickable {
-                                        menuVisible = !menuVisible
-                                    },
-                                painter = painterResource(id = R.drawable.dots),
-                                contentDescription = "logo"
-                            )
-                            DropdownOptionsMenu(
-                                visible = menuVisible,
-                                onDismiss = { menuVisible = false },
-                                context = context,
-                                uuid = uuid
-                            )
                         }
                     },
                 )
@@ -138,9 +119,7 @@ object Channel {
                     }
                     context.startActivity(intent)
                 },
-                context = context,
                 type = type,
-                uuid = uuid
             )
         }
     }

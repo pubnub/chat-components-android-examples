@@ -8,11 +8,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ExperimentalGraphicsApi
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
@@ -25,7 +23,6 @@ import androidx.paging.PagingData
 import com.pubnub.components.chat.ui.component.common.TextThemeDefaults.text
 import com.pubnub.components.chat.ui.component.common.ThemeDefaults
 import com.pubnub.components.chat.ui.component.input.MessageInput
-import com.pubnub.components.chat.ui.component.input.TypingIndicatorContent
 import com.pubnub.components.chat.ui.component.input.renderer.AnimatedTypingIndicatorRenderer
 import com.pubnub.components.chat.ui.component.menu.Copy
 import com.pubnub.components.chat.ui.component.menu.React
@@ -43,7 +40,6 @@ import kotlinx.coroutines.flow.Flow
 
 object Chat {
 
-    @OptIn(ExperimentalGraphicsApi::class)
     @Composable
     internal fun Content(
         messages: Flow<PagingData<MessageUi>>,

@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">Getting started</string>
     <string name="password_info">This is a sample app that doesn’t require a password. A list of valid usernames can be found at Demo page</string>
-
+    <string name="login">Log in</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="password_error">This username is not recognized, please check valid accounts on the Demo page</string>
+    <string name="patient_top_bar">Select Patient to talk with</string>
+    <string name="doctor_top_bar">Select Doctor to talk with</string>
 </resources>

@@ -37,15 +37,22 @@ class ChannelActivity : ComponentActivity() {
         }
     }
 
+    override fun onDestroy() {
+        destroyPubNub()
+        super.onDestroy()
+    }
+
     private fun initializePubNub(uuid: String) {
         pubNub = PubNub(
             PNConfiguration(userId = UserId(uuid)).apply {
                 publishKey = BuildConfig.PUBLISH_KEY
                 subscribeKey = BuildConfig.SUBSCRIBE_KEY
-                logVerbosity = PNLogVerbosity.BODY
+                logVerbosity = PNLogVerbosity.NONE
             }
         )
     }
 
-
+    private fun destroyPubNub() {
+        pubNub.destroy()
+    }
 }
