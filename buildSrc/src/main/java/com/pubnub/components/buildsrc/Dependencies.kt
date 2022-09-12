@@ -38,7 +38,7 @@ object Libs {
         const val test = "org.jetbrains.kotlin:kotlin-test"
 
         object Coroutines {
-            private const val version = "1.6.1"
+            private const val version = "1.6.4"
             const val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version"
             const val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$version"
             const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version"
@@ -54,7 +54,7 @@ object Libs {
             const val activityCompose = "androidx.activity:activity-compose:1.5.1"
         }
 
-        const val core = "androidx.core:core-ktx:1.7.0"
+        const val core = "androidx.core:core-ktx:1.8.0"
 
         const val appcompat = "androidx.appcompat:appcompat:1.4.2"
 
@@ -139,8 +139,10 @@ object Libs {
     }
 
     object PubNub {
-        private const val version = "7.0.0"
-        const val pubnub = "com.pubnub:pubnub-kotlin:$version"
+        private const val version = "0.2.1"
+        const val bom = "com.pubnub:pubnub-kotlin-bom:$version"
+        const val kotlin = "com.pubnub:pubnub-kotlin"
+        const val memberships = "com.pubnub:pubnub-memberships"
 
         object Components {
             const val chat = "com.pubnub.components:chat-android:0.5.0"
@@ -176,11 +178,6 @@ object Libs {
     object Retrofit {
         private const val version = "2.9.0"
         const val retrofit = "com.squareup.retrofit2:retrofit:$version"
-    }
-
-    object Jsoup {
-        private const val version = "1.14.3"
-        const val jsoup = "org.jsoup:jsoup:$version"
     }
 }
 

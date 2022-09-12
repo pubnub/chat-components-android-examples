@@ -53,6 +53,7 @@ object Chat {
             )
 
             MessageInput(
+                typingIndicatorEnabled = true,
             )
         }
     }
