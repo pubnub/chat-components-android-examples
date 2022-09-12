@@ -23,7 +23,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat.startActivity
-import androidx.core.os.bundleOf
 import com.pubnub.components.data.message.asMap
 import com.pubnub.components.example.getting_started.ChannelActivity
 import com.pubnub.components.example.getting_started.DefaultDataRepository

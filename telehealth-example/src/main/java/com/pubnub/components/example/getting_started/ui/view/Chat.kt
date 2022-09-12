@@ -89,7 +89,7 @@ object Chat {
                 ) {
                     Image(
                         modifier = Modifier
-                            .size(46.dp)
+                            .size(36.dp)
                             .padding(top = 16.dp),
                         painter = painterResource(id = R.drawable.chevron),
                         contentDescription = "logo"

@@ -19,7 +19,7 @@ import java.io.IOException
 
 class ChatApplication : Application() {
 
-    companion object{
+    companion object {
         lateinit var database: DefaultDatabase
     }
 
