@@ -5,14 +5,14 @@ object Versions {
 }
 
 object Libs {
-    const val androidGradlePlugin = "com.android.tools.build:gradle:7.1.2"
+    const val androidGradlePlugin = "com.android.tools.build:gradle:7.2.1"
     const val ktLint = "com.pinterest:ktlint:${Versions.ktLint}"
     const val jdkDesugar = "com.android.tools:desugar_jdk_libs:1.1.5"
-    const val gradleMavenPublishPlugin = "com.vanniktech:gradle-maven-publish-plugin:0.18.0"
+    const val gradleMavenPublishPlugin = "com.vanniktech:gradle-maven-publish-plugin:0.21.0"
     const val gradleVersionsPlugin = "com.github.ben-manes:gradle-versions-plugin:0.42.0"
 
     object Accompanist {
-        private const val version = "0.23.0"
+        private const val version = "0.25.0"
 
         const val swipeRefresh = "com.google.accompanist:accompanist-swiperefresh:$version"
         const val placeholder = "com.google.accompanist:accompanist-placeholder:$version"
@@ -20,7 +20,7 @@ object Libs {
     }
 
     object Coil {
-        private const val version = "1.4.0"
+        private const val version = "2.1.0"
 
         const val coil = "io.coil-kt:coil-compose:$version"
         const val coilGif = "io.coil-kt:coil-gif:$version"
@@ -29,7 +29,7 @@ object Libs {
     }
 
     object Kotlin {
-        private const val version = "1.6.10"
+        private const val version = "1.7.0"
 
         const val stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$version"
         const val reflect = "org.jetbrains.kotlin:kotlin-reflect:$version"
@@ -38,7 +38,7 @@ object Libs {
         const val test = "org.jetbrains.kotlin:kotlin-test"
 
         object Coroutines {
-            private const val version = "1.6.0"
+            private const val version = "1.6.4"
             const val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version"
             const val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$version"
             const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version"
@@ -46,27 +46,27 @@ object Libs {
     }
 
     object Google {
-        const val gson = "com.google.code.gson:gson:2.9.0"
+        const val gson = "com.google.code.gson:gson:2.9.1"
     }
 
     object AndroidX {
         object Activity {
-            const val activityCompose = "androidx.activity:activity-compose:1.4.0"
+            const val activityCompose = "androidx.activity:activity-compose:1.5.1"
         }
 
-        const val core = "androidx.core:core-ktx:1.7.0"
+        const val core = "androidx.core:core-ktx:1.8.0"
 
-        const val appcompat = "androidx.appcompat:appcompat:1.4.1"
+        const val appcompat = "androidx.appcompat:appcompat:1.4.2"
 
         const val navigation = "androidx.navigation:navigation-compose:2.4.0"
 
         const val splashscreen = "androidx.core:core-splashscreen:1.0.0"
 
-        const val datetime = "org.jetbrains.kotlinx:kotlinx-datetime:0.3.2"
+        const val datetime = "org.jetbrains.kotlinx:kotlinx-datetime:0.4.0"
 
         object Compose {
             const val snapshot = ""
-            const val version = "1.1.1"
+            const val version = "1.2.0"
 
             const val runtime = "androidx.compose.runtime:runtime:$version"
             const val runtimeLivedata = "androidx.compose.runtime:runtime-livedata:$version"
@@ -84,7 +84,7 @@ object Libs {
         }
 
         object Lifecycle {
-            private const val version = "2.4.1"
+            private const val version = "2.5.1"
             const val viewModelCompose =
                 "androidx.lifecycle:lifecycle-viewmodel-compose:$version"
             const val viewModelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:$version"
@@ -93,7 +93,7 @@ object Libs {
         }
 
         object Paging {
-            private const val version = "3.1.0"
+            private const val version = "3.1.1"
             const val runtime = "androidx.paging:paging-runtime-ktx:$version"
             const val extension = "androidx.paging:paging-compose:1.0.0-alpha14"
         }
@@ -125,7 +125,7 @@ object Libs {
     }
 
     object Hilt {
-        private const val version = "2.41"
+        private const val version = "2.43.1"
 
         const val gradlePlugin = "com.google.dagger:hilt-android-gradle-plugin:$version"
         const val android = "com.google.dagger:hilt-android:$version"
@@ -139,13 +139,13 @@ object Libs {
     }
 
     object PubNub {
-        private const val version = "0.1.0"
+        private const val version = "0.2.1"
         const val bom = "com.pubnub:pubnub-kotlin-bom:$version"
         const val kotlin = "com.pubnub:pubnub-kotlin"
         const val memberships = "com.pubnub:pubnub-memberships"
 
         object Components {
-            const val chat = "com.pubnub.components:chat-android:0.5.1"
+            const val chat = "com.pubnub.components:chat-android:0.5.0"
         }
     }
 
@@ -160,13 +160,13 @@ object Libs {
     }
 
     object MockK {
-        private const val version = "1.12.2"
+        private const val version = "1.12.5"
         const val unit = "io.mockk:mockk:$version"
         const val instrumented = "io.mockk:mockk-android:$version"
     }
 
     object Awaitility {
-        private const val version = "4.1.1"
+        private const val version = "4.2.0"
         const val kotlin = "org.awaitility:awaitility-kotlin:$version"
     }
 
@@ -176,13 +176,8 @@ object Libs {
     }
 
     object Retrofit {
-        private const val version = "2.6.2"
+        private const val version = "2.9.0"
         const val retrofit = "com.squareup.retrofit2:retrofit:$version"
-    }
-
-    object Jsoup {
-        private const val version = "1.14.3"
-        const val jsoup = "org.jsoup:jsoup:$version"
     }
 }
 

@@ -78,3 +78,4 @@ dependencies {
     androidTestImplementation(Libs.AndroidX.Compose.uiTest)
     debugImplementation(Libs.AndroidX.Compose.tooling)
 }
+tasks.register("prepareKotlinBuildScriptModel"){}
