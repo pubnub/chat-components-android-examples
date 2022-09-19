@@ -53,8 +53,8 @@ object Chat {
             )
 
             MessageInput(
-                typingIndicator = true,
-                typingIndicatorRenderer = AnimatedTypingIndicatorRenderer,
+                typingIndicatorEnabled = true,
+                typingIndicatorContent = { AnimatedTypingIndicatorRenderer.TypingIndicator(data = it) },
             )
         }
     }

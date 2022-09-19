@@ -99,7 +99,7 @@ object Libs {
         }
 
         object Room {
-            private const val version = "2.4.2"
+            private const val version = "2.4.3"
             const val runtime = "androidx.room:room-runtime:$version"
             const val compiler = "androidx.room:room-compiler:$version"
             const val paging = "androidx.room:room-paging:$version"
@@ -145,7 +145,7 @@ object Libs {
         const val memberships = "com.pubnub:pubnub-memberships"
 
         object Components {
-            const val chat = "com.pubnub.components:chat-android:0.4.2-rc4"
+            const val chat = "com.pubnub.components:chat-android:0.5.1"
         }
     }
 

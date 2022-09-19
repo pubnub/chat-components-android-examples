@@ -54,8 +54,8 @@ object Chat {
             )
 
             MessageInput(
-                typingIndicator = true,
-                typingIndicatorRenderer = AnimatedTypingIndicatorRenderer,
+                typingIndicatorEnabled = true,
+                typingIndicatorContent = { AnimatedTypingIndicatorRenderer.TypingIndicator(it) },
             )
         }
     }
@@ -69,16 +69,23 @@ object Chat {
         val messages = remember { messageViewModel.getAll() }
 
         val reactionViewModel: ReactionViewModel = ReactionViewModel.default(channelId)
+        DisposableEffect(channelId){
+            reactionViewModel.bind()
+            onDispose {
+                reactionViewModel.unbind()
+            }
+        }
         // endregion
 
         var menuVisible by remember { mutableStateOf(false) }
         var selectedMessage by remember { mutableStateOf<MessageUi.Data?>(null) }
 
+        val onDismiss: () -> Unit = { menuVisible = false}
         CompositionLocalProvider(LocalChannel provides channelId) {
             Menu(
                 visible = menuVisible,
                 message = selectedMessage,
-                onDismiss = { menuVisible = false },
+                onDismiss = onDismiss,
                 onAction = { action ->
                     when (action) {
                         is Copy -> {
@@ -87,6 +94,7 @@ object Chat {
                         is React -> reactionViewModel.reactionSelected(action)
                         else -> {}
                     }
+                    onDismiss()
                 }
             )
 

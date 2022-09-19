@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
 import com.pubnub.api.PNConfiguration
 import com.pubnub.api.PubNub
+import com.pubnub.api.UserId
+import com.pubnub.api.enums.PNLogVerbosity
 import com.pubnub.components.example.getting_started.ui.theme.AppTheme
 import com.pubnub.components.example.getting_started.ui.view.Chat
 
@@ -19,7 +21,7 @@ class ChatActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         initializePubNub()
         setContent {
-            AppTheme(pubNub = pubNub) {
+            AppTheme(pubNub = pubNub, database = ChatApplication.database) {
                 Box(modifier = Modifier.fillMaxSize()) {
                     Chat.View(Settings.channelId)
                 }
@@ -34,9 +36,10 @@ class ChatActivity : ComponentActivity() {
 
     private fun initializePubNub() {
         pubNub = PubNub(
-            PNConfiguration(uuid = Settings.userId).apply {
+            PNConfiguration(UserId(Settings.userId)).apply {
                 publishKey = BuildConfig.PUBLISH_KEY
                 subscribeKey = BuildConfig.SUBSCRIBE_KEY
+                logVerbosity = PNLogVerbosity.BODY
             }
         )
     }
