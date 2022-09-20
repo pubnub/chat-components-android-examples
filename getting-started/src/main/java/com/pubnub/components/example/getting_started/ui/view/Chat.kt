@@ -54,7 +54,6 @@ object Chat {
 
             MessageInput(
                 typingIndicatorEnabled = true,
-                typingIndicatorContent = { AnimatedTypingIndicatorRenderer.TypingIndicator(data = it) },
             )
         }
     }
@@ -64,8 +63,8 @@ object Chat {
         channelId: ChannelId,
     ) {
         // region Content data
-        val messageViewModel: MessageViewModel = MessageViewModel.defaultWithMediator(channelId)
-        val messages = remember { messageViewModel.getAll() }
+        val messageViewModel: MessageViewModel = MessageViewModel.defaultWithMediator()
+        val messages = remember(channelId) { messageViewModel.getAll(channelId) }
         // endregion
 
         CompositionLocalProvider(

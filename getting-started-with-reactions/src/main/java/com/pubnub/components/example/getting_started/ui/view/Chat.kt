@@ -55,7 +55,6 @@ object Chat {
 
             MessageInput(
                 typingIndicatorEnabled = true,
-                typingIndicatorContent = { AnimatedTypingIndicatorRenderer.TypingIndicator(it) },
             )
         }
     }
@@ -65,12 +64,12 @@ object Chat {
         channelId: ChannelId,
     ) {
         // region Content data
-        val messageViewModel: MessageViewModel = MessageViewModel.defaultWithMediator(channelId)
-        val messages = remember { messageViewModel.getAll() }
+        val messageViewModel: MessageViewModel = MessageViewModel.defaultWithMediator()
+        val messages = remember(channelId) { messageViewModel.getAll(channelId) }
 
-        val reactionViewModel: ReactionViewModel = ReactionViewModel.default(channelId)
+        val reactionViewModel: ReactionViewModel = ReactionViewModel.default()
         DisposableEffect(channelId){
-            reactionViewModel.bind()
+            reactionViewModel.bind(channelId)
             onDispose {
                 reactionViewModel.unbind()
             }
