@@ -25,7 +25,7 @@ class ChatApplication : Application() {
         database = Database.initialize(applicationContext) { it.prepopulate() }
     }
 
-    fun RoomDatabase.Builder<DefaultDatabase>.prepopulate(): RoomDatabase.Builder<DefaultDatabase> =
+    private fun RoomDatabase.Builder<DefaultDatabase>.prepopulate(): RoomDatabase.Builder<DefaultDatabase> =
         addCallback(
             object : RoomDatabase.Callback() {
                 override fun onCreate(db: SupportSQLiteDatabase) {
@@ -36,7 +36,7 @@ class ChatApplication : Application() {
         )
 
     @OptIn(DelicateCoroutinesApi::class)
-    private fun prepopulateData(){
+    private fun prepopulateData() {
         Log.e("TAG", "Database onCreate")
         // insert the data on the IO Thread
         GlobalScope.launch(Dispatchers.IO) {
@@ -44,8 +44,7 @@ class ChatApplication : Application() {
                 val channelArray = arrayOf(Settings.channelId)
 
                 // Creates user objects with uuid
-                val userIds = arrayOf("myFirstUser", "mySecondUser")
-                val members = userIds.map { userId ->
+                val members = Settings.members.map { userId ->
                     DBMember(
                         id = userId,
                         name = userId,

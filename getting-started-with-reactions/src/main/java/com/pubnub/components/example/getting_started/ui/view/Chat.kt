@@ -12,7 +12,6 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.paging.PagingData
 import com.pubnub.components.chat.ui.component.input.MessageInput
-import com.pubnub.components.chat.ui.component.input.renderer.AnimatedTypingIndicatorRenderer
 import com.pubnub.components.chat.ui.component.menu.Copy
 import com.pubnub.components.chat.ui.component.menu.React
 import com.pubnub.components.chat.ui.component.message.MessageList
@@ -68,7 +67,7 @@ object Chat {
         val messages = remember(channelId) { messageViewModel.getAll(channelId) }
 
         val reactionViewModel: ReactionViewModel = ReactionViewModel.default()
-        DisposableEffect(channelId){
+        DisposableEffect(channelId) {
             reactionViewModel.bind(channelId)
             onDispose {
                 reactionViewModel.unbind()
@@ -79,7 +78,7 @@ object Chat {
         var menuVisible by remember { mutableStateOf(false) }
         var selectedMessage by remember { mutableStateOf<MessageUi.Data?>(null) }
 
-        val onDismiss: () -> Unit = { menuVisible = false}
+        val onDismiss: () -> Unit = { menuVisible = false }
         CompositionLocalProvider(LocalChannel provides channelId) {
             Menu(
                 visible = menuVisible,

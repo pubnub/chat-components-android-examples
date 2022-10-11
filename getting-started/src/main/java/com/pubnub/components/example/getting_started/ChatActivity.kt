@@ -10,7 +10,7 @@ import com.pubnub.api.PNConfiguration
 import com.pubnub.api.PubNub
 import com.pubnub.api.UserId
 import com.pubnub.api.enums.PNLogVerbosity
-import com.pubnub.components.example.getting_started.ui.theme.*
+import com.pubnub.components.example.getting_started.ui.theme.AppTheme
 import com.pubnub.components.example.getting_started.ui.view.Chat
 
 class ChatActivity : ComponentActivity() {
