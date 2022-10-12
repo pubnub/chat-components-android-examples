@@ -15,7 +15,6 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.paging.PagingData
 import com.pubnub.components.chat.ui.component.input.MessageInput
-import com.pubnub.components.chat.ui.component.input.renderer.AnimatedTypingIndicatorRenderer
 import com.pubnub.components.chat.ui.component.message.MessageList
 import com.pubnub.components.chat.ui.component.message.MessageUi
 import com.pubnub.components.chat.ui.component.presence.Presence
@@ -63,8 +62,8 @@ object Chat {
         channelId: ChannelId,
     ) {
         // region Content data
-        val messageViewModel: MessageViewModel = MessageViewModel.defaultWithMediator(channelId)
-        val messages = remember { messageViewModel.getAll() }
+        val messageViewModel: MessageViewModel = MessageViewModel.defaultWithMediator()
+        val messages = remember(channelId) { messageViewModel.getAll(channelId) }
         // endregion
 
         CompositionLocalProvider(
