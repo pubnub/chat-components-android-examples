@@ -1,6 +1,6 @@
 # Telehealth Example
 
-`telehealth-example` is a basic chat application that features communication between doctor and patient.
+`telehealth-example` is a basic chat application that features communication between a doctor and a patient.
 
 <img src="../assets/telehealth-example.png" alt="Telehealth example for Android" style="width:300px"/> 
 
@@ -18,11 +18,11 @@ To use the app, you need:
 
 The `telehealth-example` app showcases these components and features:
 
-* [MessageInput](https://www.pubnub.com/docs/chat/components/android/ui-components-android#messageinput)
-* [MessageList](https://www.pubnub.com/docs/chat/components/android/ui-components-android#messagelist)
-* [ChannelList](https://www.pubnub.com/docs/chat/components/android/ui-components-android#channellist)
-* [MessageReactions](https://www.pubnub.com/docs/chat/components/android/message-reactions-android)
-* Message Menu (with the copying option)
+* [MessageInput](https://www.pubnub.com/docs/chat/components/android/ui-components#messageinput)
+* [MessageList](https://www.pubnub.com/docs/chat/components/android/ui-components#messagelist)
+* [ChannelList](https://www.pubnub.com/docs/chat/components/android/ui-components#channellist)
+* [Message Reactions](https://www.pubnub.com/docs/chat/components/android/message-reactions)
+* [Message Menu](https://www.pubnub.com/docs/chat/components/android/message-menu) (with the copying option)
 
 ## Usage
 
@@ -31,6 +31,7 @@ guide to learn how to use the app and better understand the logic behind it.
 
 ## Usernames
 
+You can log into the app either as a doctor or as one of the patients. Type in one of the available usernames and tap Log in. You don't need a password to log in.
 ### Patients
 
 * lukeyoung
@@ -39,5 +40,3 @@ guide to learn how to use the app and better understand the logic behind it.
 ### Doctors
 
 * suejones
-
-## Pasword is not needed
