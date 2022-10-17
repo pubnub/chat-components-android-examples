@@ -17,7 +17,7 @@ To use the app, you need:
 
 ## Usage
 
-Read the [Getting Started](https://www.pubnub.com/docs/chat/components/android/get-started)
+Read the [Getting Started](https://www.pubnub.com/docs/chat/components/android)
 guide to learn how to use the app and better understand the logic behind it.
 
 ## Features
