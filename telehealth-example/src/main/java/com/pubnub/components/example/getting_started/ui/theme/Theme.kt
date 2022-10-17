@@ -1,6 +1,5 @@
 package com.pubnub.components.example.getting_started.ui.theme
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
@@ -25,7 +24,7 @@ private val LightColorPalette = lightColors(
 
 @Composable
 fun AppTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    darkTheme: Boolean = false,
     pubNub: PubNub,
     content: @Composable() () -> Unit,
 ) {
@@ -37,7 +36,10 @@ fun AppTheme(
         typography = Typography,
         shapes = Shapes,
     ) {
-        ChatProvider(pubNub = pubNub, database = ChatApplication.database.asPubNub()) {
+        ChatProvider(
+            pubNub = pubNub,
+            database = ChatApplication.database.asPubNub(),
+        ) {
             content()
         }
     }

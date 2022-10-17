@@ -24,11 +24,11 @@ class ChatActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         val bundle = intent.extras
         val id = bundle?.getString("channelId")
-        val uuid = bundle?.getString("uuid")
+        val userId = bundle?.getString("userId")
         val patientUuid = bundle?.getString("patientUuid")
         val patientName = bundle?.getString("patientName")
         channelId = id as ChannelId
-        initializePubNub(uuid ?: "")
+        initializePubNub(userId ?: "")
         setContent {
             AppTheme(pubNub = pubNub) {
                 Box(modifier = Modifier.fillMaxSize()) {

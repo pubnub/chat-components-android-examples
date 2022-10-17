@@ -21,12 +21,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.paging.PagingData
+import androidx.paging.map
 import com.pubnub.components.chat.ui.component.channel.ChannelList
 import com.pubnub.components.chat.ui.component.channel.ChannelListTheme
 import com.pubnub.components.chat.ui.component.channel.ChannelUi
 import com.pubnub.components.chat.ui.component.channel.LocalChannelListTheme
 import com.pubnub.components.chat.ui.component.common.ThemeDefaults
+import com.pubnub.components.chat.ui.component.member.MemberUi
 import com.pubnub.components.chat.viewmodel.channel.ChannelViewModel
+import com.pubnub.components.chat.viewmodel.member.MemberViewModel
 import com.pubnub.components.example.getting_started.ChatActivity
 import com.pubnub.components.example.getting_started.R
 import kotlinx.coroutines.flow.Flow
@@ -79,7 +82,7 @@ object Channel {
                             )
                             Spacer(modifier = Modifier.width(160.dp))
                         }
-                    },
+                    }
                 )
             }
         }
@@ -99,12 +102,36 @@ object Channel {
     @Composable
     fun View(
         context: Context,
-        uuid: String?,
+        userId: String?,
         type: String?,
     ) {
         // region Content data
         val channelViewModel: ChannelViewModel = ChannelViewModel.default(context.resources)
-        val channels = remember { channelViewModel.getAll() }
+        val memberViewModel: MemberViewModel = MemberViewModel.default()
+        val channels = remember {
+            channelViewModel.getAll(transform = {
+                map { channelUi: ChannelUi ->
+                    channelUi as ChannelUi.Data
+                    val members = memberViewModel.getList(channelUi.id)
+                    var otherMember: MemberUi.Data? = null
+                    members.forEach {
+                        if (it.id != userId){
+                            otherMember = it
+                        }
+                    }
+
+                    ChannelUi.Data(
+                        id = channelUi.id,
+                        members = channelUi.members,
+                        name = otherMember?.name ?: channelUi.name,
+                        type = channelUi.type,
+                        description = otherMember?.description ?: channelUi.description,
+                        profileUrl = otherMember?.profileUrl ?: channelUi.profileUrl
+                    )
+                }
+            }
+            )
+        }
 
         CompositionLocalProvider {
             Content(
@@ -114,7 +141,7 @@ object Channel {
                         putExtra("channelId", it.id)
                         putExtra("patientUuid", it.description)
                         putExtra("patientName", it.name)
-                        putExtra("uuid", uuid)
+                        putExtra("userId", userId)
                     }
                     context.startActivity(intent)
                 },

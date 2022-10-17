@@ -20,10 +20,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.paging.PagingData
+import com.pubnub.components.chat.ui.component.common.ShapeThemeDefaults
 import com.pubnub.components.chat.ui.component.common.TextThemeDefaults.text
 import com.pubnub.components.chat.ui.component.common.ThemeDefaults
 import com.pubnub.components.chat.ui.component.input.MessageInput
-import com.pubnub.components.chat.ui.component.input.renderer.AnimatedTypingIndicatorRenderer
+import com.pubnub.components.chat.ui.component.input.TypingIndicatorContent
 import com.pubnub.components.chat.ui.component.menu.Copy
 import com.pubnub.components.chat.ui.component.menu.React
 import com.pubnub.components.chat.ui.component.message.LocalMessageListTheme
@@ -33,10 +34,12 @@ import com.pubnub.components.chat.ui.component.message.MessageUi
 import com.pubnub.components.chat.ui.component.presence.Presence
 import com.pubnub.components.chat.ui.component.provider.LocalChannel
 import com.pubnub.components.chat.viewmodel.message.MessageViewModel
+import com.pubnub.components.chat.viewmodel.message.MessageViewModel.Companion.defaultWithMediator
 import com.pubnub.components.chat.viewmodel.message.ReactionViewModel
 import com.pubnub.components.example.getting_started.R
 import com.pubnub.components.example.getting_started.ui.theme.MessageBackgroundColor
 import com.pubnub.components.example.getting_started.ui.theme.MessageOwnBackgroundColor
+import com.pubnub.components.example.getting_started.ui.theme.Shapes
 import com.pubnub.framework.data.ChannelId
 import kotlinx.coroutines.flow.Flow
 
@@ -60,6 +63,7 @@ object Chat {
                         .padding(2.dp)
 
                 ),
+                shape = ShapeThemeDefaults.shape(shape = Shapes.medium),
                 modifier = Modifier
             ),
             message = ThemeDefaults.message(
@@ -68,6 +72,7 @@ object Chat {
                         .background(color = MessageBackgroundColor)
                         .padding(2.dp)
                 ),
+                shape = ShapeThemeDefaults.shape(shape = Shapes.medium),
                 modifier = Modifier.clip(RoundedCornerShape(10.dp))
             )
         )
@@ -125,7 +130,7 @@ object Chat {
             MessageInput(
                 typingIndicatorEnabled = true,
                 typingIndicatorContent = {
-                    AnimatedTypingIndicatorRenderer.TypingIndicator(it)
+                    TypingIndicatorContent(typing = it)
                 }
             )
         }
@@ -148,10 +153,11 @@ object Chat {
         patientName: String
     ) {
         // region Content data
-        val messageViewModel: MessageViewModel = MessageViewModel.defaultWithMediator(channelId)
-        val messages = remember { messageViewModel.getAll() }
+        val messageViewModel: MessageViewModel = defaultWithMediator()
+        val messages = remember { messageViewModel.getAll(channelId) }
 
         val reactionViewModel: ReactionViewModel = ReactionViewModel.default()
+        reactionViewModel.bind(channelId)
         // endregion
 
         var menuVisible by remember { mutableStateOf(false) }

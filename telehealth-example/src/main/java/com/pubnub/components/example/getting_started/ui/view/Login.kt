@@ -201,7 +201,7 @@ object Login {
     private fun openChannelActivity(packageContext: Context, uuid: String, type: String) {
         val intent =
             Intent(packageContext, ChannelActivity::class.java).apply {
-                putExtra("uuid", uuid)
+                putExtra("userId", uuid)
                 putExtra("type", type)
             }
         startActivity(packageContext, intent, null)

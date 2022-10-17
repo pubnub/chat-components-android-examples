@@ -25,7 +25,7 @@ class ChannelActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val bundle = intent.extras
-        val uuid = bundle?.getString("uuid")
+        val uuid = bundle?.getString("userId")
         val type = bundle?.getString("type")
         initializePubNub(uuid ?: "")
         setContent {
