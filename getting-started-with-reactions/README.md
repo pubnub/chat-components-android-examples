@@ -20,14 +20,14 @@ To use the app, you need:
 
 ## Usage
 
-Read the [Message Reactions](https://www.pubnub.com/docs/chat/components/android/message-reactions-android#enable-reactions)
+Read the [Message Reactions](https://www.pubnub.com/docs/chat/components/android/message-reactions#enable-reactions)
 document to learn how to use the app and better understand the logic behind it.
 
 ## Features
 
 The `getting-started-with-reactions` app showcases these components and features:
 
-* [MessageInput](https://www.pubnub.com/docs/chat/components/android/ui-components-android#messageinput)
-* [MessageList](https://www.pubnub.com/docs/chat/components/android/ui-components-android#messagelist)
-* [MessageReactions](https://www.pubnub.com/docs/chat/components/android/message-reactions-android)
+* [MessageInput](https://www.pubnub.com/docs/chat/components/android/ui-components#messageinput)
+* [MessageList](https://www.pubnub.com/docs/chat/components/android/ui-components#messagelist)
+* [Message reactions](https://www.pubnub.com/docs/chat/components/android/message-reactions)
 * Message Menu (with the copying option)
