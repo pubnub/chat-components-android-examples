@@ -62,6 +62,7 @@ dependencies {
     api(platform(Libs.PubNub.bom))
     implementation(Libs.PubNub.kotlin)
     implementation(Libs.PubNub.memberships)
+    implementation(Libs.PubNub.coroutines)
     implementation(Libs.AndroidX.core)
     implementation(Libs.AndroidX.Compose.ui)
     implementation(Libs.AndroidX.Compose.material)

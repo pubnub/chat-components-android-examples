@@ -62,6 +62,7 @@ dependencies {
     api(platform(Libs.PubNub.bom))
     implementation(Libs.PubNub.kotlin)
     implementation(Libs.PubNub.memberships)
+    implementation(Libs.PubNub.coroutines)
     implementation(Libs.AndroidX.core)
     implementation(Libs.AndroidX.Compose.ui)
     implementation(Libs.AndroidX.Compose.material)
@@ -76,4 +77,6 @@ dependencies {
     androidTestImplementation(Libs.AndroidX.Test.espressoCore)
     androidTestImplementation(Libs.AndroidX.Compose.uiTest)
     debugImplementation(Libs.AndroidX.Compose.tooling)
+
+    implementation(Libs.Accompanist.placeholder)
 }
