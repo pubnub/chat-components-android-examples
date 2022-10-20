@@ -139,14 +139,14 @@ object Libs {
     }
 
     object PubNub {
-        private const val version = "0.3.4"
+        private const val version = "0.3.6"
         const val bom = "com.pubnub:pubnub-kotlin-bom:$version"
         const val kotlin = "com.pubnub:pubnub-kotlin"
         const val memberships = "com.pubnub:pubnub-memberships"
         const val coroutines = "com.pubnub:pubnub-coroutines"
 
         object Components {
-            const val chat = "com.pubnub.components:chat-android:0.6.0-rc3"
+            const val chat = "com.pubnub.components:chat-android:0.6.0-rc5"
         }
     }
 
