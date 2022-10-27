@@ -12,7 +12,6 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.paging.PagingData
 import com.pubnub.components.chat.ui.component.input.MessageInput
-import com.pubnub.components.chat.ui.component.input.renderer.AnimatedTypingIndicatorRenderer
 import com.pubnub.components.chat.ui.component.menu.Copy
 import com.pubnub.components.chat.ui.component.menu.React
 import com.pubnub.components.chat.ui.component.message.MessageList
@@ -64,20 +63,27 @@ object Chat {
         channelId: ChannelId,
     ) {
         // region Content data
-        val messageViewModel: MessageViewModel = MessageViewModel.defaultWithMediator(channelId)
-        val messages = remember { messageViewModel.getAll() }
+        val messageViewModel: MessageViewModel = MessageViewModel.defaultWithMediator()
+        val messages = remember(channelId) { messageViewModel.getAll(channelId) }
 
-        val reactionViewModel: ReactionViewModel = ReactionViewModel.default(channelId)
+        val reactionViewModel: ReactionViewModel = ReactionViewModel.default()
+        DisposableEffect(channelId) {
+            reactionViewModel.bind(channelId)
+            onDispose {
+                reactionViewModel.unbind()
+            }
+        }
         // endregion
 
         var menuVisible by remember { mutableStateOf(false) }
         var selectedMessage by remember { mutableStateOf<MessageUi.Data?>(null) }
 
+        val onDismiss: () -> Unit = { menuVisible = false }
         CompositionLocalProvider(LocalChannel provides channelId) {
             Menu(
                 visible = menuVisible,
                 message = selectedMessage,
-                onDismiss = { menuVisible = false },
+                onDismiss = onDismiss,
                 onAction = { action ->
                     when (action) {
                         is Copy -> {
@@ -86,6 +92,7 @@ object Chat {
                         is React -> reactionViewModel.reactionSelected(action)
                         else -> {}
                     }
+                    onDismiss()
                 }
             )
 

@@ -25,7 +25,6 @@ fun Menu(
         },
         onAction = { action ->
             onAction(action)
-            onDismiss()
         },
         onDismiss = onDismiss,
         visible = visible && message != null,

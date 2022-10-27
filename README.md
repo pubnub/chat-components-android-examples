@@ -30,4 +30,4 @@ Choose a sample application that demonstrates the use of chat components.
 For more information about PubNub Chat Components for Android, refer to:
 
 * [GitHub repository](https://github.com/pubnub/chat-components-android/blob/master/README.md)
-* [Documentation](https://www.pubnub.com/docs/chat/components/android/get-started-android)
+* [Documentation](https://www.pubnub.com/docs/chat/components/android)
