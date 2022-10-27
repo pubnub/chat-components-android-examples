@@ -16,18 +16,16 @@ import com.pubnub.components.example.telehealth.ui.theme.HyperLinkColor
 fun HyperlinkText(
     modifier: Modifier = Modifier,
     fullText: String,
-    linkText: List<String>,
     linkTextColor: Color = HyperLinkColor,
     linkTextFontWeight: FontWeight = FontWeight.Medium,
     linkTextDecoration: TextDecoration = TextDecoration.Underline,
-    hyperlinks: List<String> = listOf("https://google.com"),
-    fontSize: TextUnit = TextUnit.Unspecified
+    fontSize: TextUnit = TextUnit.Unspecified,
+    hyperlink: Hyperlink
 ) {
     val annotatedString = buildAnnotatedString {
         append(fullText)
-        linkText.forEachIndexed { index, link ->
-            val startIndex = fullText.indexOf(link)
-            val endIndex = startIndex + link.length
+            val startIndex = fullText.indexOf(hyperlink.text)
+            val endIndex = startIndex + hyperlink.text.length
             addStyle(
                 style = SpanStyle(
                     color = linkTextColor,
@@ -40,11 +38,10 @@ fun HyperlinkText(
             )
             addStringAnnotation(
                 tag = "URL",
-                annotation = hyperlinks[index],
+                annotation = hyperlink.URL,
                 start = startIndex,
                 end = endIndex
             )
-        }
         addStyle(
             style = SpanStyle(
                 fontSize = fontSize
@@ -68,3 +65,5 @@ fun HyperlinkText(
         }
     )
 }
+
+data class Hyperlink(val text: String, val URL: String)

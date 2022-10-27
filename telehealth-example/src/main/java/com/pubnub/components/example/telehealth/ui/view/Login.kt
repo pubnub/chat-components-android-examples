@@ -9,7 +9,9 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -30,6 +32,7 @@ import com.pubnub.components.example.telehealth.ChannelActivity
 import com.pubnub.components.example.telehealth.DefaultDataRepository
 import com.pubnub.components.example.telehealth.dto.Parameters
 import com.pubnub.components.example.telehealth.dto.Parameters.Companion.PARAMETERS_BUNDLE_KEY
+import com.pubnub.components.example.telehealth.ui.theme.LoginInfoBoxBackgroundColor
 
 object Login {
     @Composable
@@ -38,11 +41,13 @@ object Login {
     ) {
         var login by rememberSaveable { mutableStateOf("") }
         val pass by rememberSaveable { mutableStateOf("") }
-        Box {
+        Box(
+            modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState())
+        ) {
             var visible by remember { mutableStateOf(false) }
             Column(
                 modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Top
+                verticalArrangement = Arrangement.Top,
             ) {
                 Image(
                     modifier = Modifier
@@ -50,7 +55,7 @@ object Login {
                         .size(140.dp)
                         .align(Alignment.CenterHorizontally),
                     painter = painterResource(id = R.drawable.logo),
-                    contentDescription = "logo"
+                    contentDescription = stringResource(id = R.string.logo)
                 )
                 Text(
                     text = stringResource(R.string.login),
@@ -179,7 +184,7 @@ object Login {
                     Row(modifier = Modifier.padding(top = 12.dp, start = 24.dp)) {
                         Image(
                             painter = painterResource(id = R.drawable.ic_icon),
-                            contentDescription = "error icon",
+                            contentDescription = stringResource(id = R.string.error_icon),
                             modifier = Modifier.padding(top = 4.dp)
                         )
                         Text(
@@ -196,7 +201,7 @@ object Login {
             }
             Box(
                 modifier = Modifier
-                    .background(Color.hsl(0F, 0F, 0.96F, 1F))
+                    .background(LoginInfoBoxBackgroundColor)
                     .align(
                         Alignment.BottomCenter
                     )
@@ -205,7 +210,7 @@ object Login {
                     modifier = Modifier
                         .padding(top = 40.dp, start = 72.dp, end = 72.dp, bottom = 30.dp),
                     fullText = stringResource(R.string.password_info),
-                    linkText = listOf("Demo page")
+                    hyperlink = Hyperlink("Demo page", "https://github.com/pubnub/chat-components-android-examples/blob/telehealth-example/telehealth-example/README.md")
                 )
             }
         }

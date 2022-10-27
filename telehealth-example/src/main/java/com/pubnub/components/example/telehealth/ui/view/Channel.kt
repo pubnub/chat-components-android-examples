@@ -28,6 +28,7 @@ import com.pubnub.components.chat.ui.component.member.MemberUi
 import com.pubnub.components.chat.viewmodel.channel.ChannelViewModel
 import com.pubnub.components.example.getting_started.R
 import com.pubnub.components.example.telehealth.ChatActivity
+import com.pubnub.components.example.telehealth.clearFocusOnTap
 import com.pubnub.components.example.telehealth.dto.Parameters
 import com.pubnub.components.example.telehealth.dto.Parameters.Companion.PARAMETERS_BUNDLE_KEY
 import com.pubnub.components.example.telehealth.ui.theme.ToolbarColor
@@ -42,15 +43,10 @@ object Channel {
         onSelected: (ChannelUi.Data) -> Unit = {},
     ) {
         val customTheme = ThemeDefaults.channelList()
-        val localFocusManager = LocalFocusManager.current
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .pointerInput(Unit) {
-                    detectTapGestures(onTap = {
-                        localFocusManager.clearFocus()
-                    })
-                }
+                .clearFocusOnTap()
         ) {
             ChannelListTheme(customTheme) {
                 ChannelList(

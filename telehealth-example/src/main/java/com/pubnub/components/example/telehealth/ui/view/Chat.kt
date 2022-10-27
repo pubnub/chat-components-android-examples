@@ -6,7 +6,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -37,12 +36,9 @@ import com.pubnub.components.chat.viewmodel.message.MessageViewModel
 import com.pubnub.components.chat.viewmodel.message.MessageViewModel.Companion.defaultWithMediator
 import com.pubnub.components.chat.viewmodel.message.ReactionViewModel
 import com.pubnub.components.example.getting_started.R
+import com.pubnub.components.example.telehealth.clearFocusOnTap
 import com.pubnub.components.example.telehealth.dto.Parameters
-import com.pubnub.components.example.telehealth.ui.theme.ChatBackgroundColor
-import com.pubnub.components.example.telehealth.ui.theme.MessageBackgroundColor
-import com.pubnub.components.example.telehealth.ui.theme.MessageOwnBackgroundColor
-import com.pubnub.components.example.telehealth.ui.theme.Shapes
-import com.pubnub.framework.data.ChannelId
+import com.pubnub.components.example.telehealth.ui.theme.*
 import kotlinx.coroutines.flow.Flow
 
 object Chat {
@@ -57,38 +53,11 @@ object Chat {
         onReactionSelected: ((React) -> Unit)? = null,
     ) {
 
-        val customTheme = ThemeDefaults.messageList(
-            messageOwn = ThemeDefaults.message(
-                text = text(
-                    Modifier
-                        .background(color = MessageOwnBackgroundColor)
-                        .padding(2.dp)
-
-                ),
-                shape = ShapeThemeDefaults.shape(shape = Shapes.medium),
-                modifier = Modifier.fillMaxSize()
-            ),
-            message = ThemeDefaults.message(
-                text = text(
-                    modifier = Modifier
-                        .background(color = MessageBackgroundColor)
-                        .padding(2.dp)
-                ),
-                shape = ShapeThemeDefaults.shape(shape = Shapes.medium),
-                modifier = Modifier
-                    .clip(RoundedCornerShape(8.dp))
-                    .fillMaxSize()
-            )
-        )
-        val localFocusManager = LocalFocusManager.current
+        val customTheme = chatMessageTheme()
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .pointerInput(Unit) {
-                    detectTapGestures(onTap = {
-                        localFocusManager.clearFocus()
-                    })
-                }
+                .clearFocusOnTap()
         ) {
             MessageListTheme(customTheme) {
                 Row(
@@ -145,7 +114,8 @@ object Chat {
         parameters: Parameters,
     ) {
         val messageViewModel: MessageViewModel = defaultWithMediator()
-        val messages = remember(parameters.channelId) { messageViewModel.getAll(parameters.channelId) }
+        val messages =
+            remember(parameters.channelId) { messageViewModel.getAll(parameters.channelId) }
 
         val reactionViewModel: ReactionViewModel = ReactionViewModel.default()
         DisposableEffect(parameters.channelId) {
@@ -158,11 +128,12 @@ object Chat {
         var menuVisible by remember { mutableStateOf(false) }
         var selectedMessage by remember { mutableStateOf<MessageUi.Data?>(null) }
 
+        val onDismiss: () -> Unit = { menuVisible = false }
         CompositionLocalProvider(LocalChannel provides parameters.channelId) {
             Menu(
                 visible = menuVisible,
                 message = selectedMessage,
-                onDismiss = { menuVisible = false },
+                onDismiss = onDismiss,
                 onAction = { action ->
                     when (action) {
                         is Copy -> {
@@ -173,6 +144,7 @@ object Chat {
                         is React -> reactionViewModel.reactionSelected(action)
                         else -> {}
                     }
+                    onDismiss()
                 }
             )
 
@@ -194,5 +166,13 @@ object Chat {
 @Composable
 @Preview
 private fun ChatPreview() {
-    Chat.View(parameters = Parameters("123456", type = "patient", "channel", "654321", "Example Name"))
+    Chat.View(
+        parameters = Parameters(
+            "123456",
+            type = "patient",
+            "channel",
+            "654321",
+            "Example Name"
+        )
+    )
 }

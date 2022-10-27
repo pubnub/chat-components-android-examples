@@ -8,4 +8,6 @@
     <string name="patient_top_bar">Select Patient to talk with</string>
     <string name="doctor_top_bar">Select Doctor to talk with</string>
     <string name="logo">logo</string>
+    <string name="error_icon">error icon</string>
+
 </resources>
