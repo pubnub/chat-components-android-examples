@@ -25,9 +25,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat.startActivity
 import com.pubnub.components.data.message.asMap
+import com.pubnub.components.example.getting_started.R
 import com.pubnub.components.example.telehealth.ChannelActivity
 import com.pubnub.components.example.telehealth.DefaultDataRepository
-import com.pubnub.components.example.getting_started.R
 import com.pubnub.components.example.telehealth.dto.Parameters
 import com.pubnub.components.example.telehealth.dto.Parameters.Companion.PARAMETERS_BUNDLE_KEY
 
@@ -81,7 +81,8 @@ object Login {
                         unfocusedBorderColor = Color.hsl(0F, 0F, 0.80F, 1F),
                         backgroundColor = Color.White
                     ),
-                    maxLines = 1
+                    maxLines = 1,
+                    singleLine = true
                 )
                 Text(
                     text = stringResource(R.string.password),
@@ -106,7 +107,8 @@ object Login {
                             contentDescription = "logo"
                         )
                     },
-                    maxLines = 1
+                    maxLines = 1,
+                    singleLine = true
                 )
                 val context = LocalContext.current
                 Column(
@@ -131,7 +133,16 @@ object Login {
                             }
                             if (member != null) {
                                 visible = false
-                                openChannelActivity(context, Parameters(userId = member.id, type = member.type))
+                                openChannelActivity(
+                                    context,
+                                    Parameters(
+                                        userId = member.id,
+                                        type = member.type,
+                                        channelId = "",
+                                        secondUserName = "",
+                                        secondUserId = ""
+                                    )
+                                )
                             } else {
                                 visible = true
                             }

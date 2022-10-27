@@ -29,6 +29,7 @@ import com.pubnub.components.chat.viewmodel.channel.ChannelViewModel
 import com.pubnub.components.example.getting_started.R
 import com.pubnub.components.example.telehealth.ChatActivity
 import com.pubnub.components.example.telehealth.dto.Parameters
+import com.pubnub.components.example.telehealth.dto.Parameters.Companion.PARAMETERS_BUNDLE_KEY
 import com.pubnub.components.example.telehealth.ui.theme.ToolbarColor
 import kotlinx.coroutines.flow.Flow
 
@@ -120,11 +121,15 @@ object Channel {
             Content(
                 channels = channels,
                 onSelected = {
+                    val chatParameters = Parameters(
+                        channelId = it.id,
+                        secondUserId = it.description ?: "",
+                        secondUserName = it.name,
+                        userId = parameters.userId,
+                        type = parameters.type
+                    )
                     val intent = Intent(context, ChatActivity::class.java).apply {
-                        putExtra("channelId", it.id)
-                        putExtra("patientId", it.description)
-                        putExtra("patientName", it.name)
-                        putExtra("userId", parameters.userId)
+                        putExtra(PARAMETERS_BUNDLE_KEY, chatParameters)
                     }
                     context.startActivity(intent)
                 },

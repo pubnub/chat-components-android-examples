@@ -37,6 +37,7 @@ import com.pubnub.components.chat.viewmodel.message.MessageViewModel
 import com.pubnub.components.chat.viewmodel.message.MessageViewModel.Companion.defaultWithMediator
 import com.pubnub.components.chat.viewmodel.message.ReactionViewModel
 import com.pubnub.components.example.getting_started.R
+import com.pubnub.components.example.telehealth.dto.Parameters
 import com.pubnub.components.example.telehealth.ui.theme.ChatBackgroundColor
 import com.pubnub.components.example.telehealth.ui.theme.MessageBackgroundColor
 import com.pubnub.components.example.telehealth.ui.theme.MessageOwnBackgroundColor
@@ -141,16 +142,14 @@ object Chat {
 
     @Composable
     fun View(
-        channelId: ChannelId,
-        patientId: String,
-        patientName: String
+        parameters: Parameters,
     ) {
         val messageViewModel: MessageViewModel = defaultWithMediator()
-        val messages = remember(channelId) { messageViewModel.getAll(channelId) }
+        val messages = remember(parameters.channelId) { messageViewModel.getAll(parameters.channelId) }
 
         val reactionViewModel: ReactionViewModel = ReactionViewModel.default()
-        DisposableEffect(channelId) {
-            reactionViewModel.bind(channelId)
+        DisposableEffect(parameters.channelId) {
+            reactionViewModel.bind(parameters.channelId)
             onDispose {
                 reactionViewModel.unbind()
             }
@@ -159,7 +158,7 @@ object Chat {
         var menuVisible by remember { mutableStateOf(false) }
         var selectedMessage by remember { mutableStateOf<MessageUi.Data?>(null) }
 
-        CompositionLocalProvider(LocalChannel provides channelId) {
+        CompositionLocalProvider(LocalChannel provides parameters.channelId) {
             Menu(
                 visible = menuVisible,
                 message = selectedMessage,
@@ -185,8 +184,8 @@ object Chat {
                     menuVisible = true
                 },
                 onReactionSelected = reactionViewModel::reactionSelected,
-                patientId = patientId,
-                patientName = patientName
+                patientId = parameters.secondUserId,
+                patientName = parameters.secondUserName
             )
         }
     }
@@ -195,5 +194,5 @@ object Chat {
 @Composable
 @Preview
 private fun ChatPreview() {
-    Chat.View("channel.lobby", "123456", "Example Name")
+    Chat.View(parameters = Parameters("123456", type = "patient", "channel", "654321", "Example Name"))
 }

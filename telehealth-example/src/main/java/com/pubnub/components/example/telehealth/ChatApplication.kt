@@ -49,39 +49,14 @@ class ChatApplication : Application() {
                             val channels = defaultDataRepository.channels
                             Log.e("DATABASE", "Add Channels $channels")
                             channelDao().insertOrUpdate(*channels)
-                            val jsonFileString =
-                                getJsonDataFromAsset(applicationContext, "memberships.json")
-                            val gson = Gson()
-                            var dbMembership = mutableListOf<DBMembership>()
-                            val listPersonType = object : TypeToken<List<Membership>>() {}.type
-                            var memberships: List<Membership> =
-                                gson.fromJson(jsonFileString, listPersonType)
-                            memberships.forEach { membership ->
-                                membership.members.forEach {
-                                    dbMembership.add(
-                                        DBMembership(
-                                            channelId = membership.channelId,
-                                            memberId = it
-                                        )
-                                    )
-                                }
-                            }
-                            membershipDao().insertOrUpdate(*dbMembership.toTypedArray())
+                            val memberships = defaultDataRepository.getDBMemberships()
+                            membershipDao().insertOrUpdate(*memberships.toTypedArray())
                         }
                     }
                 }
             }
         )
 
-    fun getJsonDataFromAsset(context: Context, fileName: String): String? {
-        val jsonString: String
-        try {
-            jsonString = context.assets.open(fileName).bufferedReader().use { it.readText() }
-        } catch (ioException: IOException) {
-            ioException.printStackTrace()
-            return null
-        }
-        return jsonString
-    }
+
 
 }
