@@ -7,4 +7,5 @@
     <string name="password_error">This username is not recognized, please check valid accounts on the Demo page</string>
     <string name="patient_top_bar">Select Patient to talk with</string>
     <string name="doctor_top_bar">Select Doctor to talk with</string>
+    <string name="logo">logo</string>
 </resources>

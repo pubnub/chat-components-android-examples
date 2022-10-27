@@ -1,4 +1,4 @@
-package com.pubnub.components.example.getting_started.ui.view
+package com.pubnub.components.example.telehealth.ui.view
 
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.runtime.Composable
@@ -10,13 +10,14 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.TextUnit
+import com.pubnub.components.example.telehealth.ui.theme.HyperLinkColor
 
 @Composable
 fun HyperlinkText(
     modifier: Modifier = Modifier,
     fullText: String,
     linkText: List<String>,
-    linkTextColor: Color = Color.hsl(196F, 0.65F, 0.57F, 1F),
+    linkTextColor: Color = HyperLinkColor,
     linkTextFontWeight: FontWeight = FontWeight.Medium,
     linkTextDecoration: TextDecoration = TextDecoration.Underline,
     hyperlinks: List<String> = listOf("https://google.com"),

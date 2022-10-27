@@ -1,4 +1,4 @@
-package com.pubnub.components.example.getting_started
+package com.pubnub.components.example.telehealth
 
 import android.app.Application
 import android.content.Context
@@ -10,7 +10,7 @@ import com.google.gson.reflect.TypeToken
 import com.pubnub.components.DefaultDatabase
 import com.pubnub.components.data.Database
 import com.pubnub.components.data.membership.DBMembership
-import com.pubnub.components.example.getting_started.dto.Membership
+import com.pubnub.components.example.telehealth.dto.Membership
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -30,12 +30,11 @@ class ChatApplication : Application() {
     }
 
     @OptIn(DelicateCoroutinesApi::class)
-    fun RoomDatabase.Builder<DefaultDatabase>.prepopulate(context: Context): RoomDatabase.Builder<DefaultDatabase> =
+    private fun RoomDatabase.Builder<DefaultDatabase>.prepopulate(context: Context): RoomDatabase.Builder<DefaultDatabase> =
         addCallback(
             object : RoomDatabase.Callback() {
                 override fun onCreate(db: SupportSQLiteDatabase) {
                     super.onCreate(db)
-
 
                     val defaultDataRepository = DefaultDataRepository(context.resources)
 
@@ -49,8 +48,6 @@ class ChatApplication : Application() {
                             memberDao().insertOrUpdate(*members)
                             val channels = defaultDataRepository.channels
                             Log.e("DATABASE", "Add Channels $channels")
-                            println("Add members $members")
-                            println("Add Channels $channels")
                             channelDao().insertOrUpdate(*channels)
                             val jsonFileString =
                                 getJsonDataFromAsset(applicationContext, "memberships.json")
@@ -60,16 +57,15 @@ class ChatApplication : Application() {
                             var memberships: List<Membership> =
                                 gson.fromJson(jsonFileString, listPersonType)
                             memberships.forEach { membership ->
-                                membership.members?.forEach {
+                                membership.members.forEach {
                                     dbMembership.add(
                                         DBMembership(
-                                            channelId = membership.channelId!!,
-                                            memberId = it!!
+                                            channelId = membership.channelId,
+                                            memberId = it
                                         )
                                     )
                                 }
                             }
-                            println("Add memberships $dbMembership")
                             membershipDao().insertOrUpdate(*dbMembership.toTypedArray())
                         }
                     }

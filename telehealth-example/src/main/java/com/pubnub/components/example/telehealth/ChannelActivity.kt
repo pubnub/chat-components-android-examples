@@ -1,4 +1,4 @@
-package com.pubnub.components.example.getting_started
+package com.pubnub.components.example.telehealth
 
 import android.os.Build
 import android.os.Bundle
@@ -12,10 +12,11 @@ import com.pubnub.api.PNConfiguration
 import com.pubnub.api.PubNub
 import com.pubnub.api.UserId
 import com.pubnub.api.enums.PNLogVerbosity
-import com.pubnub.components.example.getting_started.ui.theme.AppTheme
-import com.pubnub.components.example.getting_started.ui.view.Channel
-
-//import com.pubnub.api.UserId
+import com.pubnub.components.example.getting_started.BuildConfig
+import com.pubnub.components.example.telehealth.dto.Parameters
+import com.pubnub.components.example.telehealth.dto.Parameters.Companion.PARAMETERS_BUNDLE_KEY
+import com.pubnub.components.example.telehealth.ui.theme.AppTheme
+import com.pubnub.components.example.telehealth.ui.view.Channel
 
 class ChannelActivity : ComponentActivity() {
 
@@ -24,14 +25,14 @@ class ChannelActivity : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val bundle = intent.extras
-        val uuid = bundle?.getString("userId")
-        val type = bundle?.getString("type")
-        initializePubNub(uuid ?: "")
+        val parameters = intent.extras?.getParcelable<Parameters>(PARAMETERS_BUNDLE_KEY)
+        parameters?.userId?.let { initializePubNub(it) }
         setContent {
             AppTheme(pubNub = pubNub) {
                 Box(modifier = Modifier.fillMaxSize()) {
-                    Channel.View(context = this@ChannelActivity, uuid, type)
+                    if (parameters != null) {
+                        Channel.View(parameters)
+                    }
                 }
             }
         }
@@ -55,4 +56,6 @@ class ChannelActivity : ComponentActivity() {
     private fun destroyPubNub() {
         pubNub.destroy()
     }
+
+    companion object
 }

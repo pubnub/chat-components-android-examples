@@ -1,4 +1,4 @@
-package com.pubnub.components.example.getting_started
+package com.pubnub.components.example.telehealth
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,8 +10,9 @@ import com.pubnub.api.PNConfiguration
 import com.pubnub.api.PubNub
 import com.pubnub.api.UserId
 import com.pubnub.api.enums.PNLogVerbosity
-import com.pubnub.components.example.getting_started.ui.theme.AppTheme
-import com.pubnub.components.example.getting_started.ui.view.Chat
+import com.pubnub.components.example.getting_started.BuildConfig
+import com.pubnub.components.example.telehealth.ui.theme.AppTheme
+import com.pubnub.components.example.telehealth.ui.view.Chat
 import com.pubnub.framework.data.ChannelId
 
 class ChatActivity : ComponentActivity() {
@@ -25,14 +26,14 @@ class ChatActivity : ComponentActivity() {
         val bundle = intent.extras
         val id = bundle?.getString("channelId")
         val userId = bundle?.getString("userId")
-        val patientUuid = bundle?.getString("patientUuid")
+        val patientId = bundle?.getString("patientId") ?: ""
         val patientName = bundle?.getString("patientName")
         channelId = id as ChannelId
         initializePubNub(userId ?: "")
         setContent {
             AppTheme(pubNub = pubNub) {
                 Box(modifier = Modifier.fillMaxSize()) {
-                    Chat.View(channelId, patientUuid ?: "", patientName ?: "")
+                    Chat.View(channelId, patientId, patientName ?: "")
                 }
             }
         }

@@ -1,4 +1,4 @@
-package com.pubnub.components.example.getting_started
+package com.pubnub.components.example.telehealth
 
 import android.content.res.Resources
 import androidx.annotation.RawRes
@@ -6,6 +6,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.pubnub.components.data.channel.DBChannel
 import com.pubnub.components.data.member.DBMember
+import com.pubnub.components.example.getting_started.R
 
 class DefaultDataRepository(private val resources: Resources) {
 

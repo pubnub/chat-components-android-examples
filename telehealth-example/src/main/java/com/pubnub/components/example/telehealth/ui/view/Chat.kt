@@ -1,8 +1,9 @@
-package com.pubnub.components.example.getting_started.ui.view
+package com.pubnub.components.example.telehealth.ui.view
 
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -14,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -24,10 +26,8 @@ import com.pubnub.components.chat.ui.component.common.ShapeThemeDefaults
 import com.pubnub.components.chat.ui.component.common.TextThemeDefaults.text
 import com.pubnub.components.chat.ui.component.common.ThemeDefaults
 import com.pubnub.components.chat.ui.component.input.MessageInput
-import com.pubnub.components.chat.ui.component.input.TypingIndicatorContent
 import com.pubnub.components.chat.ui.component.menu.Copy
 import com.pubnub.components.chat.ui.component.menu.React
-import com.pubnub.components.chat.ui.component.message.LocalMessageListTheme
 import com.pubnub.components.chat.ui.component.message.MessageList
 import com.pubnub.components.chat.ui.component.message.MessageListTheme
 import com.pubnub.components.chat.ui.component.message.MessageUi
@@ -37,9 +37,10 @@ import com.pubnub.components.chat.viewmodel.message.MessageViewModel
 import com.pubnub.components.chat.viewmodel.message.MessageViewModel.Companion.defaultWithMediator
 import com.pubnub.components.chat.viewmodel.message.ReactionViewModel
 import com.pubnub.components.example.getting_started.R
-import com.pubnub.components.example.getting_started.ui.theme.MessageBackgroundColor
-import com.pubnub.components.example.getting_started.ui.theme.MessageOwnBackgroundColor
-import com.pubnub.components.example.getting_started.ui.theme.Shapes
+import com.pubnub.components.example.telehealth.ui.theme.ChatBackgroundColor
+import com.pubnub.components.example.telehealth.ui.theme.MessageBackgroundColor
+import com.pubnub.components.example.telehealth.ui.theme.MessageOwnBackgroundColor
+import com.pubnub.components.example.telehealth.ui.theme.Shapes
 import com.pubnub.framework.data.ChannelId
 import kotlinx.coroutines.flow.Flow
 
@@ -48,11 +49,11 @@ object Chat {
     @Composable
     internal fun Content(
         messages: Flow<PagingData<MessageUi>>,
-        presence: Presence? = null,
         onMessageSelected: (MessageUi.Data) -> Unit,
+        patientId: String,
+        patientName: String,
+        presence: Presence? = null,
         onReactionSelected: ((React) -> Unit)? = null,
-        patientUUID: String,
-        patientName: String
     ) {
 
         val customTheme = ThemeDefaults.messageList(
@@ -64,7 +65,7 @@ object Chat {
 
                 ),
                 shape = ShapeThemeDefaults.shape(shape = Shapes.medium),
-                modifier = Modifier
+                modifier = Modifier.fillMaxSize()
             ),
             message = ThemeDefaults.message(
                 text = text(
@@ -73,7 +74,9 @@ object Chat {
                         .padding(2.dp)
                 ),
                 shape = ShapeThemeDefaults.shape(shape = Shapes.medium),
-                modifier = Modifier.clip(RoundedCornerShape(10.dp))
+                modifier = Modifier
+                    .clip(RoundedCornerShape(8.dp))
+                    .fillMaxSize()
             )
         )
         val localFocusManager = LocalFocusManager.current
@@ -90,14 +93,17 @@ object Chat {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(color = Color.hsl(196F, 0.65F, 0.57F))
+                        .background(color = ChatBackgroundColor)
                 ) {
                     Image(
                         modifier = Modifier
                             .size(36.dp)
-                            .padding(top = 16.dp),
+                            .padding(top = 16.dp)
+                            .clickable {
+
+                            },
                         painter = painterResource(id = R.drawable.chevron),
-                        contentDescription = "logo"
+                        contentDescription = stringResource(id = R.string.logo),
                     )
                     Spacer(modifier = Modifier.width(80.dp))
                     Column {
@@ -109,7 +115,7 @@ object Chat {
                             fontWeight = FontWeight.Bold
                         )
                         Text(
-                            text = patientUUID,
+                            text = patientId,
                             modifier = Modifier.padding(start = 20.dp, bottom = 10.dp),
                             color = Color.White,
                             fontSize = 16.sp,
@@ -129,36 +135,26 @@ object Chat {
             }
             MessageInput(
                 typingIndicatorEnabled = true,
-                typingIndicatorContent = {
-                    TypingIndicatorContent(typing = it)
-                }
             )
-        }
-    }
-
-    @Composable
-    fun MessageListTheme(
-        theme: MessageListTheme,
-        content: @Composable() () -> Unit,
-    ) {
-        CompositionLocalProvider(LocalMessageListTheme provides theme) {
-            content()
         }
     }
 
     @Composable
     fun View(
         channelId: ChannelId,
-        patientUUID: String,
+        patientId: String,
         patientName: String
     ) {
-        // region Content data
         val messageViewModel: MessageViewModel = defaultWithMediator()
-        val messages = remember { messageViewModel.getAll(channelId) }
+        val messages = remember(channelId) { messageViewModel.getAll(channelId) }
 
         val reactionViewModel: ReactionViewModel = ReactionViewModel.default()
-        reactionViewModel.bind(channelId)
-        // endregion
+        DisposableEffect(channelId) {
+            reactionViewModel.bind(channelId)
+            onDispose {
+                reactionViewModel.unbind()
+            }
+        }
 
         var menuVisible by remember { mutableStateOf(false) }
         var selectedMessage by remember { mutableStateOf<MessageUi.Data?>(null) }
@@ -189,7 +185,7 @@ object Chat {
                     menuVisible = true
                 },
                 onReactionSelected = reactionViewModel::reactionSelected,
-                patientUUID = patientUUID,
+                patientId = patientId,
                 patientName = patientName
             )
         }
@@ -199,5 +195,5 @@ object Chat {
 @Composable
 @Preview
 private fun ChatPreview() {
-    Chat.View("channel.lobby", "", "")
+    Chat.View("channel.lobby", "123456", "Example Name")
 }

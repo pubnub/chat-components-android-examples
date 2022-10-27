@@ -1,4 +1,4 @@
-package com.pubnub.components.example.getting_started.ui.view
+package com.pubnub.components.example.telehealth.ui.view
 
 import androidx.compose.runtime.Composable
 import com.pubnub.components.chat.ui.component.menu.BottomMenu

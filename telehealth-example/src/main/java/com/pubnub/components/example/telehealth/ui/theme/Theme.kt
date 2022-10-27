@@ -1,4 +1,4 @@
-package com.pubnub.components.example.getting_started.ui.theme
+package com.pubnub.components.example.telehealth.ui.theme
 
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
@@ -8,7 +8,7 @@ import androidx.compose.ui.graphics.Color
 import com.pubnub.api.PubNub
 import com.pubnub.components.asPubNub
 import com.pubnub.components.chat.provider.ChatProvider
-import com.pubnub.components.example.getting_started.ChatApplication
+import com.pubnub.components.example.telehealth.ChatApplication
 
 private val DarkColorPalette = darkColors(
     primary = Purple200,
@@ -24,8 +24,8 @@ private val LightColorPalette = lightColors(
 
 @Composable
 fun AppTheme(
-    darkTheme: Boolean = false,
     pubNub: PubNub,
+    darkTheme: Boolean = false,
     content: @Composable() () -> Unit,
 ) {
     val colors = if (darkTheme) DarkColorPalette
@@ -44,3 +44,5 @@ fun AppTheme(
         }
     }
 }
+
+

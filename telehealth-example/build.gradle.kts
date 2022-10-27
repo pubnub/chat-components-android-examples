@@ -3,6 +3,7 @@ import com.pubnub.components.buildsrc.Libs
 plugins {
     id("com.android.application")
     id("kotlin-android")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -72,8 +73,6 @@ dependencies {
     implementation(Libs.AndroidX.Activity.activityCompose)
     implementation(Libs.Coil.coil)
     implementation(Libs.JakeWharton.timber)
-    implementation("androidx.appcompat:appcompat:1.4.2")
-    implementation("com.google.android.material:material:1.6.1")
     implementation(Libs.AndroidX.datetime)
 
     implementation(Libs.Accompanist.placeholder)

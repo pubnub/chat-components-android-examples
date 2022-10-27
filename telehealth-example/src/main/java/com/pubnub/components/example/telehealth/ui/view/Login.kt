@@ -1,4 +1,4 @@
-package com.pubnub.components.example.getting_started.ui.view
+package com.pubnub.components.example.telehealth.ui.view
 
 import android.content.Context
 import android.content.Intent
@@ -16,6 +16,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -24,14 +25,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat.startActivity
 import com.pubnub.components.data.message.asMap
-import com.pubnub.components.example.getting_started.ChannelActivity
-import com.pubnub.components.example.getting_started.DefaultDataRepository
+import com.pubnub.components.example.telehealth.ChannelActivity
+import com.pubnub.components.example.telehealth.DefaultDataRepository
 import com.pubnub.components.example.getting_started.R
+import com.pubnub.components.example.telehealth.dto.Parameters
+import com.pubnub.components.example.telehealth.dto.Parameters.Companion.PARAMETERS_BUNDLE_KEY
 
 object Login {
     @Composable
     fun View(
-        context: Context,
         defaultDataRepository: DefaultDataRepository
     ) {
         var login by rememberSaveable { mutableStateOf("") }
@@ -106,7 +108,7 @@ object Login {
                     },
                     maxLines = 1
                 )
-
+                val context = LocalContext.current
                 Column(
                     modifier = Modifier
                         .size(width = 420.dp, height = 48.dp)
@@ -129,7 +131,7 @@ object Login {
                             }
                             if (member != null) {
                                 visible = false
-                                openChannelActivity(context, member.id, member.type)
+                                openChannelActivity(context, Parameters(userId = member.id, type = member.type))
                             } else {
                                 visible = true
                             }
@@ -198,11 +200,10 @@ object Login {
         }
     }
 
-    private fun openChannelActivity(packageContext: Context, uuid: String, type: String) {
+    private fun openChannelActivity(packageContext: Context, parameters: Parameters) {
         val intent =
             Intent(packageContext, ChannelActivity::class.java).apply {
-                putExtra("userId", uuid)
-                putExtra("type", type)
+                putExtra(PARAMETERS_BUNDLE_KEY, parameters)
             }
         startActivity(packageContext, intent, null)
     }
