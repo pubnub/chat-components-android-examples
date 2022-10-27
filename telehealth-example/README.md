@@ -26,8 +26,7 @@ The `telehealth-example` app showcases these components and features:
 
 ## Usage
 
-Read the [Getting Started](https://www.pubnub.com/docs/chat/components/android/get-started-android)
-guide to learn how to use the app and better understand the logic behind it.
+Read the [tutorial](https://www.pubnub.com/tutorials/cross-platform-chat-application-telehealth-android/) to learn how to use the app and better understand the logic behind it.
 
 ## Usernames
 
