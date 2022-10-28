@@ -11,6 +11,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -23,32 +25,37 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat.startActivity
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.pubnub.components.data.message.asMap
 import com.pubnub.components.example.getting_started.R
 import com.pubnub.components.example.telehealth.ChannelActivity
-import com.pubnub.components.example.telehealth.DefaultDataRepository
 import com.pubnub.components.example.telehealth.dto.Parameters
 import com.pubnub.components.example.telehealth.dto.Parameters.Companion.PARAMETERS_BUNDLE_KEY
-import com.pubnub.components.example.telehealth.ui.theme.LoginInfoBoxBackgroundColor
+import com.pubnub.components.example.telehealth.ui.theme.*
+import com.pubnub.components.example.telehealth.viewmodel.LoginViewModel
 
 object Login {
     @Composable
     fun View(
-        defaultDataRepository: DefaultDataRepository
     ) {
         var login by rememberSaveable { mutableStateOf("") }
         val pass by rememberSaveable { mutableStateOf("") }
+        val loginViewModel: LoginViewModel = viewModel()
         Box(
-            modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState())
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
         ) {
             var visible by remember { mutableStateOf(false) }
             Column(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.Top,
             ) {
+                val context = LocalContext.current
                 Image(
                     modifier = Modifier
                         .padding(top = 50.dp)
@@ -59,12 +66,12 @@ object Login {
                 )
                 Text(
                     text = stringResource(R.string.login),
-                    style = TextStyle(fontSize = 24.sp, fontWeight = FontWeight.Bold),
+                    style = Typography.h2,
                     modifier = Modifier.padding(start = 24.dp, bottom = 24.dp)
                 )
                 Text(
                     text = stringResource(R.string.username),
-                    style = TextStyle(fontSize = 16.sp),
+                    style = Typography.h3,
                     modifier = Modifier.padding(start = 24.dp)
                 )
                 OutlinedTextField(
@@ -87,11 +94,17 @@ object Login {
                         backgroundColor = Color.White
                     ),
                     maxLines = 1,
-                    singleLine = true
+                    singleLine = true,
+                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                    keyboardActions = KeyboardActions(
+                        onDone = {
+                            visible = tryToLogin(loginViewModel, login, context)
+                        }
+                    )
                 )
                 Text(
                     text = stringResource(R.string.password),
-                    style = TextStyle(fontSize = 16.sp),
+                    style = Typography.h3,
                     modifier = Modifier.padding(start = 24.dp)
                 )
                 OutlinedTextField(
@@ -102,8 +115,8 @@ object Login {
                     onValueChange = {
                     },
                     colors = TextFieldDefaults.outlinedTextFieldColors(
-                        focusedBorderColor = Color.hsl(2F, 0.72F, 0.53F, 1F),
-                        unfocusedBorderColor = Color.hsl(0F, 0F, 0.80F, 1F),
+                        focusedBorderColor = FocusedBorderColor,
+                        unfocusedBorderColor = UnfocusedBorderColor,
                         backgroundColor = Color.White
                     ),
                     leadingIcon = {
@@ -113,9 +126,14 @@ object Login {
                         )
                     },
                     maxLines = 1,
-                    singleLine = true
+                    singleLine = true,
+                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                    keyboardActions = KeyboardActions(
+                        onDone = {
+                            visible = tryToLogin(loginViewModel, login, context)
+                        }
+                    )
                 )
-                val context = LocalContext.current
                 Column(
                     modifier = Modifier
                         .size(width = 420.dp, height = 48.dp)
@@ -126,49 +144,16 @@ object Login {
                     Button(
                         modifier = Modifier.fillMaxSize(),
                         onClick = {
-                            val members = defaultDataRepository.members
-                            val member = members.firstOrNull {
-                                var userNameValue = ""
-                                it.custom.asMap()?.forEach { (key, value) ->
-                                    if (key == "username") {
-                                        userNameValue = value as String
-                                    }
-                                }
-                                userNameValue == login
-                            }
-                            if (member != null) {
-                                visible = false
-                                openChannelActivity(
-                                    context,
-                                    Parameters(
-                                        userId = member.id,
-                                        type = member.type,
-                                        channelId = "",
-                                        secondUserName = "",
-                                        secondUserId = ""
-                                    )
-                                )
-                            } else {
-                                visible = true
-                            }
+                            visible = tryToLogin(loginViewModel, login, context)
                         },
                         shape = RoundedCornerShape(20),
                         colors = ButtonDefaults.buttonColors(
-                            backgroundColor = Color.hsl(
-                                196F,
-                                0.65F,
-                                0.57F,
-                                1F
-                            )
+                            backgroundColor = HyperLinkColor
                         )
                     ) {
                         Text(
                             text = stringResource(R.string.login),
-                            style = TextStyle(
-                                fontSize = 16.sp,
-                                color = Color.White,
-                                fontWeight = FontWeight.Bold
-                            )
+                            style = Typography.body2,
                         )
                     }
                 }
@@ -213,6 +198,27 @@ object Login {
                     hyperlink = Hyperlink("Demo page", "https://github.com/pubnub/chat-components-android-examples/blob/telehealth-example/telehealth-example/README.md")
                 )
             }
+        }
+    }
+
+    private fun tryToLogin(loginViewModel: LoginViewModel, login: String, context: Context): Boolean{
+        val member = loginViewModel.members.firstOrNull {
+            login == it.custom.asMap()?.get("username") as? String?
+        }
+        return if (member != null) {
+            openChannelActivity(
+                context,
+                Parameters(
+                    userId = member.id,
+                    type = member.type,
+                    channelId = "",
+                    secondUserName = "",
+                    secondUserId = ""
+                )
+            )
+            false
+        } else {
+            true
         }
     }
 

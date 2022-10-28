@@ -32,6 +32,7 @@ import com.pubnub.components.example.telehealth.clearFocusOnTap
 import com.pubnub.components.example.telehealth.dto.Parameters
 import com.pubnub.components.example.telehealth.dto.Parameters.Companion.PARAMETERS_BUNDLE_KEY
 import com.pubnub.components.example.telehealth.ui.theme.ToolbarColor
+import com.pubnub.components.example.telehealth.ui.theme.Typography
 import kotlinx.coroutines.flow.Flow
 
 object Channel {
@@ -79,9 +80,7 @@ object Channel {
                     start = 20.dp,
                     bottom = 16.dp
                 ),
-                color = Color.White,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold
+                style = Typography.body2
             )
             Spacer(modifier = Modifier.width(160.dp))
         }
