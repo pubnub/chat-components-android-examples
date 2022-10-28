@@ -9,7 +9,7 @@ Each sample application demonstrates a different type of chat, set of features, 
 
 You need these to get started:
 
-* [Android Studio](https://developer.android.com/studio/preview) (>= Bumblebee 2021.1.1)
+* [Android Studio](https://developer.android.com/studio/preview) (>= Dolphin 2021.3.1)
 * [PubNub Keyset](https://dashboard.pubnub.com/)
 
 Clone this repository or import the project from Android Studio following the steps in
