@@ -16,32 +16,32 @@ import com.pubnub.components.example.telehealth.ui.theme.HyperLinkColor
 fun HyperlinkText(
     modifier: Modifier = Modifier,
     fullText: String,
+    hyperlink: Hyperlink,
     linkTextColor: Color = HyperLinkColor,
     linkTextFontWeight: FontWeight = FontWeight.Medium,
     linkTextDecoration: TextDecoration = TextDecoration.Underline,
     fontSize: TextUnit = TextUnit.Unspecified,
-    hyperlink: Hyperlink
 ) {
     val annotatedString = buildAnnotatedString {
         append(fullText)
-            val startIndex = fullText.indexOf(hyperlink.text)
-            val endIndex = startIndex + hyperlink.text.length
-            addStyle(
-                style = SpanStyle(
-                    color = linkTextColor,
-                    fontSize = fontSize,
-                    fontWeight = linkTextFontWeight,
-                    textDecoration = linkTextDecoration
-                ),
-                start = startIndex,
-                end = endIndex
-            )
-            addStringAnnotation(
-                tag = "URL",
-                annotation = hyperlink.URL,
-                start = startIndex,
-                end = endIndex
-            )
+        val startIndex = fullText.indexOf(hyperlink.text)
+        val endIndex = startIndex + hyperlink.text.length
+        addStyle(
+            style = SpanStyle(
+                color = linkTextColor,
+                fontSize = fontSize,
+                fontWeight = linkTextFontWeight,
+                textDecoration = linkTextDecoration
+            ),
+            start = startIndex,
+            end = endIndex
+        )
+        addStringAnnotation(
+            tag = "URL",
+            annotation = hyperlink.link,
+            start = startIndex,
+            end = endIndex
+        )
         addStyle(
             style = SpanStyle(
                 fontSize = fontSize
@@ -66,4 +66,4 @@ fun HyperlinkText(
     )
 }
 
-data class Hyperlink(val text: String, val URL: String)
+data class Hyperlink(val text: String, val link: String)

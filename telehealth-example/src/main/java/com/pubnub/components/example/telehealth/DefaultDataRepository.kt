@@ -31,19 +31,8 @@ class DefaultDataRepository(private val resources: Resources) {
         *parseArray(R.raw.memberships)
     )
 
-    fun getDBMemberships(): List<DBMembership> {
-        var dbMembership = arrayListOf<DBMembership>()
-        memberships.forEach { membership ->
-            membership.members.forEach {
-                dbMembership.add(
-                    DBMembership(
-                        channelId = membership.channelId,
-                        memberId = it
-                    )
-                )
-            }
-        }
-        return dbMembership
+    val dbMemberships = memberships.flatMap { membership ->
+        membership.members.map { DBMembership(membership.channelId, it)}
     }
 
     private inline fun <reified T> parseArray(@RawRes resource: Int): Array<out T> =

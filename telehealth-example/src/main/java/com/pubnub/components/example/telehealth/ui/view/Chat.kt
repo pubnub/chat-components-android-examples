@@ -1,31 +1,20 @@
 package com.pubnub.components.example.telehealth.ui.view
 
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.paging.PagingData
-import com.pubnub.components.chat.ui.component.common.ShapeThemeDefaults
-import com.pubnub.components.chat.ui.component.common.TextThemeDefaults.text
-import com.pubnub.components.chat.ui.component.common.ThemeDefaults
 import com.pubnub.components.chat.ui.component.input.MessageInput
 import com.pubnub.components.chat.ui.component.menu.Copy
 import com.pubnub.components.chat.ui.component.menu.React
@@ -39,10 +28,12 @@ import com.pubnub.components.chat.viewmodel.message.MessageViewModel.Companion.d
 import com.pubnub.components.chat.viewmodel.message.ReactionViewModel
 import com.pubnub.components.example.getting_started.R
 import com.pubnub.components.example.telehealth.clearFocusOnTap
-import com.pubnub.components.example.telehealth.dto.Parameters
-import com.pubnub.components.example.telehealth.ui.theme.*
+import com.pubnub.components.example.telehealth.dto.ChatParameters
+import com.pubnub.components.example.telehealth.dto.Patient
+import com.pubnub.components.example.telehealth.ui.theme.ChatBackgroundColor
+import com.pubnub.components.example.telehealth.ui.theme.ChatMessageTheme
+import com.pubnub.components.example.telehealth.ui.theme.Typography
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
 
 object Chat {
 
@@ -50,13 +41,12 @@ object Chat {
     internal fun Content(
         messages: Flow<PagingData<MessageUi>>,
         onMessageSelected: (MessageUi.Data) -> Unit,
-        patientId: String,
-        patientName: String,
+        patient: Patient,
         presence: Presence? = null,
         onReactionSelected: ((React) -> Unit)? = null,
     ) {
 
-        val customTheme = chatMessageTheme()
+        val customTheme = ChatMessageTheme()
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -66,30 +56,38 @@ object Chat {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(color = ChatBackgroundColor)
+                        .background(color = ChatBackgroundColor),
+                    contentAlignment = Alignment.CenterStart,
                 ) {
                     Image(
                         modifier = Modifier
                             .size(36.dp)
-                            .padding(top = 16.dp)
+                            .padding(top = 8.dp, bottom = 8.dp)
                             .clickable {
 
                             },
                         painter = painterResource(id = R.drawable.chevron),
                         contentDescription = stringResource(id = R.string.logo),
                     )
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 8.dp, bottom = 8.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center,
+                    ) {
                         Text(
-                            text = patientName,
-                            modifier = Modifier.padding(top = 8.dp, start = 32.dp),
+                            text = patient.name,
                             style = Typography.body2
                         )
                         Text(
-                            text = patientId,
-                            modifier = Modifier.padding(start = 20.dp, bottom = 10.dp),
+                            text = patient.id,
                             style = Typography.body2
                         )
                     }
+                    Spacer(modifier = Modifier
+                        .size(36.dp)
+                        .padding(16.dp))
                 }
                 MessageList(
                     messages = messages,
@@ -109,15 +107,15 @@ object Chat {
 
     @Composable
     fun View(
-        parameters: Parameters,
+        chatParameters: ChatParameters,
     ) {
         val messageViewModel: MessageViewModel = defaultWithMediator()
         val messages =
-            remember(parameters.channelId) { messageViewModel.getAll(parameters.channelId) }
+            remember(chatParameters.channelId) { messageViewModel.getAll(chatParameters.channelId) }
 
         val reactionViewModel: ReactionViewModel = ReactionViewModel.default()
-        DisposableEffect(parameters.channelId) {
-            reactionViewModel.bind(parameters.channelId)
+        DisposableEffect(chatParameters.channelId) {
+            reactionViewModel.bind(chatParameters.channelId)
             onDispose {
                 reactionViewModel.unbind()
             }
@@ -127,7 +125,7 @@ object Chat {
         var selectedMessage by remember { mutableStateOf<MessageUi.Data?>(null) }
 
         val onDismiss: () -> Unit = { menuVisible = false }
-        CompositionLocalProvider(LocalChannel provides parameters.channelId) {
+        CompositionLocalProvider(LocalChannel provides chatParameters.channelId) {
             Menu(
                 visible = menuVisible,
                 message = selectedMessage,
@@ -154,8 +152,7 @@ object Chat {
                     menuVisible = true
                 },
                 onReactionSelected = reactionViewModel::reactionSelected,
-                patientId = parameters.secondUserId,
-                patientName = parameters.secondUserName
+                patient = Patient(chatParameters.secondUserId, chatParameters.secondUserName)
             )
         }
     }
@@ -165,12 +162,12 @@ object Chat {
 @Preview
 private fun ChatPreview() {
     Chat.View(
-        parameters = Parameters(
-            "123456",
+        chatParameters = ChatParameters(
+            userId = "123456",
             type = "patient",
-            "channel",
-            "654321",
-            "Example Name"
+            channelId = "channel",
+            secondUserId = "654321",
+            secondUserName = "Example Name"
         )
     )
 }

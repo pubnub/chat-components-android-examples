@@ -39,6 +39,7 @@ private val LightColorPalette = lightColors(
 @Composable
 fun AppTheme(
     pubNub: PubNub,
+    database: DefaultDatabase = ChatApplication.database,
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable() () -> Unit,
 ) {
@@ -52,7 +53,7 @@ fun AppTheme(
     ) {
         ChatProvider(
             pubNub = pubNub,
-            database = ChatApplication.database.asPubNub(),
+            database = database.asPubNub(),
         ) {
             content()
         }
@@ -60,7 +61,7 @@ fun AppTheme(
 }
 
 @Composable
-fun chatMessageTheme(): MessageListTheme {
+fun ChatMessageTheme(): MessageListTheme {
     return ThemeDefaults.messageList(
         messageOwn = ThemeDefaults.message(
             text = TextThemeDefaults.text(

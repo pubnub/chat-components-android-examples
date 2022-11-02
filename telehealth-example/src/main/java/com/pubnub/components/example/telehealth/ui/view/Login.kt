@@ -24,7 +24,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -33,10 +32,12 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.pubnub.components.data.message.asMap
 import com.pubnub.components.example.getting_started.R
 import com.pubnub.components.example.telehealth.ChannelActivity
-import com.pubnub.components.example.telehealth.dto.Parameters
-import com.pubnub.components.example.telehealth.dto.Parameters.Companion.PARAMETERS_BUNDLE_KEY
+import com.pubnub.components.example.telehealth.dto.ChatParameters
+import com.pubnub.components.example.telehealth.dto.ChatParameters.Companion.PARAMETERS_BUNDLE_KEY
 import com.pubnub.components.example.telehealth.ui.theme.*
 import com.pubnub.components.example.telehealth.viewmodel.LoginViewModel
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 object Login {
     @Composable
@@ -45,6 +46,7 @@ object Login {
         var login by rememberSaveable { mutableStateOf("") }
         val pass by rememberSaveable { mutableStateOf("") }
         val loginViewModel: LoginViewModel = viewModel()
+        val coroutineScope = rememberCoroutineScope()
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -98,7 +100,9 @@ object Login {
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
                     keyboardActions = KeyboardActions(
                         onDone = {
-                            visible = tryToLogin(loginViewModel, login, context)
+                            coroutineScope.launch {
+                                visible =  tryToLogin(loginViewModel, login, context)
+                            }
                         }
                     )
                 )
@@ -130,7 +134,9 @@ object Login {
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
                     keyboardActions = KeyboardActions(
                         onDone = {
-                            visible = tryToLogin(loginViewModel, login, context)
+                            coroutineScope.launch {
+                                visible =  tryToLogin(loginViewModel, login, context)
+                            }
                         }
                     )
                 )
@@ -144,7 +150,9 @@ object Login {
                     Button(
                         modifier = Modifier.fillMaxSize(),
                         onClick = {
-                            visible = tryToLogin(loginViewModel, login, context)
+                            coroutineScope.launch {
+                                visible =  tryToLogin(loginViewModel, login, context)
+                            }
                         },
                         shape = RoundedCornerShape(20),
                         colors = ButtonDefaults.buttonColors(
@@ -199,33 +207,34 @@ object Login {
                 )
             }
         }
+
     }
 
-    private fun tryToLogin(loginViewModel: LoginViewModel, login: String, context: Context): Boolean{
-        val member = loginViewModel.members.firstOrNull {
-            login == it.custom.asMap()?.get("username") as? String?
-        }
-        return if (member != null) {
-            openChannelActivity(
-                context,
-                Parameters(
-                    userId = member.id,
-                    type = member.type,
-                    channelId = "",
-                    secondUserName = "",
-                    secondUserId = ""
+    private suspend fun tryToLogin(loginViewModel: LoginViewModel, login: String, context: Context): Boolean {
+        return coroutineScope {
+            val member = loginViewModel.verifyMember(login)
+            return@coroutineScope if (member != null) {
+                openChannelActivity(
+                    context,
+                    ChatParameters(
+                        userId = member.id,
+                        type = member.type,
+                        channelId = "",
+                        secondUserName = "",
+                        secondUserId = ""
+                    )
                 )
-            )
-            false
-        } else {
-            true
+                false
+            } else {
+                true
+            }
         }
     }
 
-    private fun openChannelActivity(packageContext: Context, parameters: Parameters) {
+    private fun openChannelActivity(packageContext: Context, chatParameters: ChatParameters) {
         val intent =
             Intent(packageContext, ChannelActivity::class.java).apply {
-                putExtra(PARAMETERS_BUNDLE_KEY, parameters)
+                putExtra(PARAMETERS_BUNDLE_KEY, chatParameters)
             }
         startActivity(packageContext, intent, null)
     }

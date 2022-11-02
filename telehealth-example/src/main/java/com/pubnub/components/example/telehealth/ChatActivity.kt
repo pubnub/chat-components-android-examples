@@ -11,8 +11,7 @@ import com.pubnub.api.PubNub
 import com.pubnub.api.UserId
 import com.pubnub.api.enums.PNLogVerbosity
 import com.pubnub.components.example.getting_started.BuildConfig
-import com.pubnub.components.example.telehealth.dto.Parameters
-import com.pubnub.components.example.telehealth.dto.Parameters.Companion.PARAMETERS_BUNDLE_KEY
+import com.pubnub.components.example.telehealth.dto.ChatParameters.Companion.fromIntent
 import com.pubnub.components.example.telehealth.ui.theme.AppTheme
 import com.pubnub.components.example.telehealth.ui.view.Chat
 
@@ -20,19 +19,15 @@ class ChatActivity : ComponentActivity() {
 
     private lateinit var pubNub: PubNub
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val parameters = intent.extras?.getParcelable<Parameters>(PARAMETERS_BUNDLE_KEY)
-        if (parameters != null) {
-            initializePubNub(parameters.userId)
-        }
+        val parameters = fromIntent(intent)
+        checkNotNull(parameters)
+        initializePubNub(parameters.userId)
         setContent {
             AppTheme(pubNub = pubNub) {
                 Box(modifier = Modifier.fillMaxSize()) {
-                    if (parameters != null) {
-                        Chat.View(parameters)
-                    }
+                    Chat.View(parameters)
                 }
             }
         }
