@@ -6,14 +6,14 @@ plugins {
 }
 
 android {
-    compileSdk = 32
+    compileSdk = Libs.Build.Android.compileSdk
 
     defaultConfig {
         applicationId = "com.pubnub.components.example.getting_started"
-        minSdk = 21
-        targetSdk = 32
-        versionCode = 1
-        versionName = "1.0"
+        minSdk = Libs.Build.Android.minSdk
+        targetSdk = Libs.Build.Android.targetSdk
+        versionCode = Libs.Build.Android.versionCode
+        versionName = Libs.Build.Android.versionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -42,18 +42,13 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = Libs.Build.Kotlin.jvmTarget
     }
     buildFeatures {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = Libs.AndroidX.Compose.version
-    }
-    packagingOptions {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
+        kotlinCompilerExtensionVersion = Libs.AndroidX.Compose.compilerVersion
     }
 }
 
@@ -63,6 +58,8 @@ dependencies {
     implementation(Libs.PubNub.kotlin)
     implementation(Libs.PubNub.memberships)
     implementation(Libs.AndroidX.core)
+
+    implementation(platform(Libs.AndroidX.Compose.bom))
     implementation(Libs.AndroidX.Compose.ui)
     implementation(Libs.AndroidX.Compose.material)
     implementation(Libs.AndroidX.Compose.toolingPreview)
@@ -73,6 +70,7 @@ dependencies {
     implementation(Libs.AndroidX.datetime)
 
     testImplementation(Libs.JUnit.junit)
+    androidTestImplementation(platform(Libs.AndroidX.Compose.bom))
     androidTestImplementation(Libs.AndroidX.Test.Ext.junit)
     androidTestImplementation(Libs.AndroidX.Test.espressoCore)
     androidTestImplementation(Libs.AndroidX.Compose.uiTest)
