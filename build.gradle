@@ -15,7 +15,6 @@ buildscript {
         classpath(Libs.androidGradlePlugin)
         classpath(Libs.Kotlin.gradlePlugin)
         classpath(Libs.Hilt.gradlePlugin)
-        classpath(Libs.gradleMavenPublishPlugin)
         classpath(Libs.gradleVersionsPlugin)
     }
 }
