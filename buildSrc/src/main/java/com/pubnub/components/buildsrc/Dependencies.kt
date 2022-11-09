@@ -5,11 +5,25 @@ object Versions {
 }
 
 object Libs {
-    const val androidGradlePlugin = "com.android.tools.build:gradle:7.2.1"
+    const val androidGradlePlugin = "com.android.tools.build:gradle:7.2.2"
     const val ktLint = "com.pinterest:ktlint:${Versions.ktLint}"
     const val jdkDesugar = "com.android.tools:desugar_jdk_libs:1.1.5"
-    const val gradleMavenPublishPlugin = "com.vanniktech:gradle-maven-publish-plugin:0.21.0"
     const val gradleVersionsPlugin = "com.github.ben-manes:gradle-versions-plugin:0.42.0"
+
+    object Build {
+        object Android {
+            const val compileSdk = 33
+            const val minSdk = 21
+            const val targetSdk = 33
+
+            const val versionCode = 1
+            const val versionName = "1.0"
+        }
+
+        object Kotlin {
+            const val jvmTarget = "1.8"
+        }
+    }
 
     object Accompanist {
         private const val version = "0.25.0"
@@ -29,7 +43,7 @@ object Libs {
     }
 
     object Kotlin {
-        private const val version = "1.7.0"
+        private const val version = "1.7.20"
 
         const val stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$version"
         const val reflect = "org.jetbrains.kotlin:kotlin-reflect:$version"
@@ -66,20 +80,21 @@ object Libs {
 
         object Compose {
             const val snapshot = ""
-            const val version = "1.2.0"
+            const val compilerVersion = "1.3.2"
 
-            const val runtime = "androidx.compose.runtime:runtime:$version"
-            const val runtimeLivedata = "androidx.compose.runtime:runtime-livedata:$version"
-            const val ui = "androidx.compose.ui:ui:$version"
-            const val material = "androidx.compose.material:material:$version"
-            const val iconsCore = "androidx.compose.material:material-icons-core:$version"
-            const val iconsExtended = "androidx.compose.material:material-icons-extended:$version"
-            const val foundation = "androidx.compose.foundation:foundation:$version"
-            const val layout = "androidx.compose.foundation:foundation-layout:$version"
-            const val tooling = "androidx.compose.ui:ui-tooling:$version"
-            const val toolingPreview = "androidx.compose.ui:ui-tooling-preview:$version"
-            const val animation = "androidx.compose.animation:animation:$version"
-            const val uiTest = "androidx.compose.ui:ui-test-junit4:$version"
+            const val bom = "androidx.compose:compose-bom:2022.10.00"
+            const val runtime = "androidx.compose.runtime:runtime"
+            const val runtimeLivedata = "androidx.compose.runtime:runtime-livedata"
+            const val ui = "androidx.compose.ui:ui"
+            const val material = "androidx.compose.material:material"
+            const val iconsCore = "androidx.compose.material:material-icons-core"
+            const val iconsExtended = "androidx.compose.material:material-icons-extended"
+            const val foundation = "androidx.compose.foundation:foundation"
+            const val layout = "androidx.compose.foundation:foundation-layout"
+            const val tooling = "androidx.compose.ui:ui-tooling"
+            const val toolingPreview = "androidx.compose.ui:ui-tooling-preview"
+            const val animation = "androidx.compose.animation:animation"
+            const val uiTest = "androidx.compose.ui:ui-test-junit4"
 
         }
 
@@ -145,7 +160,7 @@ object Libs {
         const val memberships = "com.pubnub:pubnub-memberships"
 
         object Components {
-            const val chat = "com.pubnub.components:chat-android:0.5.1"
+            const val chat = "com.pubnub.components:chat-android:0.5.2"
         }
     }
 
