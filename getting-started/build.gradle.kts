@@ -6,6 +6,7 @@ plugins {
 }
 
 android {
+    namespace = "com.pubnub.components.example.getting_started"
     compileSdk = Libs.Build.Android.compileSdk
 
     defaultConfig {

@@ -9,7 +9,7 @@ Each sample application demonstrates a different type of chat, set of features, 
 
 You need these to get started:
 
-* [Android Studio](https://developer.android.com/studio/preview) (>= Dolphin 2021.3.1)
+* [Android Studio](https://developer.android.com/studio) (>= Dolphin 2021.3.1)
 * [PubNub Keyset](https://dashboard.pubnub.com/)
 
 Clone this repository or import the project from Android Studio following the steps in
@@ -19,10 +19,10 @@ the [Jetpack Compose guide](https://developer.android.com/jetpack/compose/setup#
 
 Choose a sample application that demonstrates the use of chat components.
 
-| Name | Features | Chat type | Use case |
-|-----|---------|---------|---------|
-| [`getting-started`](getting-started/) | <br><ul><li>Message list and message input integration</li><li>Light & dark themes</li></ul></br> | 1:1 | <img src="/assets/getting-started-android-app.png" alt="Getting Started app for Android" style="width:300px"/> |
-| [`getting-started-with-reactions`](getting-started-with-reactions/) | <br><ul><li>Message list and message input integration</li><li>Message options</li><li>Message reactions</li><li>Light & dark themes</li></ul></br> | 1:1 | <img src="/assets/getting-started-with-reactions.png" alt="Getting Started app for Android" style="width:300px"/> |
+| Name                                                                | Features                                                                                                                                            | Chat type | Use case                                                                                                          |
+|---------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|-----------|-------------------------------------------------------------------------------------------------------------------|
+| [`getting-started`](getting-started/)                               | <br><ul><li>Message list and message input integration</li><li>Light & dark themes</li></ul></br>                                                   | 1:1       | <img src="/assets/getting-started-android-app.png" alt="Getting Started app for Android" style="width:300px"/>    |
+| [`getting-started-with-reactions`](getting-started-with-reactions/) | <br><ul><li>Message list and message input integration</li><li>Message options</li><li>Message reactions</li><li>Light & dark themes</li></ul></br> | 1:1       | <img src="/assets/getting-started-with-reactions.png" alt="Getting Started app for Android" style="width:300px"/> |
 
 ## Useful links
 

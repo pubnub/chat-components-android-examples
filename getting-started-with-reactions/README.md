@@ -10,12 +10,12 @@ edge of the screen when triggered.
 
 ## Prerequisites
 
-This application uses [PubNub Kotlin SDK](https://github.com/pubnub/kotlin) (>= 7.0.0) for chat
+This application uses [PubNub Kotlin SDK](https://github.com/pubnub/kotlin) (>= 7.3.2) for chat
 components and [Jetpack Compose](https://developer.android.com/jetpack/compose) as the UI Toolkit.
 
 To use the app, you need:
 
-* [Android Studio](https://developer.android.com/studio/preview) (>= Bumblebee 2021.1.1)
+* [Android Studio](https://developer.android.com/studio) (>= Dolphin 2021.3.1)
 * PubNub account on [Admin Portal](https://dashboard.pubnub.com/)
 
 ## Usage
