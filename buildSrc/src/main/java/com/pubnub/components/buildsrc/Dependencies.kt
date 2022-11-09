@@ -5,10 +5,10 @@ object Versions {
 }
 
 object Libs {
-    const val androidGradlePlugin = "com.android.tools.build:gradle:7.2.2"
+    const val androidGradlePlugin = "com.android.tools.build:gradle:7.3.1"
     const val ktLint = "com.pinterest:ktlint:${Versions.ktLint}"
     const val jdkDesugar = "com.android.tools:desugar_jdk_libs:1.1.5"
-    const val gradleVersionsPlugin = "com.github.ben-manes:gradle-versions-plugin:0.42.0"
+    const val gradleVersionsPlugin = "com.github.ben-manes:gradle-versions-plugin:0.43.0"
 
     object Build {
         object Android {
@@ -34,7 +34,7 @@ object Libs {
     }
 
     object Coil {
-        private const val version = "2.1.0"
+        private const val version = "2.2.2"
 
         const val coil = "io.coil-kt:coil-compose:$version"
         const val coilGif = "io.coil-kt:coil-gif:$version"
@@ -65,10 +65,10 @@ object Libs {
 
     object AndroidX {
         object Activity {
-            const val activityCompose = "androidx.activity:activity-compose:1.5.1"
+            const val activityCompose = "androidx.activity:activity-compose:1.6.1"
         }
 
-        const val core = "androidx.core:core-ktx:1.8.0"
+        const val core = "androidx.core:core-ktx:1.9.0"
 
         const val appcompat = "androidx.appcompat:appcompat:1.4.2"
 
@@ -140,7 +140,7 @@ object Libs {
     }
 
     object Hilt {
-        private const val version = "2.43.1"
+        private const val version = "2.44"
 
         const val gradlePlugin = "com.google.dagger:hilt-android-gradle-plugin:$version"
         const val android = "com.google.dagger:hilt-android:$version"
