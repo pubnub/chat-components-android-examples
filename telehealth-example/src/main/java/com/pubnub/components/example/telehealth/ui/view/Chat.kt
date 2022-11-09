@@ -9,6 +9,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
@@ -27,6 +28,7 @@ import com.pubnub.components.chat.viewmodel.message.MessageViewModel
 import com.pubnub.components.chat.viewmodel.message.MessageViewModel.Companion.defaultWithMediator
 import com.pubnub.components.chat.viewmodel.message.ReactionViewModel
 import com.pubnub.components.example.getting_started.R
+import com.pubnub.components.example.telehealth.ChatActivity
 import com.pubnub.components.example.telehealth.clearFocusOnTap
 import com.pubnub.components.example.telehealth.dto.ChatParameters
 import com.pubnub.components.example.telehealth.dto.Patient
@@ -45,7 +47,7 @@ object Chat {
         presence: Presence? = null,
         onReactionSelected: ((React) -> Unit)? = null,
     ) {
-
+        val context = LocalContext.current
         val customTheme = ChatMessageTheme()
         Column(
             modifier = Modifier
@@ -64,7 +66,7 @@ object Chat {
                             .size(36.dp)
                             .padding(top = 8.dp, bottom = 8.dp)
                             .clickable {
-
+                                if (context is ChatActivity) context.finish()
                             },
                         painter = painterResource(id = R.drawable.chevron),
                         contentDescription = stringResource(id = R.string.logo),

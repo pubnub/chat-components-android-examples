@@ -55,7 +55,7 @@ android {
 }
 
 dependencies {
-    implementation(Libs.PubNub.Components.chat2)
+    implementation(Libs.PubNub.Components.chat)
     api(platform(Libs.PubNub.bom))
     implementation(Libs.PubNub.kotlin)
     implementation(Libs.PubNub.memberships)

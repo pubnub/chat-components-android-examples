@@ -19,24 +19,18 @@ class DefaultDataRepository(private val resources: Resources) {
 
     val gson: Gson = GsonBuilder().create()
 
-    val members: Array<DBMember> = arrayOf(
-        *parseArray(R.raw.users),
-    )
+    val members: Array<DBMember> = parseArray(R.raw.users)
 
-    val channels: Array<DBChannel> = arrayOf(
-        *parseArray(R.raw.channels)
-    )
+    val channels: Array<DBChannel> = parseArray(R.raw.channels)
 
-    private val memberships: Array<Membership> = arrayOf(
-        *parseArray(R.raw.memberships)
-    )
+    private val memberships: Array<Membership> = parseArray(R.raw.memberships)
 
     val dbMemberships = memberships.flatMap { membership ->
-        membership.members.map { DBMembership(membership.channelId, it)}
+        membership.members.map { DBMembership(membership.channelId, it) }
     }
 
-    private inline fun <reified T> parseArray(@RawRes resource: Int): Array<out T> =
-        resources.parseJson<Array<T>>(resource)
+    private inline fun <reified T> parseArray(@RawRes resource: Int): Array<T> =
+        resources.parseJson(resource)
 
     inline fun <reified T> Resources.parseJson(@RawRes resourceId: Int): T =
         gson.fromJson(

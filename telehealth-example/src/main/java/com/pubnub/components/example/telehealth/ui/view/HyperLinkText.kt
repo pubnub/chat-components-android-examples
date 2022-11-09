@@ -14,9 +14,9 @@ import com.pubnub.components.example.telehealth.ui.theme.HyperLinkColor
 
 @Composable
 fun HyperlinkText(
-    modifier: Modifier = Modifier,
     fullText: String,
     hyperlink: Hyperlink,
+    modifier: Modifier = Modifier,
     linkTextColor: Color = HyperLinkColor,
     linkTextFontWeight: FontWeight = FontWeight.Medium,
     linkTextDecoration: TextDecoration = TextDecoration.Underline,

@@ -29,30 +29,28 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.pubnub.components.data.message.asMap
 import com.pubnub.components.example.getting_started.R
 import com.pubnub.components.example.telehealth.ChannelActivity
 import com.pubnub.components.example.telehealth.dto.ChatParameters
 import com.pubnub.components.example.telehealth.dto.ChatParameters.Companion.PARAMETERS_BUNDLE_KEY
 import com.pubnub.components.example.telehealth.ui.theme.*
 import com.pubnub.components.example.telehealth.viewmodel.LoginViewModel
-import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 object Login {
     @Composable
     fun View(
     ) {
+        var visible = remember { mutableStateOf(false) }
         var login by rememberSaveable { mutableStateOf("") }
         val pass by rememberSaveable { mutableStateOf("") }
-        val loginViewModel: LoginViewModel = viewModel()
         val coroutineScope = rememberCoroutineScope()
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
         ) {
-            var visible by remember { mutableStateOf(false) }
             Column(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.Top,
@@ -100,9 +98,7 @@ object Login {
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
                     keyboardActions = KeyboardActions(
                         onDone = {
-                            coroutineScope.launch {
-                                visible =  tryToLogin(loginViewModel, login, context)
-                            }
+                            tryToLogin(visible, login, context)
                         }
                     )
                 )
@@ -134,9 +130,7 @@ object Login {
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
                     keyboardActions = KeyboardActions(
                         onDone = {
-                            coroutineScope.launch {
-                                visible =  tryToLogin(loginViewModel, login, context)
-                            }
+                            tryToLogin(visible, login, context)
                         }
                     )
                 )
@@ -150,9 +144,7 @@ object Login {
                     Button(
                         modifier = Modifier.fillMaxSize(),
                         onClick = {
-                            coroutineScope.launch {
-                                visible =  tryToLogin(loginViewModel, login, context)
-                            }
+                            tryToLogin(login, context)
                         },
                         shape = RoundedCornerShape(20),
                         colors = ButtonDefaults.buttonColors(
@@ -166,7 +158,7 @@ object Login {
                     }
                 }
                 AnimatedVisibility(
-                    visible = visible,
+                    visible = visible.value,
                     enter = fadeIn(
                         initialAlpha = 0.4f
                     ),
@@ -203,30 +195,33 @@ object Login {
                     modifier = Modifier
                         .padding(top = 40.dp, start = 72.dp, end = 72.dp, bottom = 30.dp),
                     fullText = stringResource(R.string.password_info),
-                    hyperlink = Hyperlink("Demo page", "https://github.com/pubnub/chat-components-android-examples/blob/telehealth-example/telehealth-example/README.md")
+                    hyperlink = Hyperlink("Demo page",
+                        "https://github.com/pubnub/chat-components-android-examples/blob/telehealth-example/telehealth-example/README.md")
                 )
             }
         }
-
     }
 
-    private suspend fun tryToLogin(loginViewModel: LoginViewModel, login: String, context: Context): Boolean {
-        return coroutineScope {
-            val member = loginViewModel.verifyMember(login)
-            return@coroutineScope if (member != null) {
+    @Composable
+    fun tryToLogin(visible: MutableState<Boolean>, login: String) {
+        val loginViewModel: LoginViewModel = viewModel()
+        val context = LocalContext.current
+        val coroutineScop = rememberCoroutineScope()
+        coroutineScop.launch(Dispatchers.IO) {
+            loginViewModel.login(login).onSuccess {
                 openChannelActivity(
                     context,
                     ChatParameters(
-                        userId = member.id,
-                        type = member.type,
+                        userId = it.id,
+                        type = it.type,
                         channelId = "",
                         secondUserName = "",
                         secondUserId = ""
                     )
                 )
-                false
-            } else {
-                true
+                visible.value = false
+            }.onFailure {
+                visible.value = true
             }
         }
     }

@@ -12,7 +12,6 @@ import com.pubnub.api.UserId
 import com.pubnub.api.enums.PNLogVerbosity
 import com.pubnub.components.example.getting_started.BuildConfig
 import com.pubnub.components.example.telehealth.dto.ChatParameters
-import com.pubnub.components.example.telehealth.dto.ChatParameters.Companion.PARAMETERS_BUNDLE_KEY
 import com.pubnub.components.example.telehealth.ui.theme.AppTheme
 import com.pubnub.components.example.telehealth.ui.view.Channel
 
@@ -22,7 +21,7 @@ class ChannelActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val chatParameters = intent.extras?.getParcelable<ChatParameters>(PARAMETERS_BUNDLE_KEY)
+        val chatParameters = ChatParameters.fromIntent(intent)
         checkNotNull(chatParameters)
         initializePubNub(chatParameters.userId)
         setContent {

@@ -21,13 +21,13 @@ class ChatActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val parameters = fromIntent(intent)
-        checkNotNull(parameters)
-        initializePubNub(parameters.userId)
+        val chatParameters = fromIntent(intent)
+        checkNotNull(chatParameters)
+        initializePubNub(chatParameters.userId)
         setContent {
             AppTheme(pubNub = pubNub) {
                 Box(modifier = Modifier.fillMaxSize()) {
-                    Chat.View(parameters)
+                    Chat.View(chatParameters)
                 }
             }
         }

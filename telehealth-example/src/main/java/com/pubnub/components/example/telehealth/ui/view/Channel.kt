@@ -84,8 +84,6 @@ object Channel {
             Content(
                 channels = channels,
                 onSelected = {
-
-
                     val intent = Intent(context, ChatActivity::class.java).apply {
                         putExtra(PARAMETERS_BUNDLE_KEY,
                             chatParameters.copy(
