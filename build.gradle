@@ -15,7 +15,6 @@ buildscript {
         classpath(Libs.androidGradlePlugin)
         classpath(Libs.Kotlin.gradlePlugin)
         classpath(Libs.Hilt.gradlePlugin)
-        classpath(Libs.gradleMavenPublishPlugin)
         classpath(Libs.gradleVersionsPlugin)
     }
 }
@@ -38,11 +37,23 @@ allprojects {
             // Treat all Kotlin warnings as errors
             allWarningsAsErrors = true
 
-            jvmTarget = "1.8"
+            jvmTarget = Libs.Build.Kotlin.jvmTarget
 
             // Use experimental APIs
             freeCompilerArgs += '-Xopt-in=kotlin.RequiresOptIn'
             freeCompilerArgs += '-Xopt-in=kotlin.time.ExperimentalTime'
         }
+    }
+}
+
+// https://github.com/ben-manes/gradle-versions-plugin
+def isUnstable = { String version ->
+    def unstableKeyword = ['ALPHA', 'BETA', 'RC'].any { it -> version.toUpperCase().contains(it) }
+    return unstableKeyword
+}
+
+tasks.named("dependencyUpdates").configure {
+    rejectVersionIf {
+        isUnstable(it.candidate.version)
     }
 }
