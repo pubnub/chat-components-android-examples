@@ -28,209 +28,163 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat.startActivity
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.lifecycle.viewModelScope
 import com.pubnub.components.example.getting_started.R
 import com.pubnub.components.example.telehealth.ChannelActivity
 import com.pubnub.components.example.telehealth.dto.ChatParameters
 import com.pubnub.components.example.telehealth.dto.ChatParameters.Companion.PARAMETERS_BUNDLE_KEY
 import com.pubnub.components.example.telehealth.ui.theme.*
 import com.pubnub.components.example.telehealth.viewmodel.LoginViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 object Login {
     @Composable
     fun View(
     ) {
+        val loginViewModel: LoginViewModel = LoginViewModel.default()
         var visible = remember { mutableStateOf(false) }
         var login by rememberSaveable { mutableStateOf("") }
         val pass by rememberSaveable { mutableStateOf("") }
-        val coroutineScope = rememberCoroutineScope()
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .verticalScroll(rememberScrollState())
-        ) {
+        Box(modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())) {
             Column(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.Top,
             ) {
                 val context = LocalContext.current
-                Image(
-                    modifier = Modifier
-                        .padding(top = 50.dp)
-                        .size(140.dp)
-                        .align(Alignment.CenterHorizontally),
+                Image(modifier = Modifier
+                    .padding(top = 50.dp)
+                    .size(140.dp)
+                    .align(Alignment.CenterHorizontally),
                     painter = painterResource(id = R.drawable.logo),
-                    contentDescription = stringResource(id = R.string.logo)
-                )
-                Text(
-                    text = stringResource(R.string.login),
+                    contentDescription = stringResource(id = R.string.logo))
+                Text(text = stringResource(R.string.login),
                     style = Typography.h2,
-                    modifier = Modifier.padding(start = 24.dp, bottom = 24.dp)
-                )
-                Text(
-                    text = stringResource(R.string.username),
+                    modifier = Modifier.padding(start = 24.dp, bottom = 24.dp))
+                Text(text = stringResource(R.string.username),
                     style = Typography.h3,
-                    modifier = Modifier.padding(start = 24.dp)
-                )
-                OutlinedTextField(
-                    modifier = Modifier
-                        .padding(start = 24.dp, bottom = 24.dp, end = 24.dp)
-                        .fillMaxWidth(),
+                    modifier = Modifier.padding(start = 24.dp))
+                OutlinedTextField(modifier = Modifier
+                    .padding(start = 24.dp, bottom = 24.dp, end = 24.dp)
+                    .fillMaxWidth(),
                     value = login,
                     onValueChange = {
                         login = it
                     },
                     leadingIcon = {
-                        Image(
-                            painter = painterResource(id = R.drawable.ic_login),
-                            contentDescription = "logo"
-                        )
+                        Image(painter = painterResource(id = R.drawable.ic_login),
+                            contentDescription = "logo")
                     },
-                    colors = TextFieldDefaults.outlinedTextFieldColors(
-                        focusedBorderColor = Color.hsl(2F, 0.72F, 0.53F, 1F),
+                    colors = TextFieldDefaults.outlinedTextFieldColors(focusedBorderColor = Color.hsl(
+                        2F,
+                        0.72F,
+                        0.53F,
+                        1F),
                         unfocusedBorderColor = Color.hsl(0F, 0F, 0.80F, 1F),
-                        backgroundColor = Color.White
-                    ),
+                        backgroundColor = Color.White),
                     maxLines = 1,
                     singleLine = true,
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
-                    keyboardActions = KeyboardActions(
-                        onDone = {
-                            tryToLogin(visible, login, context)
+                    keyboardActions = KeyboardActions(onDone = {
+                        loginViewModel.viewModelScope.launch {
+                            tryToLogin(loginViewModel, visible, login, context)
                         }
-                    )
-                )
-                Text(
-                    text = stringResource(R.string.password),
+                    }))
+                Text(text = stringResource(R.string.password),
                     style = Typography.h3,
-                    modifier = Modifier.padding(start = 24.dp)
-                )
-                OutlinedTextField(
-                    modifier = Modifier
-                        .padding(start = 24.dp, bottom = 18.dp, end = 24.dp)
-                        .fillMaxWidth(),
+                    modifier = Modifier.padding(start = 24.dp))
+                OutlinedTextField(modifier = Modifier
+                    .padding(start = 24.dp, bottom = 18.dp, end = 24.dp)
+                    .fillMaxWidth(),
                     value = pass,
-                    onValueChange = {
-                    },
-                    colors = TextFieldDefaults.outlinedTextFieldColors(
-                        focusedBorderColor = FocusedBorderColor,
+                    onValueChange = {},
+                    colors = TextFieldDefaults.outlinedTextFieldColors(focusedBorderColor = FocusedBorderColor,
                         unfocusedBorderColor = UnfocusedBorderColor,
-                        backgroundColor = Color.White
-                    ),
+                        backgroundColor = Color.White),
                     leadingIcon = {
-                        Image(
-                            painter = painterResource(id = R.drawable.ic_password),
-                            contentDescription = "logo"
-                        )
+                        Image(painter = painterResource(id = R.drawable.ic_password),
+                            contentDescription = "logo")
                     },
                     maxLines = 1,
                     singleLine = true,
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
-                    keyboardActions = KeyboardActions(
-                        onDone = {
-                            tryToLogin(visible, login, context)
+                    keyboardActions = KeyboardActions(onDone = {
+                        loginViewModel.viewModelScope.launch {
+                            tryToLogin(loginViewModel, visible, login, context)
                         }
-                    )
-                )
-                Column(
-                    modifier = Modifier
-                        .size(width = 420.dp, height = 48.dp)
-                        .padding(start = 24.dp, end = 24.dp),
+                    }))
+                Column(modifier = Modifier
+                    .size(width = 420.dp, height = 48.dp)
+                    .padding(start = 24.dp, end = 24.dp),
                     verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Button(
-                        modifier = Modifier.fillMaxSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally) {
+                    Button(modifier = Modifier.fillMaxSize(),
                         onClick = {
-                            tryToLogin(login, context)
+                            loginViewModel.viewModelScope.launch {
+                                tryToLogin(loginViewModel, visible, login, context)
+                            }
                         },
                         shape = RoundedCornerShape(20),
-                        colors = ButtonDefaults.buttonColors(
-                            backgroundColor = HyperLinkColor
-                        )
-                    ) {
+                        colors = ButtonDefaults.buttonColors(backgroundColor = HyperLinkColor)) {
                         Text(
                             text = stringResource(R.string.login),
                             style = Typography.body2,
                         )
                     }
                 }
-                AnimatedVisibility(
-                    visible = visible.value,
-                    enter = fadeIn(
-                        initialAlpha = 0.4f
-                    ),
-                    exit = fadeOut(
-                        animationSpec = tween(durationMillis = 250)
-                    )
-                ) {
+                AnimatedVisibility(visible = visible.value,
+                    enter = fadeIn(initialAlpha = 0.4f),
+                    exit = fadeOut(animationSpec = tween(durationMillis = 250))) {
                     Row(modifier = Modifier.padding(top = 12.dp, start = 24.dp)) {
-                        Image(
-                            painter = painterResource(id = R.drawable.ic_icon),
+                        Image(painter = painterResource(id = R.drawable.ic_icon),
                             contentDescription = stringResource(id = R.string.error_icon),
-                            modifier = Modifier.padding(top = 4.dp)
-                        )
-                        Text(
-                            text = stringResource(R.string.password_error),
-                            style = TextStyle(
-                                fontSize = 16.sp,
-                                color = Color.hsl(2F, 0.72F, 0.53F, 1F)
-                            ),
-                            modifier = Modifier.padding(start = 8.dp)
-                        )
+                            modifier = Modifier.padding(top = 4.dp))
+                        Text(text = stringResource(R.string.password_error),
+                            style = TextStyle(fontSize = 16.sp,
+                                color = Color.hsl(2F, 0.72F, 0.53F, 1F)),
+                            modifier = Modifier.padding(start = 8.dp))
                     }
                 }
 
             }
-            Box(
-                modifier = Modifier
-                    .background(LoginInfoBoxBackgroundColor)
-                    .align(
-                        Alignment.BottomCenter
-                    )
-            ) {
-                HyperlinkText(
-                    modifier = Modifier
-                        .padding(top = 40.dp, start = 72.dp, end = 72.dp, bottom = 30.dp),
+            Box(modifier = Modifier
+                .background(LoginInfoBoxBackgroundColor)
+                .align(Alignment.BottomCenter)) {
+                HyperlinkText(modifier = Modifier.padding(top = 40.dp,
+                    start = 72.dp,
+                    end = 72.dp,
+                    bottom = 30.dp),
                     fullText = stringResource(R.string.password_info),
                     hyperlink = Hyperlink("Demo page",
-                        "https://github.com/pubnub/chat-components-android-examples/blob/telehealth-example/telehealth-example/README.md")
-                )
+                        "https://github.com/pubnub/chat-components-android-examples/blob/telehealth-example/telehealth-example/README.md"))
             }
         }
     }
 
-    @Composable
-    fun tryToLogin(visible: MutableState<Boolean>, login: String) {
-        val loginViewModel: LoginViewModel = viewModel()
-        val context = LocalContext.current
-        val coroutineScop = rememberCoroutineScope()
-        coroutineScop.launch(Dispatchers.IO) {
-            loginViewModel.login(login).onSuccess {
-                openChannelActivity(
-                    context,
-                    ChatParameters(
-                        userId = it.id,
-                        type = it.type,
-                        channelId = "",
-                        secondUserName = "",
-                        secondUserId = ""
-                    )
-                )
-                visible.value = false
-            }.onFailure {
-                visible.value = true
-            }
+    suspend fun tryToLogin(
+        loginViewModel: LoginViewModel,
+        visible: MutableState<Boolean>,
+        login: String,
+        context: Context,
+    ) {
+        loginViewModel.login(login).onSuccess {
+            openChannelActivity(context,
+                ChatParameters(userId = it.id,
+                    type = it.type,
+                    channelId = "",
+                    secondUserName = "",
+                    secondUserId = ""))
+            visible.value = false
+        }.onFailure {
+            visible.value = true
         }
     }
 
     private fun openChannelActivity(packageContext: Context, chatParameters: ChatParameters) {
-        val intent =
-            Intent(packageContext, ChannelActivity::class.java).apply {
-                putExtra(PARAMETERS_BUNDLE_KEY, chatParameters)
-            }
+        val intent = Intent(packageContext, ChannelActivity::class.java).apply {
+            putExtra(PARAMETERS_BUNDLE_KEY, chatParameters)
+        }
         startActivity(packageContext, intent, null)
     }
 }

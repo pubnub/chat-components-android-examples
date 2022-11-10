@@ -7,14 +7,15 @@ plugins {
 }
 
 android {
-    compileSdk = 32
+    namespace = "com.pubnub.components.example.getting_started"
+    compileSdk = Libs.Build.Android.compileSdk
 
     defaultConfig {
         applicationId = "com.pubnub.components.example.telehealth_example"
-        minSdk = 21
-        targetSdk = 32
-        versionCode = 1
-        versionName = "1.0"
+        minSdk = Libs.Build.Android.minSdk
+        targetSdk = Libs.Build.Android.targetSdk
+        versionCode = Libs.Build.Android.versionCode
+        versionName = Libs.Build.Android.versionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -22,7 +23,10 @@ android {
         }
 
         buildConfigField("String", "PUBLISH_KEY", project.property("PUBNUB_PUBLISH_KEY") as String)
-        buildConfigField("String", "SUBSCRIBE_KEY", project.property("PUBNUB_SUBSCRIBE_KEY") as String)
+        buildConfigField(
+            "String",
+            "SUBSCRIBE_KEY",
+            project.property("PUBNUB_SUBSCRIBE_KEY") as String)
     }
 
     buildTypes {
@@ -39,13 +43,13 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = Libs.Build.Kotlin.jvmTarget
     }
     buildFeatures {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = Libs.AndroidX.Compose.version
+        kotlinCompilerExtensionVersion = Libs.AndroidX.Compose.compilerVersion
     }
     packagingOptions {
         resources {

@@ -30,7 +30,7 @@
             android:name="com.pubnub.components.example.telehealth.ChatActivity"
             android:exported="false"
             android:theme="@style/Theme.PubNubChatComponents"
-            android:windowSoftInputMode="adjustResize"></activity>
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>

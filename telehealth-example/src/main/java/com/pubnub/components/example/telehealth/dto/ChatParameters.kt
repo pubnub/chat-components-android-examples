@@ -6,6 +6,7 @@ import com.pubnub.components.chat.ui.component.channel.ChannelUi
 import com.pubnub.components.example.telehealth.ui.view.Channel
 import kotlinx.parcelize.Parcelize
 
+@Suppress("DEPRECATION")
 @Parcelize
 data class ChatParameters(
     val userId: String,
