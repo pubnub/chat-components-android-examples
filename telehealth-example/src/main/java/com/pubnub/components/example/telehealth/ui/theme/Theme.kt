@@ -11,18 +11,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.pubnub.api.PubNub
 import com.pubnub.components.DefaultDatabase
 import com.pubnub.components.asPubNub
-import com.pubnub.components.chat.provider.ChatProvider
 import com.pubnub.components.chat.ui.component.common.ShapeThemeDefaults
 import com.pubnub.components.chat.ui.component.common.TextThemeDefaults
 import com.pubnub.components.chat.ui.component.common.ThemeDefaults
 import com.pubnub.components.chat.ui.component.message.MessageListTheme
-import com.pubnub.components.data.Database
 import com.pubnub.components.example.telehealth.ChatApplication
+import com.pubnub.components.example.telehealth.ChatProvider
 
 private val DarkColorPalette = darkColors(
     primary = Purple200,
