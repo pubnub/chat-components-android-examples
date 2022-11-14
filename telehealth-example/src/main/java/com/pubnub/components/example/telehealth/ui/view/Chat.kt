@@ -27,7 +27,6 @@ import com.pubnub.components.chat.ui.component.provider.LocalChannel
 import com.pubnub.components.chat.viewmodel.message.MessageViewModel
 import com.pubnub.components.chat.viewmodel.message.MessageViewModel.Companion.defaultWithMediator
 import com.pubnub.components.chat.viewmodel.message.ReactionViewModel
-import com.pubnub.components.example.getting_started.R
 import com.pubnub.components.example.telehealth.ChatActivity
 import com.pubnub.components.example.telehealth.clearFocusOnTap
 import com.pubnub.components.example.telehealth.dto.ChatParameters
@@ -35,6 +34,7 @@ import com.pubnub.components.example.telehealth.dto.Patient
 import com.pubnub.components.example.telehealth.ui.theme.ChatBackgroundColor
 import com.pubnub.components.example.telehealth.ui.theme.ChatMessageTheme
 import com.pubnub.components.example.telehealth.ui.theme.Typography
+import com.pubnub.components.example.telehealth_example.R
 import kotlinx.coroutines.flow.Flow
 
 object Chat {

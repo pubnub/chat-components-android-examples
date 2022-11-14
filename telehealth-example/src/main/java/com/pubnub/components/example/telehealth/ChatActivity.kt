@@ -10,14 +10,13 @@ import com.pubnub.api.PNConfiguration
 import com.pubnub.api.PubNub
 import com.pubnub.api.UserId
 import com.pubnub.api.enums.PNLogVerbosity
-import com.pubnub.components.example.getting_started.BuildConfig
 import com.pubnub.components.example.telehealth.dto.ChatParameters.Companion.fromIntent
 import com.pubnub.components.example.telehealth.ui.theme.AppTheme
 import com.pubnub.components.example.telehealth.ui.view.Chat
+import com.pubnub.components.example.telehealth_example.BuildConfig
 
 class ChatActivity : ComponentActivity() {
 
-    private lateinit var pubNub: PubNub
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +24,7 @@ class ChatActivity : ComponentActivity() {
         checkNotNull(chatParameters)
         initializePubNub(chatParameters.userId)
         setContent {
-            AppTheme(pubNub = pubNub) {
+            AppTheme(pubNub = ChatApplication.pubNub) {
                 Box(modifier = Modifier.fillMaxSize()) {
                     Chat.View(chatParameters)
                 }
@@ -33,22 +32,13 @@ class ChatActivity : ComponentActivity() {
         }
     }
 
-    override fun onDestroy() {
-        destroyPubNub()
-        super.onDestroy()
-    }
-
     private fun initializePubNub(userId: String) {
-        pubNub = PubNub(
+        ChatApplication.pubNub = PubNub(
             PNConfiguration(userId = UserId(userId)).apply {
                 publishKey = BuildConfig.PUBLISH_KEY
                 subscribeKey = BuildConfig.SUBSCRIBE_KEY
                 logVerbosity = PNLogVerbosity.NONE
             }
         )
-    }
-
-    private fun destroyPubNub() {
-        pubNub.destroy()
     }
 }

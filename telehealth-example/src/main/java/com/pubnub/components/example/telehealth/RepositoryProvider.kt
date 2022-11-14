@@ -44,7 +44,7 @@ import com.pubnub.components.data.message.MessageDao
 import com.pubnub.components.data.message.action.DBMessageAction
 import com.pubnub.components.data.message.action.DBMessageWithActions
 import com.pubnub.components.data.message.action.MessageActionDao
-import com.pubnub.components.example.getting_started.R
+import com.pubnub.components.example.telehealth_example.R
 import com.pubnub.components.repository.channel.DefaultChannelRepository
 import com.pubnub.components.repository.member.DefaultMemberRepository
 import com.pubnub.components.repository.membership.DefaultMembershipRepository
@@ -55,6 +55,7 @@ import com.pubnub.framework.data.UserId
 import kotlinx.coroutines.runBlocking
 
 
+//TODO: This will be moved to components and removed from here later
 @Composable
 fun ChatProvider(
     pubNub: PubNub,
@@ -103,9 +104,10 @@ fun ChatProvider(
 
 @Composable
 fun RepositoryProvider(
-    database: PubNubDatabase<MessageDao<DBMessage, DBMessageWithActions>, MessageActionDao<DBMessageAction>, ChannelDao<DBChannel, DBChannelWithMembers>, MemberDao<DBMember, DBMemberWithChannels>, MembershipDao<DBMembership>> = Database.initialize(LocalContext.current).asPubNub(),
+    database: PubNubDatabase<MessageDao<DBMessage, DBMessageWithActions>, MessageActionDao<DBMessageAction>, ChannelDao<DBChannel, DBChannelWithMembers>, MemberDao<DBMember, DBMemberWithChannels>, MembershipDao<DBMembership>> = Database.initialize(
+        LocalContext.current).asPubNub(),
     content: @Composable() () -> Unit,
-){
+) {
     // region Member part
     val unknownMemberTitle = stringResource(id = R.string.member_unknown_title)
     val unknownMemberDescription = stringResource(id = R.string.member_unknown_description)

@@ -16,15 +16,15 @@ import androidx.paging.PagingData
 import androidx.paging.map
 import com.pubnub.components.chat.ui.component.channel.ChannelList
 import com.pubnub.components.chat.ui.component.channel.ChannelUi
-import com.pubnub.components.chat.ui.component.member.MemberUi
 import com.pubnub.components.chat.viewmodel.channel.ChannelViewModel
-import com.pubnub.components.example.getting_started.R
 import com.pubnub.components.example.telehealth.ChatActivity
 import com.pubnub.components.example.telehealth.clearFocusOnTap
 import com.pubnub.components.example.telehealth.dto.ChatParameters
 import com.pubnub.components.example.telehealth.dto.ChatParameters.Companion.PARAMETERS_BUNDLE_KEY
+import com.pubnub.components.example.telehealth.mapper.ChannelUiMapper
 import com.pubnub.components.example.telehealth.ui.theme.ChatBackgroundColor
 import com.pubnub.components.example.telehealth.ui.theme.Typography
+import com.pubnub.components.example.telehealth_example.R
 import kotlinx.coroutines.flow.Flow
 
 object Channel {
@@ -65,17 +65,13 @@ object Channel {
         chatParameters: ChatParameters,
     ) {
         // region Content data
+        val channelUiMapper = ChannelUiMapper()
         val channelViewModel: ChannelViewModel =
             ChannelViewModel.default(LocalContext.current.resources)
         val channels = remember {
             channelViewModel.getAll(transform = {
                 map { channelUi: ChannelUi ->
-                    channelUi as ChannelUi.Data
-                    val otherMember: MemberUi.Data? =
-                        channelUi.members.firstOrNull { it.id != chatParameters.userId }
-                    channelUi.copy(name = otherMember?.name ?: channelUi.name,
-                        description = otherMember?.description ?: channelUi.description,
-                        profileUrl = otherMember?.profileUrl ?: channelUi.profileUrl)
+                    channelUiMapper.map(channelUi, chatParameters.userId)
                 }
             })
         }

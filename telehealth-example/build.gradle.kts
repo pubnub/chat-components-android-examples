@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.pubnub.components.example.getting_started"
+    namespace = "com.pubnub.components.example.telehealth_example"
     compileSdk = Libs.Build.Android.compileSdk
 
     defaultConfig {

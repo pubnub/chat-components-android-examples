@@ -29,12 +29,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.viewModelScope
-import com.pubnub.components.example.getting_started.R
 import com.pubnub.components.example.telehealth.ChannelActivity
 import com.pubnub.components.example.telehealth.dto.ChatParameters
 import com.pubnub.components.example.telehealth.dto.ChatParameters.Companion.PARAMETERS_BUNDLE_KEY
 import com.pubnub.components.example.telehealth.ui.theme.*
 import com.pubnub.components.example.telehealth.viewmodel.LoginViewModel
+import com.pubnub.components.example.telehealth_example.R
 import kotlinx.coroutines.launch
 
 object Login {
@@ -76,12 +76,8 @@ object Login {
                         Image(painter = painterResource(id = R.drawable.ic_login),
                             contentDescription = "logo")
                     },
-                    colors = TextFieldDefaults.outlinedTextFieldColors(focusedBorderColor = Color.hsl(
-                        2F,
-                        0.72F,
-                        0.53F,
-                        1F),
-                        unfocusedBorderColor = Color.hsl(0F, 0F, 0.80F, 1F),
+                    colors = TextFieldDefaults.outlinedTextFieldColors(focusedBorderColor = FocusedBorderColor,
+                        unfocusedBorderColor = UnfocusedBorderColor,
                         backgroundColor = Color.White),
                     maxLines = 1,
                     singleLine = true,
@@ -165,10 +161,10 @@ object Login {
     suspend fun tryToLogin(
         loginViewModel: LoginViewModel,
         visible: MutableState<Boolean>,
-        login: String,
+        username: String,
         context: Context,
     ) {
-        loginViewModel.login(login).onSuccess {
+        loginViewModel.login(username).onSuccess {
             openChannelActivity(context,
                 ChatParameters(userId = it.id,
                     type = it.type,

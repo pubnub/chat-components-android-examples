@@ -10,10 +10,10 @@ import com.pubnub.api.PNConfiguration
 import com.pubnub.api.PubNub
 import com.pubnub.api.UserId
 import com.pubnub.api.enums.PNLogVerbosity
-import com.pubnub.components.example.getting_started.BuildConfig
 import com.pubnub.components.example.telehealth.dto.ChatParameters
 import com.pubnub.components.example.telehealth.ui.theme.AppTheme
 import com.pubnub.components.example.telehealth.ui.view.Channel
+import com.pubnub.components.example.telehealth_example.BuildConfig
 
 class ChannelActivity : ComponentActivity() {
 

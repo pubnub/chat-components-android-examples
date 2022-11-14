@@ -7,8 +7,8 @@ import com.google.gson.GsonBuilder
 import com.pubnub.components.data.channel.DBChannel
 import com.pubnub.components.data.member.DBMember
 import com.pubnub.components.data.membership.DBMembership
-import com.pubnub.components.example.getting_started.R
 import com.pubnub.components.example.telehealth.dto.Membership
+import com.pubnub.components.example.telehealth_example.R
 
 /**
  *
@@ -23,9 +23,9 @@ class DefaultDataRepository(private val resources: Resources) {
 
     val channels: Array<DBChannel> = parseArray(R.raw.channels)
 
-    private val memberships: Array<Membership> = parseArray(R.raw.memberships)
+    private val rawMemberships: Array<Membership> = parseArray(R.raw.memberships)
 
-    val dbMemberships = memberships.flatMap { membership ->
+    val memberships = rawMemberships.flatMap { membership ->
         membership.members.map { DBMembership(membership.channelId, it) }
     }
 
