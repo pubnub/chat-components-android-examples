@@ -31,6 +31,7 @@ object Libs {
         const val swipeRefresh = "com.google.accompanist:accompanist-swiperefresh:$version"
         const val placeholder = "com.google.accompanist:accompanist-placeholder:$version"
         const val navigation = "com.google.accompanist:accompanist-navigation-animation:$version"
+        const val flowLayout = "com.google.accompanist:accompanist-flowlayout:$version"
     }
 
     object Coil {

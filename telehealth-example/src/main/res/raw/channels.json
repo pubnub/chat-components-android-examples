@@ -1,0 +1,22 @@
+[
+    {
+        "name": "Sara Flores",
+        "profileUrl": "https://randomuser.me/api/portraits/men/2.jpg",
+        "description": "Patient ID: 0222c484",
+        "eTag": "AbOx6N+6vu3zoAE",
+        "id": "telehealth-0948aa84-0222c484",
+        "updated": "2020-09-23T09:23:34.598494Z",
+        "type": "default",
+        "status": "default"
+    },
+    {
+        "name": "Luke Young",
+        "profileUrl": "https://randomuser.me/api/portraits/men/3.jpg",
+        "description": "Patient ID: 601f9324",
+        "eTag": "AbOx6N+6vu3zoAE",
+        "id": "telehealth-0948aa84-601f9324",
+        "updated": "2020-09-23T09:23:34.598494Z",
+        "type": "default",
+        "status": "default"
+    }
+]

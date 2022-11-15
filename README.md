@@ -23,6 +23,7 @@ Choose a sample application that demonstrates the use of chat components.
 |---------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|-----------|-------------------------------------------------------------------------------------------------------------------|
 | [`getting-started`](getting-started/)                               | <br><ul><li>Message list and message input integration</li><li>Light & dark themes</li></ul></br>                                                   | 1:1       | <img src="/assets/getting-started-android-app.png" alt="Getting Started app for Android" style="width:300px"/>    |
 | [`getting-started-with-reactions`](getting-started-with-reactions/) | <br><ul><li>Message list and message input integration</li><li>Message options</li><li>Message reactions</li><li>Light & dark themes</li></ul></br> | 1:1       | <img src="/assets/getting-started-with-reactions.png" alt="Getting Started app for Android" style="width:300px"/> |
+| [`telehealth-example`](telehealth-example/) | <br><ul><li>Message list and message input integration</li><li>Channel List integration</li><li>Message options</li><li>Message reactions</li><li>Doctor-to-patient chat</li></ul></br> | 1:1 | <img src="/assets/telehealth-example.png" alt="Getting Started app for Android" style="width:300px"/> |
 
 ## Useful links
 
