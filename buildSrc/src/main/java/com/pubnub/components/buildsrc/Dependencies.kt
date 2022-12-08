@@ -73,7 +73,7 @@ object Libs {
 
         const val appcompat = "androidx.appcompat:appcompat:1.4.2"
 
-        const val navigation = "androidx.navigation:navigation-compose:2.4.0"
+        const val navigation = "androidx.navigation:navigation-compose:2.4.0-beta07"
 
         const val splashscreen = "androidx.core:core-splashscreen:1.0.0"
 

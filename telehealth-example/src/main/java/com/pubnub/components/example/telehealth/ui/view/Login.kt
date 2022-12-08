@@ -1,7 +1,5 @@
 package com.pubnub.components.example.telehealth.ui.view
 
-import android.content.Context
-import android.content.Intent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -20,18 +18,14 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.viewModelScope
-import com.pubnub.components.example.telehealth.ChannelActivity
-import com.pubnub.components.example.telehealth.dto.ChatParameters
-import com.pubnub.components.example.telehealth.dto.ChatParameters.Companion.PARAMETERS_BUNDLE_KEY
+import com.pubnub.components.example.telehealth.dto.UserParameters
 import com.pubnub.components.example.telehealth.ui.theme.*
 import com.pubnub.components.example.telehealth.viewmodel.LoginViewModel
 import com.pubnub.components.example.telehealth_example.R
@@ -40,6 +34,7 @@ import kotlinx.coroutines.launch
 object Login {
     @Composable
     fun View(
+        onLoginSuccess: (UserParameters) -> Unit = {},
     ) {
         val loginViewModel: LoginViewModel = LoginViewModel.default()
         var visible = remember { mutableStateOf(false) }
@@ -52,7 +47,6 @@ object Login {
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.Top,
             ) {
-                val context = LocalContext.current
                 Image(modifier = Modifier
                     .padding(top = 50.dp)
                     .size(140.dp)
@@ -84,7 +78,7 @@ object Login {
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
                     keyboardActions = KeyboardActions(onDone = {
                         loginViewModel.viewModelScope.launch {
-                            tryToLogin(loginViewModel, visible, login, context)
+                            tryToLogin(loginViewModel, visible, login, onLoginSuccess)
                         }
                     }))
                 Text(text = stringResource(R.string.password),
@@ -107,7 +101,7 @@ object Login {
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
                     keyboardActions = KeyboardActions(onDone = {
                         loginViewModel.viewModelScope.launch {
-                            tryToLogin(loginViewModel, visible, login, context)
+                            tryToLogin(loginViewModel, visible, login, onLoginSuccess)
                         }
                     }))
                 Column(modifier = Modifier
@@ -118,7 +112,7 @@ object Login {
                     Button(modifier = Modifier.fillMaxSize(),
                         onClick = {
                             loginViewModel.viewModelScope.launch {
-                                tryToLogin(loginViewModel, visible, login, context)
+                                tryToLogin(loginViewModel, visible, login, onLoginSuccess)
                             }
                         },
                         shape = RoundedCornerShape(20),
@@ -162,25 +156,15 @@ object Login {
         loginViewModel: LoginViewModel,
         visible: MutableState<Boolean>,
         username: String,
-        context: Context,
+        onLoginSuccess: (UserParameters) -> Unit,
     ) {
         loginViewModel.login(username).onSuccess {
-            openChannelActivity(context,
-                ChatParameters(userId = it.id,
-                    type = it.type,
-                    channelId = "",
-                    secondUserName = "",
-                    secondUserId = ""))
+            onLoginSuccess(
+                UserParameters(userId = it.id,
+                    type = it.type))
             visible.value = false
         }.onFailure {
             visible.value = true
         }
-    }
-
-    private fun openChannelActivity(packageContext: Context, chatParameters: ChatParameters) {
-        val intent = Intent(packageContext, ChannelActivity::class.java).apply {
-            putExtra(PARAMETERS_BUNDLE_KEY, chatParameters)
-        }
-        startActivity(packageContext, intent, null)
     }
 }

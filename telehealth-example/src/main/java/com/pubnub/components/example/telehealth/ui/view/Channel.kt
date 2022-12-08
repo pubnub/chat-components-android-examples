@@ -1,7 +1,6 @@
 package com.pubnub.components.example.telehealth.ui.view
 
 
-import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
@@ -17,10 +16,9 @@ import androidx.paging.map
 import com.pubnub.components.chat.ui.component.channel.ChannelList
 import com.pubnub.components.chat.ui.component.channel.ChannelUi
 import com.pubnub.components.chat.viewmodel.channel.ChannelViewModel
-import com.pubnub.components.example.telehealth.ChatActivity
 import com.pubnub.components.example.telehealth.clearFocusOnTap
 import com.pubnub.components.example.telehealth.dto.ChatParameters
-import com.pubnub.components.example.telehealth.dto.ChatParameters.Companion.PARAMETERS_BUNDLE_KEY
+import com.pubnub.components.example.telehealth.dto.UserParameters
 import com.pubnub.components.example.telehealth.mapper.ChannelUiMapper
 import com.pubnub.components.example.telehealth.ui.theme.ChatBackgroundColor
 import com.pubnub.components.example.telehealth.ui.theme.Typography
@@ -62,7 +60,8 @@ object Channel {
 
     @Composable
     fun View(
-        chatParameters: ChatParameters,
+        userParameters: UserParameters,
+        onChannelSelected: (ChatParameters) -> Unit = {},
     ) {
         // region Content data
         val channelUiMapper = ChannelUiMapper()
@@ -71,26 +70,23 @@ object Channel {
         val channels = remember {
             channelViewModel.getAll(transform = {
                 map { channelUi: ChannelUi ->
-                    channelUiMapper.map(channelUi, chatParameters.userId)
+                    channelUiMapper.map(channelUi, userParameters.userId)
                 }
             })
         }
-        val context = LocalContext.current
         CompositionLocalProvider {
             Content(
                 channels = channels,
                 onSelected = {
-                    val intent = Intent(context, ChatActivity::class.java).apply {
-                        putExtra(PARAMETERS_BUNDLE_KEY,
-                            chatParameters.copy(
-                                channelId = it.id,
-                                secondUserId = it.description ?: "",
-                                secondUserName = it.name,
-                            ))
-                    }
-                    context.startActivity(intent)
+                    onChannelSelected(ChatParameters(
+                        userId = userParameters.userId,
+                        type = userParameters.type,
+                        channelId = it.id,
+                        secondUserId = it.description ?: "",
+                        secondUserName = it.name,
+                    ))
                 },
-                type = chatParameters.type,
+                type = userParameters.type,
             )
         }
     }

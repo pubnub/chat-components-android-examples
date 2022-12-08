@@ -4,10 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class ChatParameters(
+data class UserParameters(
     val userId: String,
     val type: String,
-    val channelId: String,
-    val secondUserId: String,
-    val secondUserName: String,
 ) : Parcelable

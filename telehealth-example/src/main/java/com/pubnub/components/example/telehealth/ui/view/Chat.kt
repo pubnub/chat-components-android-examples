@@ -9,12 +9,13 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import androidx.paging.PagingData
 import com.pubnub.components.chat.ui.component.input.MessageInput
 import com.pubnub.components.chat.ui.component.menu.Copy
@@ -27,7 +28,6 @@ import com.pubnub.components.chat.ui.component.provider.LocalChannel
 import com.pubnub.components.chat.viewmodel.message.MessageViewModel
 import com.pubnub.components.chat.viewmodel.message.MessageViewModel.Companion.defaultWithMediator
 import com.pubnub.components.chat.viewmodel.message.ReactionViewModel
-import com.pubnub.components.example.telehealth.ChatActivity
 import com.pubnub.components.example.telehealth.clearFocusOnTap
 import com.pubnub.components.example.telehealth.dto.ChatParameters
 import com.pubnub.components.example.telehealth.dto.Patient
@@ -46,8 +46,8 @@ object Chat {
         patient: Patient,
         presence: Presence? = null,
         onReactionSelected: ((React) -> Unit)? = null,
+        navController: NavHostController,
     ) {
-        val context = LocalContext.current
         val customTheme = ChatMessageTheme()
         Column(
             modifier = Modifier
@@ -66,7 +66,7 @@ object Chat {
                             .size(36.dp)
                             .padding(top = 8.dp, bottom = 8.dp)
                             .clickable {
-                                if (context is ChatActivity) context.finish()
+                                navController.popBackStack()
                             },
                         painter = painterResource(id = R.drawable.chevron),
                         contentDescription = stringResource(id = R.string.logo),
@@ -110,6 +110,7 @@ object Chat {
     @Composable
     fun View(
         chatParameters: ChatParameters,
+        navController: NavHostController,
     ) {
         val messageViewModel: MessageViewModel = defaultWithMediator()
         val messages =
@@ -154,7 +155,8 @@ object Chat {
                     menuVisible = true
                 },
                 onReactionSelected = reactionViewModel::reactionSelected,
-                patient = Patient(chatParameters.secondUserId, chatParameters.secondUserName)
+                patient = Patient(chatParameters.secondUserId, chatParameters.secondUserName),
+                navController = navController
             )
         }
     }
@@ -170,6 +172,7 @@ private fun ChatPreview() {
             channelId = "channel",
             secondUserId = "654321",
             secondUserName = "Example Name"
-        )
+        ),
+        navController = rememberNavController()
     )
 }
