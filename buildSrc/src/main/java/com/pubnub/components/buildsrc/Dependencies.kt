@@ -161,7 +161,7 @@ object Libs {
         const val memberships = "com.pubnub:pubnub-memberships"
 
         object Components {
-            const val chat = "com.pubnub.components:chat-android:0.5.2"
+            const val chat = "com.pubnub.components:chat-android:0.6.0"
         }
     }
 
