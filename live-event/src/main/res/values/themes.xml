@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.PubNubChatComponents" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:statusBarColor">@color/purple_700</item>
+    <style name="Theme.PubNubChatComponents" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="android:statusBarColor">#FF1C1C28</item>
         <item name="android:windowBackground">#FF2A2A39</item>
     </style>
 </resources>
