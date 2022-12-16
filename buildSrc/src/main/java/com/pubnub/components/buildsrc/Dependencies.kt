@@ -195,6 +195,10 @@ object Libs {
         private const val version = "2.9.0"
         const val retrofit = "com.squareup.retrofit2:retrofit:$version"
     }
+
+    object Github {
+        const val faker = "io.github.serpro69:kotlin-faker:1.12.0"
+    }
 }
 
 object Urls {
