@@ -9,10 +9,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.commit
-import com.pubnub.components.example.live_event.R
 import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayerSupportFragmentXKt
+import com.pubnub.components.example.live_event.R
 
 @Composable
 fun YouTubeView(apiKey: String, videoId: String) {
