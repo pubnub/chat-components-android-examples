@@ -28,7 +28,6 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             val navController = rememberAnimatedNavController()
-            // TODO: add possibility for no message sync from history
             AppTheme(pubNub = pubNub, database = LiveEventApplication.database) {
                 AnimatedNavHost(navController, startDestination = Screen.Channel.route) {
                     composable(

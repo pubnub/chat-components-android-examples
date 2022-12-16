@@ -79,7 +79,7 @@ object Chat {
         channelId: ChannelId,
     ) {
         // region Content data
-        val messageViewModel: MessageViewModel = MessageViewModel.defaultWithMediator()
+        val messageViewModel: MessageViewModel = MessageViewModel.default()
         val messages = remember(channelId) { messageViewModel.getAll(channelId) }
         // endregion
 
