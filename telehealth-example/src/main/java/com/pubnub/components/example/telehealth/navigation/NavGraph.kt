@@ -27,7 +27,8 @@ import com.pubnub.components.example.telehealth_example.BuildConfig
 fun NavGraph(navController: NavHostController) {
     NavHost(
         navController = navController,
-        startDestination = Screens.Login.route)
+        startDestination = Screens.Login.route
+    )
     {
         composable(route = Screens.Login.route) {
             Login.View(
