@@ -1,5 +1,6 @@
 package com.pubnub.components.example.telehealth.navigation
 
+import androidx.navigation.NavType
 import androidx.navigation.navArgument
 
 
@@ -9,14 +10,14 @@ sealed class Screens(val route: String) {
         const val userParametersArg = "user_parameters"
         val routeWithArgs = "$route/{$userParametersArg}"
         val arguments = listOf(
-            navArgument(userParametersArg) { type = UserParametersType() }
+            navArgument(userParametersArg) { type = NavType.Companion.StringType }
         )
     }
     object MessageList : Screens("message_list_screen") {
         const val chatParametersArg = "chat_parameters"
         val routeWithArgs = "$route/{$chatParametersArg}"
         val arguments = listOf(
-            navArgument(chatParametersArg) { type = ChatParametersType() }
+            navArgument(chatParametersArg) { type = NavType.Companion.StringType }
         )
     }
 }
