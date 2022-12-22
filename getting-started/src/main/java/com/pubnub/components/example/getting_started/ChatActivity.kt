@@ -37,9 +37,11 @@ class ChatActivity : ComponentActivity() {
     private fun initializePubNub() {
         pubNub = PubNub(
             PNConfiguration(UserId(Settings.userId)).apply {
-                publishKey = BuildConfig.PUBLISH_KEY
-                subscribeKey = BuildConfig.SUBSCRIBE_KEY
+                publishKey = "demo"
+                subscribeKey = "demo"
                 logVerbosity = PNLogVerbosity.BODY
+                origin = "10.0.2.2:8090"
+                secure = false
             }
         )
     }

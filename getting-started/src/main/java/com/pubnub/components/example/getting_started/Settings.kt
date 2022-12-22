@@ -4,7 +4,7 @@ import com.pubnub.framework.data.ChannelId
 import com.pubnub.framework.data.UserId
 
 object Settings {
-    const val channelId: ChannelId = "Default"
+    const val channelId: ChannelId = "demo"
     const val userId: UserId = "myFirstUser"
     val members = arrayOf("myFirstUser", "mySecondUser")
 }
