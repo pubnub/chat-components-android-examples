@@ -6,6 +6,6 @@ import io.github.serpro69.kfaker.Faker
 
 object Settings {
     private val faker: Faker = Faker()
-    const val channelId: ChannelId = "Default"
+    const val channelId: ChannelId = "demo"
     val userId: UserId = faker.name.name().replace(' ', '_')
 }
