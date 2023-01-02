@@ -1,6 +1,7 @@
-# Live Event app
+# Live Event Chat
 
-`live-event` is a …
+
+`live-events` is an app that simulates live events. You can switch between multiple channels, send messages, view channel occupancy and the participant list. The app comes with the light and dark themes.
 
 ## Prerequisites
 
