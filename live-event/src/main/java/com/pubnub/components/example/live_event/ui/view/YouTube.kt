@@ -1,5 +1,6 @@
 package com.pubnub.components.example.live_event.ui.view
 
+import android.content.pm.ActivityInfo
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,6 +15,7 @@ import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayerSupportFragmentXKt
 import com.pubnub.components.example.live_event.R
+import timber.log.Timber
 
 @Composable
 fun YouTubeView(apiKey: String, videoId: String) {
@@ -44,9 +46,13 @@ fun YouTubeView(apiKey: String, videoId: String) {
                             player: YouTubePlayer,
                             wasRestored: Boolean
                         ) {
-                            // TODO closing this screen when the player is in fullscreen
-                            //  is making the app keep in landscape. Disabling for now.
-                            player.setShowFullscreenButton(false)
+                            player.setOnFullscreenListener { isFullscreen ->
+                                val newOrientation = if (isFullscreen)
+                                    ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+                                else
+                                    ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+                                activity?.requestedOrientation = newOrientation
+                            }
                             if (!wasRestored) {
                                 player.cueVideo(videoId)
                             }
