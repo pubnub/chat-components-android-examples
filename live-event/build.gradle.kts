@@ -82,4 +82,8 @@ dependencies {
     androidTestImplementation(Libs.AndroidX.Test.espressoCore)
     androidTestImplementation(Libs.AndroidX.Compose.uiTest)
     debugImplementation(Libs.AndroidX.Compose.tooling)
+
+
+    releaseImplementation(Libs.Utils.taktNoOp)
+    debugImplementation(Libs.Utils.takt)
 }

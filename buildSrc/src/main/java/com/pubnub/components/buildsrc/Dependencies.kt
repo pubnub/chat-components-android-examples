@@ -201,6 +201,11 @@ object Libs {
     object Github {
         const val faker = "io.github.serpro69:kotlin-faker:1.12.0"
     }
+
+    object Utils {
+        const val taktNoOp = "jp.wasabeef:takt-no-op:2.1.1"
+        const val takt = "jp.wasabeef:takt:2.1.1"
+    }
 }
 
 object Urls {

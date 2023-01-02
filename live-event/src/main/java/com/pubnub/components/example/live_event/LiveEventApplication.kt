@@ -9,6 +9,7 @@ import com.pubnub.components.data.Database
 import com.pubnub.components.data.channel.DBChannel
 import com.pubnub.components.data.member.DBMember
 import com.pubnub.components.data.membership.DBMembership
+import jp.wasabeef.takt.Takt
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -23,6 +24,7 @@ class LiveEventApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         database = Database.initialize(applicationContext) { it.prepopulate() }
+        Takt.stock(this)
     }
 
     private fun RoomDatabase.Builder<DefaultDatabase>.prepopulate(): RoomDatabase.Builder<DefaultDatabase> =
