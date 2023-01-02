@@ -1,8 +1,8 @@
 package com.pubnub.components.example.live_event
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.core.view.WindowCompat
 import com.google.accompanist.navigation.animation.AnimatedNavHost
@@ -17,7 +17,7 @@ import com.pubnub.components.example.live_event.ui.theme.AppTheme
 import com.pubnub.components.example.live_event.ui.view.Chat
 
 @OptIn(ExperimentalAnimationApi::class)
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var pubNub: PubNub
 

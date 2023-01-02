@@ -27,6 +27,7 @@ android {
             "SUBSCRIBE_KEY",
             project.property("PUBNUB_SUBSCRIBE_KEY") as String
         )
+        buildConfigField("String", "YOUTUBE_KEY", project.property("YOUTUBE_KEY") as String)
     }
 
     buildTypes {
@@ -54,12 +55,15 @@ android {
 }
 
 dependencies {
+    implementation(fileTree("libs") { include("*.jar") })
     implementation(Libs.PubNub.Components.chat)
     api(platform(Libs.PubNub.bom))
     implementation(Libs.PubNub.kotlin)
     implementation(Libs.PubNub.memberships)
 
     implementation(Libs.AndroidX.core)
+    implementation(Libs.AndroidX.appcompat)
+    implementation(Libs.AndroidX.fragment)
     implementation(platform(Libs.AndroidX.Compose.bom))
     implementation(Libs.AndroidX.Compose.ui)
     implementation(Libs.AndroidX.Compose.material)
