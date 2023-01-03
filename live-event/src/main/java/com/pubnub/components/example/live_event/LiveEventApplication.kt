@@ -14,6 +14,7 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class LiveEventApplication : Application() {
 
@@ -24,7 +25,7 @@ class LiveEventApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         database = Database.initialize(applicationContext) { it.prepopulate() }
-        Takt.stock(this)
+        Takt.stock(this).interval(250).listener { Timber.e("FPS $it") }
     }
 
     private fun RoomDatabase.Builder<DefaultDatabase>.prepopulate(): RoomDatabase.Builder<DefaultDatabase> =
