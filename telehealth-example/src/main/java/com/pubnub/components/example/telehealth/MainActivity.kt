@@ -12,10 +12,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            RepositoryProvider(ChatApplication.database.asPubNub()) {
                 val navController = rememberNavController()
                 NavGraph(navController = navController)
-            }
         }
     }
 }

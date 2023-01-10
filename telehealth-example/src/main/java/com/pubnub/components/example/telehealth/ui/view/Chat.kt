@@ -168,7 +168,7 @@ private fun ChatPreview() {
     Chat.View(
         chatParameters = ChatParameters(
             userId = "123456",
-            type = "patient",
+            userType = "patient",
             channelId = "channel",
             secondUserId = "654321",
             secondUserName = "Example Name"

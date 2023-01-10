@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class ChatParameters(
     val userId: String,
-    val type: String,
+    val userType: String,
     val channelId: String,
     val secondUserId: String,
     val secondUserName: String,

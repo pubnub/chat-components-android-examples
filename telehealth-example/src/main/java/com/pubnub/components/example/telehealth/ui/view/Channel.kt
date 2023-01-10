@@ -18,7 +18,6 @@ import com.pubnub.components.chat.ui.component.channel.ChannelUi
 import com.pubnub.components.chat.viewmodel.channel.ChannelViewModel
 import com.pubnub.components.example.telehealth.clearFocusOnTap
 import com.pubnub.components.example.telehealth.dto.ChatParameters
-import com.pubnub.components.example.telehealth.dto.UserParameters
 import com.pubnub.components.example.telehealth.mapper.ChannelUiMapper
 import com.pubnub.components.example.telehealth.ui.theme.ChatBackgroundColor
 import com.pubnub.components.example.telehealth.ui.theme.Typography
@@ -60,7 +59,8 @@ object Channel {
 
     @Composable
     fun View(
-        userParameters: UserParameters,
+        userId: String,
+        userType: String,
         onChannelSelected: (ChatParameters) -> Unit = {},
     ) {
         // region Content data
@@ -70,7 +70,7 @@ object Channel {
         val channels = remember {
             channelViewModel.getAll(transform = {
                 map { channelUi: ChannelUi ->
-                    channelUiMapper.map(channelUi, userParameters.userId)
+                    channelUiMapper.map(channelUi, userId)
                 }
             })
         }
@@ -79,14 +79,14 @@ object Channel {
                 channels = channels,
                 onSelected = {
                     onChannelSelected(ChatParameters(
-                        userId = userParameters.userId,
-                        type = userParameters.type,
+                        userId = userId,
+                        userType = userType,
                         channelId = it.id,
                         secondUserId = it.description ?: "",
                         secondUserName = it.name,
                     ))
                 },
-                type = userParameters.type,
+                type = userType,
             )
         }
     }

@@ -15,12 +15,13 @@ import androidx.compose.ui.unit.dp
 import com.pubnub.api.PubNub
 import com.pubnub.components.DefaultDatabase
 import com.pubnub.components.asPubNub
+import com.pubnub.components.chat.provider.ChatProvider
+import com.pubnub.components.chat.provider.RepositoryProvider
 import com.pubnub.components.chat.ui.component.common.ShapeThemeDefaults
 import com.pubnub.components.chat.ui.component.common.TextThemeDefaults
 import com.pubnub.components.chat.ui.component.common.ThemeDefaults
 import com.pubnub.components.chat.ui.component.message.MessageListTheme
 import com.pubnub.components.example.telehealth.ChatApplication
-import com.pubnub.components.example.telehealth.ChatProvider
 
 private val DarkColorPalette = darkColors(
     primary = Purple200,
@@ -49,12 +50,19 @@ fun AppTheme(
         typography = Typography,
         shapes = Shapes,
     ) {
-        ChatProvider(
-            pubNub = pubNub,
-            database = database.asPubNub(),
-        ) {
-            content()
+        if (pubNub) {
+            RepositoryProvider(ChatApplication.database.asPubNub()) {
+                content()
+            }
+        } else {
+            ChatProvider(
+                pubNub = pubNub,
+                database = database.asPubNub(),
+            ) {
+                content()
+            }
         }
+
     }
 }
 

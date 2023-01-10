@@ -25,16 +25,21 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewModelScope
-import com.pubnub.components.example.telehealth.dto.UserParameters
+import com.pubnub.api.PNConfiguration
+import com.pubnub.api.PubNub
+import com.pubnub.api.UserId
+import com.pubnub.api.enums.PNLogVerbosity
+import com.pubnub.components.example.telehealth.ChatApplication
 import com.pubnub.components.example.telehealth.ui.theme.*
 import com.pubnub.components.example.telehealth.viewmodel.LoginViewModel
+import com.pubnub.components.example.telehealth_example.BuildConfig
 import com.pubnub.components.example.telehealth_example.R
 import kotlinx.coroutines.launch
 
 object Login {
     @Composable
     fun View(
-        onLoginSuccess: (UserParameters) -> Unit = {},
+        onLoginSuccess: (userId: String, userType: String) -> Unit = { _: String, _: String -> },
     ) {
         val loginViewModel: LoginViewModel = LoginViewModel.default()
         var visible = remember { mutableStateOf(false) }
@@ -156,15 +161,24 @@ object Login {
         loginViewModel: LoginViewModel,
         visible: MutableState<Boolean>,
         username: String,
-        onLoginSuccess: (UserParameters) -> Unit,
+        onLoginSuccess: (userId: String, userType: String) -> Unit,
     ) {
         loginViewModel.login(username).onSuccess {
-            onLoginSuccess(
-                UserParameters(userId = it.id,
-                    type = it.type))
+            initializePubNub(it.id)
+            onLoginSuccess(it.id, it.type)
             visible.value = false
         }.onFailure {
             visible.value = true
         }
     }
+}
+
+private fun initializePubNub(userId: String) {
+    ChatApplication.pubNub = PubNub(
+        PNConfiguration(userId = UserId(userId)).apply {
+            publishKey = BuildConfig.PUBLISH_KEY
+            subscribeKey = BuildConfig.SUBSCRIBE_KEY
+            logVerbosity = PNLogVerbosity.NONE
+        }
+    )
 }
