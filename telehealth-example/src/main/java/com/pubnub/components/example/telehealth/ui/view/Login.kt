@@ -164,7 +164,6 @@ object Login {
         onLoginSuccess: (userId: String, userType: String) -> Unit,
     ) {
         loginViewModel.login(username).onSuccess {
-            initializePubNub(it.id)
             onLoginSuccess(it.id, it.type)
             visible.value = false
         }.onFailure {
@@ -173,12 +172,3 @@ object Login {
     }
 }
 
-private fun initializePubNub(userId: String) {
-    ChatApplication.pubNub = PubNub(
-        PNConfiguration(userId = UserId(userId)).apply {
-            publishKey = BuildConfig.PUBLISH_KEY
-            subscribeKey = BuildConfig.SUBSCRIBE_KEY
-            logVerbosity = PNLogVerbosity.NONE
-        }
-    )
-}

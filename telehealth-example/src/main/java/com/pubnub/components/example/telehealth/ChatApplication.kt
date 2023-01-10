@@ -21,7 +21,7 @@ class ChatApplication : Application() {
 
     companion object {
         lateinit var database: DefaultDatabase
-        lateinit var pubNub: PubNub
+        var pubNub: PubNub? = null
     }
 
     override fun onCreate() {
