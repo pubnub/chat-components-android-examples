@@ -3,9 +3,9 @@
     "name": "Luke Young",
     "custom": {
       "title": "Product Engineer",
-      "username":"lukeyoung",
-      "painLevel":"3/10",
-      "queuePosition":"1"
+      "username": "lukeyoung",
+      "painLevel": "3/10",
+      "queuePosition": "1"
     },
     "type": "patient",
     "email": null,
@@ -20,8 +20,8 @@
     "custom": {
       "title": "General Practitioner",
       "username": "suejones",
-      "painLevel":null,
-      "queuePosition":null
+      "painLevel": null,
+      "queuePosition": null
     },
     "type": "doctor",
     "email": null,
@@ -35,9 +35,9 @@
     "name": "Sara Flores",
     "custom": {
       "title": "VP, Sales",
-      "username":"saraflores",
-      "painLevel":"9/10",
-      "queuePosition":"2"
+      "username": "saraflores",
+      "painLevel": "9/10",
+      "queuePosition": "2"
     },
     "type": "patient",
     "email": null,
