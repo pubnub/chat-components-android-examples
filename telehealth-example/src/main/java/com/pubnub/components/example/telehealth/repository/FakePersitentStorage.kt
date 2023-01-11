@@ -3,7 +3,6 @@ package com.pubnub.components.example.telehealth.repository
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import com.pubnub.components.data.member.DBMemberWithChannels
-import com.pubnub.framework.data.UserId
 
 /**
  * This object is created to store some runtime data.

@@ -93,7 +93,10 @@ object Chat {
         }
 
         val channelUiMapper = DirectChannelUiMapper(LocalUser.current)
-        val channelViewModel: ChannelViewModel = ChannelViewModel.default(resources = LocalContext.current.resources, dbMapper = channelUiMapper)
+        val channelViewModel: ChannelViewModel = ChannelViewModel.default(
+            resources = LocalContext.current.resources,
+            dbMapper = channelUiMapper
+        )
         val currentChannel = channelViewModel.get(channelId)
         requireNotNull(currentChannel)
 

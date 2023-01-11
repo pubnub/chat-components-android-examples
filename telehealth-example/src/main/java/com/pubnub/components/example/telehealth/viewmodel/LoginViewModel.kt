@@ -6,7 +6,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.pubnub.components.chat.provider.LocalMemberRepository
 import com.pubnub.components.data.member.DBMember
 import com.pubnub.components.data.member.DBMemberWithChannels
-import com.pubnub.components.data.message.asMap
 import com.pubnub.components.data.message.mapTo
 import com.pubnub.components.example.telehealth.dto.DBMemberCustomData
 import com.pubnub.components.example.telehealth.factory.LoginViewModelFactory

@@ -31,9 +31,11 @@ object Channel {
         type: String,
         onSelected: (ChannelUi.Data) -> Unit = {},
     ) {
-        Column(modifier = Modifier
-            .fillMaxSize()
-            .clearFocusOnTap()) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .clearFocusOnTap()
+        ) {
             ChannelList(channels = channels, onSelected = onSelected, headerContent = {
                 HeaderTitle(type)
             })
@@ -42,17 +44,21 @@ object Channel {
 
     @Composable
     fun HeaderTitle(type: String) {
-        Row(modifier = Modifier
-            .fillMaxWidth()
-            .background(color = ChatBackgroundColor)) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(color = ChatBackgroundColor)
+        ) {
             val title = if (type == "patient") {
                 stringResource(R.string.doctor_top_bar)
             } else {
                 stringResource(R.string.patient_top_bar)
             }
-            Text(text = title,
+            Text(
+                text = title,
                 modifier = Modifier.padding(top = 16.dp, start = 20.dp, bottom = 16.dp),
-                style = Typography.body2)
+                style = Typography.body2
+            )
         }
     }
 
@@ -65,7 +71,10 @@ object Channel {
         // region Content data
         val channelUiMapper = DirectChannelUiMapper(userId)
         val channelViewModel: ChannelViewModel =
-            ChannelViewModel.default(resources = LocalContext.current.resources, dbMapper = channelUiMapper)
+            ChannelViewModel.default(
+                resources = LocalContext.current.resources,
+                dbMapper = channelUiMapper
+            )
         val channels = remember {
             channelViewModel.getAll()
         }

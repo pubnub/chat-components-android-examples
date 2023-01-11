@@ -9,7 +9,7 @@ import com.pubnub.framework.mapper.Mapper
 class DirectChannelUiMapper(
     private val userId: String,
     private val mapper: Mapper<DBChannelWithMembers, ChannelUi.Data> = DBChannelMapper(),
-): Mapper<DBChannelWithMembers, ChannelUi.Data> {
+) : Mapper<DBChannelWithMembers, ChannelUi.Data> {
     override fun map(input: DBChannelWithMembers): ChannelUi.Data {
         val base = mapper.map(input)
         val otherMember: MemberUi.Data? =
