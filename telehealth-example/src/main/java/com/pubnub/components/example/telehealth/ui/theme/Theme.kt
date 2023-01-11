@@ -37,6 +37,7 @@ private val LightColorPalette = lightColors(
 
 @Composable
 fun AppTheme(
+    pubNub: PubNub? = null,
     database: DefaultDatabase = ChatApplication.database,
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable() () -> Unit,
@@ -49,14 +50,13 @@ fun AppTheme(
         typography = Typography,
         shapes = Shapes,
     ) {
-        //TODO
-        if (ChatApplication.pubNub == null) {
+        if (pubNub == null) {
             RepositoryProvider(ChatApplication.database.asPubNub()) {
                 content()
             }
         } else {
             ChatProvider(
-                pubNub = ChatApplication.pubNub!!,
+                pubNub = pubNub,
                 database = database.asPubNub(),
             ) {
                 content()

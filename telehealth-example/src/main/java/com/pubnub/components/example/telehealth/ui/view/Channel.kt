@@ -12,16 +12,15 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.paging.PagingData
-import androidx.paging.map
 import com.pubnub.components.chat.ui.component.channel.ChannelList
 import com.pubnub.components.chat.ui.component.channel.ChannelUi
 import com.pubnub.components.chat.viewmodel.channel.ChannelViewModel
-import com.pubnub.components.example.telehealth.clearFocusOnTap
-import com.pubnub.components.example.telehealth.dto.ChatParameters
-import com.pubnub.components.example.telehealth.mapper.ChannelUiMapper
+import com.pubnub.components.example.telehealth.extensions.clearFocusOnTap
+import com.pubnub.components.example.telehealth.mapper.DirectChannelUiMapper
 import com.pubnub.components.example.telehealth.ui.theme.ChatBackgroundColor
 import com.pubnub.components.example.telehealth.ui.theme.Typography
 import com.pubnub.components.example.telehealth_example.R
+import com.pubnub.framework.data.ChannelId
 import kotlinx.coroutines.flow.Flow
 
 object Channel {
@@ -61,30 +60,20 @@ object Channel {
     fun View(
         userId: String,
         userType: String,
-        onChannelSelected: (ChatParameters) -> Unit = {},
+        onChannelSelected: (ChannelId) -> Unit = {},
     ) {
         // region Content data
-        val channelUiMapper = ChannelUiMapper()
+        val channelUiMapper = DirectChannelUiMapper(userId)
         val channelViewModel: ChannelViewModel =
-            ChannelViewModel.default(LocalContext.current.resources)
+            ChannelViewModel.default(resources = LocalContext.current.resources, dbMapper = channelUiMapper)
         val channels = remember {
-            channelViewModel.getAll(transform = {
-                map { channelUi: ChannelUi ->
-                    channelUiMapper.map(channelUi, userId)
-                }
-            })
+            channelViewModel.getAll()
         }
         CompositionLocalProvider {
             Content(
                 channels = channels,
-                onSelected = {
-                    onChannelSelected(ChatParameters(
-                        userId = userId,
-                        userType = userType,
-                        channelId = it.id,
-                        secondUserId = it.description ?: "",
-                        secondUserName = it.name,
-                    ))
+                onSelected = { channel ->
+                    onChannelSelected(channel.id)
                 },
                 type = userType,
             )

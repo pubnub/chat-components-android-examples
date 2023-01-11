@@ -21,7 +21,6 @@ class ChatApplication : Application() {
 
     companion object {
         lateinit var database: DefaultDatabase
-        var pubNub: PubNub? = null
     }
 
     override fun onCreate() {
@@ -45,15 +44,15 @@ class ChatApplication : Application() {
 
                             // add members
                             val members = defaultDataRepository.members
-                            Log.e("DATABASE", "Add Members $members")
                             memberDao().insertOrUpdate(*members)
+
                             // add channels
                             val channels = defaultDataRepository.channels
-                            Log.e("DATABASE", "Add Channels $channels")
                             channelDao().insertOrUpdate(*channels)
+
                             // add memberships
                             val memberships = defaultDataRepository.memberships
-                            membershipDao().insertOrUpdate(*memberships.toTypedArray())
+                            membershipDao().insertOrUpdate(*memberships)
                         }
                     }
                 }

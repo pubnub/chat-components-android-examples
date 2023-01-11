@@ -25,9 +25,9 @@ class DefaultDataRepository(private val resources: Resources) {
 
     private val rawMemberships: Array<Membership> = parseArray(R.raw.memberships)
 
-    val memberships = rawMemberships.flatMap { membership ->
+    val memberships: Array<DBMembership> = rawMemberships.flatMap { membership ->
         membership.members.map { DBMembership(membership.channelId, it) }
-    }
+    }.toTypedArray()
 
     private inline fun <reified T> parseArray(@RawRes resource: Int): Array<T> =
         resources.parseJson(resource)
