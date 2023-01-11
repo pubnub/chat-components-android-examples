@@ -20,7 +20,7 @@ class MainActivity : ComponentActivity() {
     private val storage = FakePersitentStorage
     val pubNub: PubNub by lazy {
         PubNub(
-            PNConfiguration(userId = UserId(storage.user!!.id)).apply {
+            PNConfiguration(userId = UserId(storage.user.value!!.id)).apply {
                 publishKey = BuildConfig.PUBLISH_KEY
                 subscribeKey = BuildConfig.SUBSCRIBE_KEY
                 logVerbosity = PNLogVerbosity.NONE
@@ -32,7 +32,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val navController = rememberNavController()
-            AppTheme(pubNub = if(storage.user != null) pubNub else null) {
+            AppTheme(pubNub = if(storage.user.value != null) pubNub else null) {
                 NavGraph(navController = navController)
             }
         }

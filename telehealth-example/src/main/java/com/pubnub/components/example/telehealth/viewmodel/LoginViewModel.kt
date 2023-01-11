@@ -46,7 +46,7 @@ class LoginViewModel(
      * @return [DBMemberWithChannels] object if exists, null otherwise
      */
     fun getLoggedUser(): DBMemberWithChannels? =
-        storage.user
+        storage.user.value
 
     /**
      * Stores the user data in repository
@@ -54,7 +54,7 @@ class LoginViewModel(
      * @param user DBMemberWithChannels object
      */
     private fun setLoggedUser(user: DBMemberWithChannels?) {
-        storage.user = user
+        storage.user.value = user
     }
 
     companion object {

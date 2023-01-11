@@ -1,5 +1,7 @@
 package com.pubnub.components.example.telehealth.repository
 
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import com.pubnub.components.data.member.DBMemberWithChannels
 import com.pubnub.framework.data.UserId
 
@@ -10,5 +12,5 @@ import com.pubnub.framework.data.UserId
  * it should be stored in database (in custom fields) or shared preferences.
  */
 object FakePersitentStorage {
-    var user: DBMemberWithChannels? = null
+    var user: MutableState<DBMemberWithChannels?> = mutableStateOf(null)
 }
