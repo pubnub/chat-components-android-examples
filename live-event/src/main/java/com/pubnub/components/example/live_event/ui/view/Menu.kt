@@ -4,9 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.pubnub.components.chat.ui.component.menu.BottomMenu
 import com.pubnub.components.chat.ui.component.menu.MenuAction
-import com.pubnub.components.chat.ui.component.menu.React
 import com.pubnub.components.chat.ui.component.message.MessageUi
-import com.pubnub.components.chat.ui.component.message.reaction.renderer.DefaultReactionsPickerRenderer
 
 @Composable
 fun Menu(
@@ -18,11 +16,7 @@ fun Menu(
 ) {
     BottomMenu(
         message = message,
-        headerContent = {
-            DefaultReactionsPickerRenderer.ReactionsPicker { reaction ->
-                message?.let { onAction(React(reaction, message)) }
-            }
-        },
+        headerContent = {},
         onAction = { action ->
             onAction(action)
         },
