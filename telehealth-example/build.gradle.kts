@@ -26,7 +26,8 @@ android {
         buildConfigField(
             "String",
             "SUBSCRIBE_KEY",
-            project.property("PUBNUB_SUBSCRIBE_KEY") as String)
+            project.property("PUBNUB_SUBSCRIBE_KEY") as String
+        )
     }
 
     buildTypes {

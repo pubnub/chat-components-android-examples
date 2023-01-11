@@ -1,4 +1,4 @@
-package com.pubnub.components.example.telehealth
+package com.pubnub.components.example.telehealth.extensions
 
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.runtime.Composable

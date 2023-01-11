@@ -9,6 +9,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
@@ -25,16 +26,17 @@ import com.pubnub.components.chat.ui.component.message.MessageListTheme
 import com.pubnub.components.chat.ui.component.message.MessageUi
 import com.pubnub.components.chat.ui.component.presence.Presence
 import com.pubnub.components.chat.ui.component.provider.LocalChannel
+import com.pubnub.components.chat.ui.component.provider.LocalUser
+import com.pubnub.components.chat.viewmodel.channel.ChannelViewModel
 import com.pubnub.components.chat.viewmodel.message.MessageViewModel
-import com.pubnub.components.chat.viewmodel.message.MessageViewModel.Companion.defaultWithMediator
 import com.pubnub.components.chat.viewmodel.message.ReactionViewModel
-import com.pubnub.components.example.telehealth.clearFocusOnTap
-import com.pubnub.components.example.telehealth.dto.ChatParameters
-import com.pubnub.components.example.telehealth.dto.Patient
+import com.pubnub.components.example.telehealth.extensions.clearFocusOnTap
+import com.pubnub.components.example.telehealth.mapper.DirectChannelUiMapper
 import com.pubnub.components.example.telehealth.ui.theme.ChatBackgroundColor
 import com.pubnub.components.example.telehealth.ui.theme.ChatMessageTheme
 import com.pubnub.components.example.telehealth.ui.theme.Typography
 import com.pubnub.components.example.telehealth_example.R
+import com.pubnub.framework.data.ChannelId
 import kotlinx.coroutines.flow.Flow
 
 object Chat {
@@ -43,7 +45,8 @@ object Chat {
     internal fun Content(
         messages: Flow<PagingData<MessageUi>>,
         onMessageSelected: (MessageUi.Data) -> Unit,
-        patient: Patient,
+        title: String,
+        description: String,
         presence: Presence? = null,
         onReactionSelected: ((React) -> Unit)? = null,
         navController: NavHostController,
@@ -55,42 +58,7 @@ object Chat {
                 .clearFocusOnTap()
         ) {
             MessageListTheme(customTheme) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(color = ChatBackgroundColor),
-                    contentAlignment = Alignment.CenterStart,
-                ) {
-                    Image(
-                        modifier = Modifier
-                            .size(36.dp)
-                            .padding(top = 8.dp, bottom = 8.dp)
-                            .clickable {
-                                navController.popBackStack()
-                            },
-                        painter = painterResource(id = R.drawable.chevron),
-                        contentDescription = stringResource(id = R.string.logo),
-                    )
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 8.dp, bottom = 8.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center,
-                    ) {
-                        Text(
-                            text = patient.name,
-                            style = Typography.body2
-                        )
-                        Text(
-                            text = patient.id,
-                            style = Typography.body2
-                        )
-                    }
-                    Spacer(modifier = Modifier
-                        .size(36.dp)
-                        .padding(16.dp))
-                }
+                Header(navController, title, description)
                 MessageList(
                     messages = messages,
                     presence = presence,
@@ -109,26 +77,35 @@ object Chat {
 
     @Composable
     fun View(
-        chatParameters: ChatParameters,
+        channelId: ChannelId,
         navController: NavHostController,
     ) {
-        val messageViewModel: MessageViewModel = defaultWithMediator()
+        val messageViewModel: MessageViewModel = MessageViewModel.defaultWithMediator()
         val messages =
-            remember(chatParameters.channelId) { messageViewModel.getAll(chatParameters.channelId) }
+            remember(channelId) { messageViewModel.getAll(channelId) }
 
         val reactionViewModel: ReactionViewModel = ReactionViewModel.default()
-        DisposableEffect(chatParameters.channelId) {
-            reactionViewModel.bind(chatParameters.channelId)
+        DisposableEffect(channelId) {
+            reactionViewModel.bind(channelId)
             onDispose {
                 reactionViewModel.unbind()
             }
         }
 
+        val channelUiMapper = DirectChannelUiMapper(LocalUser.current)
+        val channelViewModel: ChannelViewModel = ChannelViewModel.default(
+            resources = LocalContext.current.resources,
+            dbMapper = channelUiMapper
+        )
+        val currentChannel = channelViewModel.get(channelId)
+        requireNotNull(currentChannel)
+
         var menuVisible by remember { mutableStateOf(false) }
         var selectedMessage by remember { mutableStateOf<MessageUi.Data?>(null) }
 
         val onDismiss: () -> Unit = { menuVisible = false }
-        CompositionLocalProvider(LocalChannel provides chatParameters.channelId) {
+
+        CompositionLocalProvider(LocalChannel provides channelId) {
             Menu(
                 visible = menuVisible,
                 message = selectedMessage,
@@ -155,8 +132,51 @@ object Chat {
                     menuVisible = true
                 },
                 onReactionSelected = reactionViewModel::reactionSelected,
-                patient = Patient(chatParameters.secondUserId, chatParameters.secondUserName),
-                navController = navController
+                title = currentChannel.name,
+                description = currentChannel.description!!,
+                navController = navController,
+            )
+        }
+    }
+
+    @Composable
+    fun Header(navController: NavHostController, header: String, description: String) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(color = ChatBackgroundColor),
+            contentAlignment = Alignment.CenterStart,
+        ) {
+            Image(
+                modifier = Modifier
+                    .size(36.dp)
+                    .padding(top = 8.dp, bottom = 8.dp)
+                    .clickable {
+                        navController.popBackStack()
+                    },
+                painter = painterResource(id = R.drawable.chevron),
+                contentDescription = stringResource(id = R.string.logo),
+            )
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 8.dp, bottom = 8.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
+            ) {
+                Text(
+                    text = header,
+                    style = Typography.body2
+                )
+                Text(
+                    text = description,
+                    style = Typography.body2
+                )
+            }
+            Spacer(
+                modifier = Modifier
+                    .size(36.dp)
+                    .padding(16.dp)
             )
         }
     }
@@ -166,13 +186,7 @@ object Chat {
 @Preview
 private fun ChatPreview() {
     Chat.View(
-        chatParameters = ChatParameters(
-            userId = "123456",
-            userType = "patient",
-            channelId = "channel",
-            secondUserId = "654321",
-            secondUserName = "Example Name"
-        ),
+        channelId = "channel",
         navController = rememberNavController()
     )
 }

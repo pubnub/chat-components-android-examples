@@ -7,72 +7,52 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.pubnub.components.example.telehealth.ChatApplication
-import com.pubnub.components.example.telehealth.dto.ChatParameters
-import com.pubnub.components.example.telehealth.ui.theme.AppTheme
 import com.pubnub.components.example.telehealth.ui.view.Channel
 import com.pubnub.components.example.telehealth.ui.view.Chat
 import com.pubnub.components.example.telehealth.ui.view.Login
+import com.pubnub.components.example.telehealth.viewmodel.LoginViewModel
 
 @Composable
 fun NavGraph(navController: NavHostController) {
-    AppTheme(userId = ChatApplication.userId) {
-        NavHost(
-            navController = navController,
-            startDestination = Screen.Login.route
-        )
-        {
-            composable(route = Screen.Login.route) {
-                Login.View(
-                    onLoginSuccess = { userId, userType ->
-                        navController.navigate(Screen.Channel.createRoute(userId, userType))
-                    }
-                )
+    val loginViewModel: LoginViewModel = LoginViewModel.default()
+    val user = loginViewModel.getLoggedUser()
+    NavHost(
+        navController = navController,
+        startDestination = Screen.Login.route
+    ) {
+        composable(route = Screen.Login.route) {
+            Login.View { _, _ ->
+                navController.navigate(Screen.ChannelList.route)
             }
-            composable(
-                route = Screen.Channel.routeWithArgs,
-                arguments = Screen.Channel.arguments,
-            ) { navBackStackEntry ->
-                val userId = navBackStackEntry.arguments?.getString(Screen.Channel.userIdArg)
-                val userType = navBackStackEntry.arguments?.getString(Screen.Channel.userTypeArg)
-                if (userId != null && userType != null) {
-                    Box(modifier = Modifier.fillMaxSize()) {
-                        Channel.View(userId = userId, userType = userType,
-                            onChannelSelected = { chatParameters ->
-                                navController.navigate(Screen.MessageList.createRoute(
-                                    userId = chatParameters.userId,
-                                    userType = chatParameters.userType,
-                                    channelId = chatParameters.channelId,
-                                    secondUserId = chatParameters.secondUserId,
-                                    secondUserName = chatParameters.secondUserName))
-                            })
-                    }
+        }
+        composable(route = Screen.ChannelList.route) {
+            if (user != null) {
+                Box(modifier = Modifier.fillMaxSize()) {
+                    Channel.View(userId = user.id, userType = user.type,
+                        onChannelSelected = { channelId ->
+                            navController.navigate(
+                                Screen.MessageList.createRoute(
+                                    channelId = channelId
+                                )
+                            )
+                        })
                 }
             }
-            composable(
-                route = Screen.MessageList.routeWithArgs,
-                arguments = Screen.MessageList.arguments,
-            ) { navBackStackEntry ->
-                val userId = navBackStackEntry.arguments?.getString(Screen.MessageList.userIdArg)
-                val userType =
-                    navBackStackEntry.arguments?.getString(Screen.MessageList.userTypeArg)
-                val channelId =
-                    navBackStackEntry.arguments?.getString(Screen.MessageList.channelIdArg)
-                val secondUserId =
-                    navBackStackEntry.arguments?.getString(Screen.MessageList.secondUserIdArg)
-                val secondUserName =
-                    navBackStackEntry.arguments?.getString(Screen.MessageList.secondUserNameArg)
-                if (userId != null && userType != null && channelId != null && secondUserId != null && secondUserName != null) {
-                    Box(modifier = Modifier.fillMaxSize()) {
-                        Chat.View(ChatParameters(userId = userId,
-                            userType = userType,
-                            channelId = channelId,
-                            secondUserId = secondUserId,
-                            secondUserName = secondUserName), navController)
-                    }
+        }
+        composable(
+            route = Screen.MessageList.routeWithArgs,
+            arguments = Screen.MessageList.arguments,
+        ) { navBackStackEntry ->
+            val channelId =
+                navBackStackEntry.arguments?.getString(Screen.MessageList.channelIdArg)
+            if (user != null && channelId != null) {
+                Box(modifier = Modifier.fillMaxSize()) {
+                    Chat.View(
+                        channelId = channelId,
+                        navController = navController,
+                    )
                 }
             }
         }
     }
 }
-
