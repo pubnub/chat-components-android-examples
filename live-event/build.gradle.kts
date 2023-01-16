@@ -68,6 +68,8 @@ dependencies {
     implementation(Libs.AndroidX.Compose.ui)
     implementation(Libs.AndroidX.Compose.material)
     implementation(Libs.AndroidX.Compose.toolingPreview)
+    implementation(Libs.AndroidX.Compose.iconsCore)
+    implementation(Libs.AndroidX.Compose.iconsExtended)
     implementation(Libs.AndroidX.Lifecycle.runtime)
     implementation(Libs.AndroidX.Activity.activityCompose)
     implementation(Libs.Coil.coil)
