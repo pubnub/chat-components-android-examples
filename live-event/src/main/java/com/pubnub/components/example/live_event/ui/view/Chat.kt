@@ -40,6 +40,7 @@ import com.pubnub.components.example.live_event.R
 import com.pubnub.framework.data.ChannelId
 import com.pubnub.framework.data.Occupancy
 import kotlinx.coroutines.flow.Flow
+import timber.log.Timber
 import java.util.*
 
 object Chat {
@@ -100,6 +101,8 @@ object Chat {
                 0
             )
         )
+
+        Timber.e("Occupancy: ${occupancy.occupancy}")
         var menuVisible by remember { mutableStateOf(false) }
         var selectedMessage by remember { mutableStateOf<MessageUi.Data?>(null) }
 
