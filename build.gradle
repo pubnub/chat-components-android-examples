@@ -6,10 +6,10 @@ apply plugin: "com.github.ben-manes.versions"
 
 buildscript {
     repositories {
+        mavenLocal()
         google()
         mavenCentral()
         gradlePluginPortal()
-        mavenLocal()
     }
     dependencies {
         classpath(Libs.androidGradlePlugin)

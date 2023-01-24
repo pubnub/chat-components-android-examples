@@ -7,7 +7,7 @@ object Versions {
 object Libs {
     const val androidGradlePlugin = "com.android.tools.build:gradle:7.4.0"
     const val ktLint = "com.pinterest:ktlint:${Versions.ktLint}"
-    const val jdkDesugar = "com.android.tools:desugar_jdk_libs:1.1.5"
+    const val jdkDesugar = "com.android.tools:desugar_jdk_libs:2.0.0"
     const val gradleVersionsPlugin = "com.github.ben-manes:gradle-versions-plugin:0.44.0"
 
     object Build {
@@ -61,7 +61,7 @@ object Libs {
     }
 
     object Google {
-        const val gson = "com.google.code.gson:gson:2.9.1"
+        const val gson = "com.google.code.gson:gson:2.10.1"
     }
 
     object AndroidX {
@@ -71,7 +71,7 @@ object Libs {
 
         const val core = "androidx.core:core-ktx:1.9.0"
 
-        const val appcompat = "androidx.appcompat:appcompat:1.4.2"
+        const val appcompat = "androidx.appcompat:appcompat:1.6.0"
 
         const val navigation = "androidx.navigation:navigation-compose:2.4.0"
 
@@ -115,7 +115,7 @@ object Libs {
         }
 
         object Room {
-            private const val version = "2.4.3"
+            private const val version = "2.5.0"
             const val runtime = "androidx.room:room-runtime:$version"
             const val compiler = "androidx.room:room-compiler:$version"
             const val paging = "androidx.room:room-paging:$version"
@@ -127,7 +127,7 @@ object Libs {
         }
 
         object Test {
-            private const val version = "1.4.0"
+            private const val version = "1.5.0"
             const val runner = "androidx.test:runner:$version"
             const val rules = "androidx.test:rules:$version"
             const val core = "androidx.test:core-ktx:$version"
@@ -176,7 +176,7 @@ object Libs {
     }
 
     object MockK {
-        private const val version = "1.12.5"
+        private const val version = "1.13.3"
         const val unit = "io.mockk:mockk:$version"
         const val instrumented = "io.mockk:mockk-android:$version"
     }
