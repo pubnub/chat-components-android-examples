@@ -3,7 +3,6 @@ import com.pubnub.components.buildsrc.Libs
 plugins {
     id("com.android.application")
     id("kotlin-android")
-    id("kotlin-parcelize")
 }
 
 android {
@@ -52,11 +51,6 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = Libs.AndroidX.Compose.compilerVersion
     }
-    packagingOptions {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
 }
 
 dependencies {
@@ -64,6 +58,8 @@ dependencies {
     api(platform(Libs.PubNub.bom))
     implementation(Libs.PubNub.kotlin)
     implementation(Libs.PubNub.memberships)
+
+    implementation(platform(Libs.AndroidX.Compose.bom))
     implementation(Libs.AndroidX.core)
     implementation(Libs.AndroidX.Compose.ui)
     implementation(Libs.AndroidX.Compose.material)
@@ -85,6 +81,7 @@ dependencies {
     implementation(Libs.Accompanist.swipeRefresh)
 
     testImplementation(Libs.JUnit.junit)
+    androidTestImplementation(platform(Libs.AndroidX.Compose.bom))
     androidTestImplementation(Libs.AndroidX.Test.Ext.junit)
     androidTestImplementation(Libs.AndroidX.Test.espressoCore)
     androidTestImplementation(Libs.AndroidX.Compose.uiTest)

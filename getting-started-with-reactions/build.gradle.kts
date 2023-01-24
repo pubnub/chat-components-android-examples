@@ -59,8 +59,8 @@ dependencies {
     implementation(Libs.PubNub.kotlin)
     implementation(Libs.PubNub.memberships)
 
-    implementation(Libs.AndroidX.core)
     implementation(platform(Libs.AndroidX.Compose.bom))
+    implementation(Libs.AndroidX.core)
     implementation(Libs.AndroidX.Compose.ui)
     implementation(Libs.AndroidX.Compose.material)
     implementation(Libs.AndroidX.Compose.toolingPreview)
