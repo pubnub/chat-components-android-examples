@@ -1,5 +1,6 @@
 package com.pubnub.components.example.live_event.ui.renderer
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyItemScope
@@ -16,8 +17,8 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import com.pubnub.components.chat.ui.component.menu.React
 import com.pubnub.components.chat.ui.component.message.LocalMessageListTheme
-import com.pubnub.components.chat.ui.component.message.MessageListContent
 import com.pubnub.components.chat.ui.component.message.MessageUi
+import com.pubnub.components.chat.ui.component.message.messageFormatter
 import com.pubnub.components.chat.ui.component.message.reaction.renderer.DefaultReactionsPickerRenderer
 import com.pubnub.components.chat.ui.component.presence.Presence
 import com.pubnub.components.chat.ui.component.provider.LocalUser
@@ -78,3 +79,55 @@ fun MessageList(
         }
     }
 }
+
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun LazyListScope.MessageListContent(
+    message: MessageUi?,
+    currentUser: UserId,
+    messageRenderer: MessageRenderer = EventMessageRenderer,
+    reactionsPickerRenderer: DefaultReactionsPickerRenderer,
+    useStickyHeader: Boolean,
+    presence: Presence?,
+    onMessageSelected: ((MessageUi.Data) -> Unit)?,
+    onReactionSelected: ((React) -> Unit)?,
+) {
+    when (message) {
+        null -> {
+            messageRenderer.Placeholder()
+        }
+        is MessageUi.Separator -> {
+            if (useStickyHeader)
+                stickyHeader(message.text) {
+                    messageRenderer.Separator(text = message.text)
+                }
+            else
+                messageRenderer.Separator(text = message.text)
+
+        }
+        is MessageUi.Data -> {
+            val styledMessage = messageFormatter(text = message.text)
+
+            messageRenderer.Message(
+                messageId = message.uuid,
+                currentUserId = currentUser,
+                userId = message.publisher.id,
+                profileUrl = message.publisher.profileUrl,
+                online = presence?.get(message.publisher.id)?.value,
+                title = message.publisher.name ?: message.publisher.id,
+                message = styledMessage,
+                timetoken = message.timetoken,
+                reactions = message.reactions,
+                onMessageSelected = onMessageSelected?.let { { it.invoke(message) } },
+                onReactionSelected = onReactionSelected?.let {
+                    { reaction ->
+                        it.invoke(React(reaction, message))
+                    }
+                },
+                reactionsPickerRenderer = reactionsPickerRenderer,
+            )
+        }
+    }
+}
+

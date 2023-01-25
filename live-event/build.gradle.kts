@@ -56,7 +56,7 @@ android {
 
 dependencies {
     implementation(fileTree("libs") { include("*.jar") })
-    implementation(Libs.PubNub.Components.chat)
+    implementation(Libs.PubNub.Components.chatTest)
     api(platform(Libs.PubNub.bom))
     implementation(Libs.PubNub.kotlin)
     implementation(Libs.PubNub.memberships)

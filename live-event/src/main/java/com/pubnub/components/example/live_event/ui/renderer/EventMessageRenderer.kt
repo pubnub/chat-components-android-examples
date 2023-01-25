@@ -29,7 +29,6 @@ import com.pubnub.components.chat.ui.component.message.reaction.ReactionUi
 import com.pubnub.components.chat.ui.component.message.reaction.renderer.DefaultReactionsPickerRenderer
 import com.pubnub.components.chat.ui.component.message.reaction.renderer.ReactionsRenderer
 import com.pubnub.components.chat.ui.component.message.renderer.GroupMessageRenderer
-import com.pubnub.components.chat.ui.component.message.renderer.MessageRenderer
 import com.pubnub.components.example.live_event.ui.util.InteractionHelper
 import com.pubnub.framework.data.MessageId
 import com.pubnub.framework.data.UserId
@@ -49,7 +48,7 @@ object EventMessageRenderer : MessageRenderer {
         messageId: MessageId,
         currentUserId: UserId,
         userId: UserId,
-        profileUrl: String,
+        profileUrl: String?,
         online: Boolean?,
         title: String,
         message: AnnotatedString?,
@@ -141,11 +140,13 @@ object EventMessageRenderer : MessageRenderer {
             verticalAlignment = theme.verticalAlignment,
         ) {
             Box(modifier = theme.profileImage.modifier) {
-                ProfileImage(
-                    modifier = imagePlaceholder,
-                    imageUrl = profileUrl,
-                    isOnline = online,
-                )
+                profileUrl?.let {
+                    ProfileImage(
+                        modifier = imagePlaceholder,
+                        imageUrl = profileUrl,
+                        isOnline = online,
+                    )
+                }
             }
 
             Column {
@@ -221,5 +222,30 @@ private fun MessagePreview(
             placeholder = true,
             reactionsPicker = DefaultReactionsPickerRenderer,
         )
+    }
+}
+
+interface MessageRenderer {
+    @Composable
+    fun Message(
+        messageId: MessageId,
+        currentUserId: UserId,
+        userId: UserId,
+        profileUrl: String?,
+        online: Boolean?,
+        title: String,
+        message: AnnotatedString?,
+        timetoken: Timetoken,
+        reactions: List<ReactionUi>,
+        onMessageSelected: (() -> Unit)?,
+        onReactionSelected: ((Reaction) -> Unit)?,
+        reactionsPickerRenderer: ReactionsRenderer,
+    )
+
+    @Composable
+    fun Separator(text: String)
+
+    @Composable
+    fun Placeholder() {
     }
 }

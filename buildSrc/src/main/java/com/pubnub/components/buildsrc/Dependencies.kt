@@ -164,6 +164,7 @@ object Libs {
 
         object Components {
             const val chat = "com.pubnub.components:chat-android:0.6.0"
+            const val chatTest = "com.pubnub.components:chat-android:0.6.0-rc3"
         }
     }
 
