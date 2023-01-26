@@ -39,7 +39,7 @@ object Login {
         var visible = remember { mutableStateOf(false) }
         var login by rememberSaveable { mutableStateOf("") }
         val pass by rememberSaveable { mutableStateOf("") }
-        Box(
+        Column(
             modifier = Modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
@@ -169,10 +169,10 @@ object Login {
                 }
 
             }
+            Spacer(modifier = Modifier.weight(1f))
             Box(
                 modifier = Modifier
                     .background(LoginInfoBoxBackgroundColor)
-                    .align(Alignment.BottomCenter)
             ) {
                 HyperlinkText(
                     modifier = Modifier.padding(
