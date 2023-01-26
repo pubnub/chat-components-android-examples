@@ -2,10 +2,8 @@ package com.pubnub.components.example.telehealth
 
 import android.app.Application
 import android.content.Context
-import android.util.Log
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.pubnub.api.PubNub
 import com.pubnub.components.DefaultDatabase
 import com.pubnub.components.data.Database
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -17,7 +15,6 @@ class ChatApplication : Application() {
 
     companion object {
         lateinit var database: DefaultDatabase
-        lateinit var pubNub: PubNub
     }
 
     override fun onCreate() {
@@ -41,15 +38,15 @@ class ChatApplication : Application() {
 
                             // add members
                             val members = defaultDataRepository.members
-                            Log.e("DATABASE", "Add Members $members")
                             memberDao().insertOrUpdate(*members)
+
                             // add channels
                             val channels = defaultDataRepository.channels
-                            Log.e("DATABASE", "Add Channels $channels")
                             channelDao().insertOrUpdate(*channels)
+
                             // add memberships
                             val memberships = defaultDataRepository.memberships
-                            membershipDao().insertOrUpdate(*memberships.toTypedArray())
+                            membershipDao().insertOrUpdate(*memberships)
                         }
                     }
                 }

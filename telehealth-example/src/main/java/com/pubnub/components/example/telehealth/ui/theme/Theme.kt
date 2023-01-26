@@ -16,6 +16,7 @@ import com.pubnub.api.PubNub
 import com.pubnub.components.DefaultDatabase
 import com.pubnub.components.asPubNub
 import com.pubnub.components.chat.provider.ChatProvider
+import com.pubnub.components.chat.provider.RepositoryProvider
 import com.pubnub.components.chat.ui.component.common.ShapeThemeDefaults
 import com.pubnub.components.chat.ui.component.common.TextThemeDefaults
 import com.pubnub.components.chat.ui.component.common.ThemeDefaults
@@ -36,7 +37,7 @@ private val LightColorPalette = lightColors(
 
 @Composable
 fun AppTheme(
-    pubNub: PubNub,
+    pubNub: PubNub? = null,
     database: DefaultDatabase = ChatApplication.database,
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable() () -> Unit,
@@ -49,12 +50,19 @@ fun AppTheme(
         typography = Typography,
         shapes = Shapes,
     ) {
-        ChatProvider(
-            pubNub = pubNub,
-            database = database.asPubNub(),
-        ) {
-            content()
+        if (pubNub == null) {
+            RepositoryProvider(ChatApplication.database.asPubNub()) {
+                content()
+            }
+        } else {
+            ChatProvider(
+                pubNub = pubNub,
+                database = database.asPubNub(),
+            ) {
+                content()
+            }
         }
+
     }
 }
 
