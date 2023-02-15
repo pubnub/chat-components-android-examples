@@ -19,11 +19,11 @@ To use the app, you need:
 
 The `telehealth-example` app showcases these components and features:
 
-* [MessageInput](https://www.pubnub.com/docs/chat/components/android/ui-components#messageinput)
-* [MessageList](https://www.pubnub.com/docs/chat/components/android/ui-components#messagelist)
-* [ChannelList](https://www.pubnub.com/docs/chat/components/android/ui-components#channellist)
-* [Message Reactions](https://www.pubnub.com/docs/chat/components/android/message-reactions)
-* [Message Menu](https://www.pubnub.com/docs/chat/components/android/message-menu) (with the copying
+* [MessageInput](https://www.pubnub.com/docs/chat/community-supported/android/ui-components#messageinput)
+* [MessageList](https://www.pubnub.com/docs/chat/community-supported/android/ui-components#messagelist)
+* [ChannelList](https://www.pubnub.com/docs/chat/community-supported/android/ui-components#channellist)
+* [Message Reactions](https://www.pubnub.com/docs/chat/community-supported/android/message-reactions)
+* [Message Menu](https://www.pubnub.com/docs/chat/community-supported/android/message-menu) (with the copying
   option)
 
 ## Usage
