@@ -17,12 +17,12 @@ To use the app, you need:
 
 ## Usage
 
-Read the [Getting Started](https://www.pubnub.com/docs/chat/components/android)
+Read the [Getting Started](https://www.pubnub.com/docs/chat/community-supported/android)
 guide to learn how to use the app and better understand the logic behind it.
 
 ## Features
 
 The `getting-started` app showcases these PubNub Chat Components for Android:
 
-* [MessageInput](https://www.pubnub.com/docs/chat/components/android/ui-components#messageinput)
-* [MessageList](https://www.pubnub.com/docs/chat/components/android/ui-components#messagelist)
+* [MessageInput](https://www.pubnub.com/docs/chat/community-supported/android/ui-components#messageinput)
+* [MessageList](https://www.pubnub.com/docs/chat/community-supported/android/ui-components#messagelist)

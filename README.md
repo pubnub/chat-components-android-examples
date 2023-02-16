@@ -1,5 +1,7 @@
 # Samples for PubNub Chat Components for Android
 
+> WARNING: PubNub no longer supports this software library, but you are welcome to contribute.
+
 This repository contains a set of Android projects that will help you learn about PubNub Chat
 Components for Android.
 
@@ -30,4 +32,4 @@ Choose a sample application that demonstrates the use of chat components.
 For more information about PubNub Chat Components for Android, refer to:
 
 * [GitHub repository](https://github.com/pubnub/chat-components-android/blob/master/README.md)
-* [Documentation](https://www.pubnub.com/docs/chat/components/android)
+* [Documentation](https://www.pubnub.com/docs/chat/community-supported/android)
