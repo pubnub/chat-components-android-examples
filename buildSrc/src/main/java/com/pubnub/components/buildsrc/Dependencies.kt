@@ -73,6 +73,8 @@ object Libs {
 
         const val appcompat = "androidx.appcompat:appcompat:1.6.0"
 
+        const val fragment = "androidx.fragment:fragment-ktx:1.5.5"
+
         const val navigation = "androidx.navigation:navigation-compose:2.4.0"
 
         const val splashscreen = "androidx.core:core-splashscreen:1.0.0"
@@ -194,6 +196,10 @@ object Libs {
     object Retrofit {
         private const val version = "2.9.0"
         const val retrofit = "com.squareup.retrofit2:retrofit:$version"
+    }
+
+    object Github {
+        const val faker = "io.github.serpro69:kotlin-faker:1.12.0"
     }
 }
 
